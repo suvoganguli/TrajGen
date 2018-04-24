@@ -1,0 +1,10 @@
+To Do
+=====
+
+Apr 24, 2018
+
+1. Change the following:
+        cl_running = np.concatenate([-100*np.ones(N), 0*np.ones(N)])
+        cu_running = np.concatenate([ 0*np.ones(N), 100*np.ones(N)])
+
+2. Make correction for obstacle chi

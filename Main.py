@@ -80,58 +80,50 @@ while mpciter < mpciterations:
     detected = detectObstacle(x0, detectionWindow, obstacle)
 
     # create new path (only once), if obstacle detected
-    if detected == True:
-
-        # Get position and orientation for correction
-        # chi = np.pi/2 - path.pathData.Theta[0]  # this is incorrect
-        # dN = dNewPathAdjust*np.cos(chi)
-        # dE = dNewPathAdjust*np.sin(chi)
-        # newE = max(0,x0[0]-dE)
-        # newN = max(0,x0[1]-dN)
-        # startPoint = np.array([newE, newN])
-
-        currentObstacleClass = getCurrentObstacle(obstacle)
-        currentObstacle = currentObstacleClass()
-
-        if mpciter == 1:
-            startPoint = np.array([x0[0], x0[1]])
-            pathClass = pathInfo('newpath', startPoint, endPoint, currentObstacle)
-            path = pathClass()
-        else:
-            chi = np.array([x0[3]])
-            dN = dNewPathAdjust * np.cos(chi)
-            dE = dNewPathAdjust * np.sin(chi)
-            startPoint = np.array([x0[0]-dE, x0[1]-dN])
-
-            u_newpath = u0.flatten(1)
-            x_newpath = probInfo.computeOpenloopSolution(u_newpath, pdata.N, pdata.T, pdata.t0, x0)
-            E_newpath = x_newpath[-1, 0]
-            N_newpath = x_newpath[-1, 1]
-            startPoint_newpath = np.array([E_newpath, N_newpath])
-
-            pathClass = pathInfo('newpath', startPoint_newpath, endPoint, currentObstacle, startPoint)
-            path = pathClass()
-            #path = addCurrentPointToPath(path, startPoint, chi)
-            pathType = 'newpath'
-
-            posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
-
-            None
-
-        # Update array with new path
-        pathObj = makePathObj(pdata, path, obstacle)
-        pathObjArray.append(pathObj)
-
-        # Discard current object in view
-        print(obstacle.E.size)
-        if obstacle.E.size > 0:
-            remainingObstacleClass = remainingObstacle(obstacle)
-            obstacle = remainingObstacleClass()
-
-        drawLPPath = True # draw path again
-
-        # setup for next obstacle
-        detected = False
+    # if detected == True:
+    #
+    #     currentObstacleClass = getCurrentObstacle(obstacle)
+    #     currentObstacle = currentObstacleClass()
+    #
+    #     if mpciter == 1:
+    #         startPoint = np.array([x0[0], x0[1]])
+    #         pathClass = pathInfo('newpath', startPoint, endPoint, currentObstacle)
+    #         path = pathClass()
+    #     else:
+    #         chi = np.array([x0[3]])
+    #         dN = dNewPathAdjust * np.cos(chi)
+    #         dE = dNewPathAdjust * np.sin(chi)
+    #         startPoint = np.array([x0[0]-dE, x0[1]-dN])
+    #
+    #         u_newpath = u0.flatten(1)
+    #         x_newpath = probInfo.computeOpenloopSolution(u_newpath, pdata.N, pdata.T, pdata.t0, x0)
+    #         E_newpath = x_newpath[-1, 0]
+    #         N_newpath = x_newpath[-1, 1]
+    #         startPoint_newpath = np.array([E_newpath, N_newpath])
+    #
+    #         pathClass = pathInfo('newpath', startPoint_newpath, endPoint, currentObstacle, startPoint)
+    #         path = pathClass()
+    #         #path = addCurrentPointToPath(path, startPoint, chi)
+    #         pathType = 'newpath'
+    #
+    #         posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
+    #
+    #         None
+    #
+    #     # Update array with new path
+    #     pathObj = makePathObj(pdata, path, obstacle)
+    #     pathObjArray.append(pathObj)
+    #
+    #     # Discard current object in view
+    #     print(obstacle.E.size)
+    #     if obstacle.E.size > 0:
+    #         remainingObstacleClass = remainingObstacle(obstacle)
+    #         obstacle = remainingObstacleClass()
+    #
+    #     drawLPPath = True # draw path again
+    #
+    #     # setup for next obstacle
+    #     detected = False
 
     # solve optimal control problem
     tStart = time.time()

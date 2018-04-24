@@ -78,13 +78,15 @@ class nlpProb(object):
         x = prob.computeOpenloopSolution(u, N, T, t0, x0)
 
         # running constraints
-        consR1_R = np.zeros(N)
-        consR1_L = np.zeros(N)
+        # consR1_R = np.zeros(N)
+        # consR1_L = np.zeros(N)
+        #
+        # for k in range(N):
+        #     consR1_R[k], consR1_L[k] = prob.runningCons(u, x[k], t0, path, obstacle, posIdx)
+        #
+        # consR1 = np.concatenate([consR1_R, consR1_L])
 
-        for k in range(N):
-            consR1_R[k], consR1_L[k] = prob.runningCons(u, x[k], t0, path, obstacle, posIdx)
-
-        consR1 = np.concatenate([consR1_R, consR1_L])
+        consR1 = np.array([], dtype=float)
 
         if ns == 6:
 
@@ -98,7 +100,8 @@ class nlpProb(object):
 
                 # terminal constraint (dy, V)
                 consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
-                consT = np.concatenate([consT1, consT2])
+                #consT = np.concatenate([consT1, consT2])
+                consT = consT2
 
             elif ns_option == 2:
 
@@ -109,7 +112,8 @@ class nlpProb(object):
 
                 # terminal constraint (dy, dV)
                 consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
-                consT = np.concatenate([consT1, consT2])
+                #consT = np.concatenate([consT1, consT2])
+                consT = consT2
 
 
             elif ns_option == 3:
@@ -120,8 +124,9 @@ class nlpProb(object):
                 consR = np.concatenate([consR1, consR2])
 
                 # terminal constraint (dy)
-                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
-                consT = consT1
+                #consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
+                #consT = consT1
+                consT = np.array([],dtype=float)
 
 
         elif ns == 4:
@@ -137,7 +142,8 @@ class nlpProb(object):
 
                 # terminal constraint (dy, V)
                 consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
-                consT = np.concatenate([consT1, consT2])
+                #consT = np.concatenate([consT1, consT2])
+                consT = consT2
 
             elif ns_option == 2:
 
@@ -148,7 +154,8 @@ class nlpProb(object):
 
                 # terminal constraint
                 consT1, consT2 = prob.terminalCons(u, x[N-1], t0, path, obstacle, posIdx)  # ydist, VEnd
-                consT = np.concatenate([consT1, consT2])
+                #consT = np.concatenate([consT1, consT2])
+                consT = consT2
 
 
             elif ns_option == 3:
@@ -160,11 +167,22 @@ class nlpProb(object):
 
                 # terminal constraint
                 consT1, consT2 = prob.terminalCons(u, x[N-1], t0, path, obstacle, posIdx)  # ydist, VEnd
-                consT = consT1
+                #consT = consT1
+                consT = np.array([],dtype=float)
 
 
-        # total constraints
+        # total constraints without obstacles
         cons = np.concatenate([consR,consT])
+
+        # total constraints with obstacles
+        nObstacle = len(obstacle.N)
+        if nObstacle > 0:
+            for k in range(nObstacle):
+                obstacleCenter = np.array([ obstacle.E[k], (obstacle.N[k]+obstacle.w[k]/2) ])
+                terminalPosition = x[-1,0:2]
+                consObstacle = np.sqrt([(obstacleCenter[0]-terminalPosition[0])**2 +
+                                        (obstacleCenter[1]-terminalPosition[1])**2])
+                cons = np.concatenate([cons, consObstacle])
 
         return cons
 
@@ -206,6 +224,8 @@ class nlpProb(object):
         posIdx = self.posIdx
         ns_option = self.ns_option
 
+        LARGE_NO = 1e12
+
         if ns == 6:
 
             lb_Vddot = np.ones([N,1])*lb_VddotVal
@@ -232,40 +252,18 @@ class nlpProb(object):
         lataccel_max = lataccel_maxVal
 
         # Running Constraints
-        # u = u0.flatten(1)
-        # x = prob.computeOpenloopSolution(u, N, T, t0, x0)
-
-        if obstacle.Present == True:
-
-            lane1Lines = path.lane1Lines
-            lane2Lines = path.lane2Lines
-            acrossLines = path.acrossLines
-
-            idx_Vehicle, laneNo = path.insideRoadSegment(x0[0], x0[1], lane1Lines, lane2Lines,
-                                                                     acrossLines)
-
-            if (idx_Vehicle < obstacle.idx_StartSafeZone):
-                dyRoadL = delta_yRoad
-                dyRoadR = delta_yRoad
-            elif (idx_Vehicle >= obstacle.idx_StartSafeZone) and (idx_Vehicle < obstacle.idx_EndSafeZone):
-                dyRoadL = delta_yRoad
-                dyRoadR = delta_yRoadRelaxed
-            elif (idx_Vehicle >= obstacle.idx_StartObstacle) and (idx_Vehicle < obstacle.idx_EndObstacle):
-                dyRoadL = delta_yRoad
-                dyRoadR = delta_yRoad
-            else:
-                dyRoadL = delta_yRoad
-                dyRoadR = delta_yRoad
-        else:
-            dyRoadL = delta_yRoad
-            dyRoadR = delta_yRoad
-
+        #dyRoadL = delta_yRoad
+        #dyRoadR = delta_yRoad
 
         # Running Constraint
         #cl_running = np.concatenate([-1*np.ones(N), 0*np.ones(N)])
         #cu_running = np.concatenate([ 0*np.ones(N), 1*np.ones(N)])
-        cl_running = np.concatenate([-100*np.ones(N), 0*np.ones(N)])
-        cu_running = np.concatenate([ 0*np.ones(N), 100*np.ones(N)])
+        #cl_running = np.concatenate([-100*np.ones(N), 0*np.ones(N)])
+        #cu_running = np.concatenate([ 0*np.ones(N), 100*np.ones(N)])
+
+        cl_running = np.array([], dtype=float)
+        cu_running = np.array([], dtype=float)
+
         cl_tmp1 = np.concatenate([cl_running, [-lataccel_max]])
         cu_tmp1 = np.concatenate([cu_running, [+lataccel_max]])
 
@@ -278,18 +276,20 @@ class nlpProb(object):
             cu_tmp2 = np.concatenate([cu_tmp1, [ub_V]])
 
             # Terminal Constraint
-            cl_tmp3 = np.concatenate([cl_tmp2, [-dyRoadL]])
-            cu_tmp3 = np.concatenate([cu_tmp2, [dyRoadR]])
-
+            #cl_tmp3 = np.concatenate([cl_tmp2, [-dyRoadL]])
+            #cu_tmp3 = np.concatenate([cu_tmp2, [dyRoadR]])
+            cl_tmp3 = cl_tmp2
+            cu_tmp3 = cu_tmp2
             cl = np.concatenate([cl_tmp3, [-delta_V + V_cmd]])
             cu = np.concatenate([cu_tmp3, [delta_V + V_cmd]])
 
         elif ns_option == 2:
 
             # Terminal Constraint
-            cl_tmp3 = np.concatenate([cl_tmp1, [-dyRoadL]])
-            cu_tmp3 = np.concatenate([cu_tmp1, [dyRoadR]])
-
+            #cl_tmp3 = np.concatenate([cl_tmp1, [-dyRoadL]])
+            #cu_tmp3 = np.concatenate([cu_tmp1, [dyRoadR]])
+            cl_tmp3 = cl_tmp1
+            cu_tmp3 = cu_tmp1
             cl = np.concatenate([cl_tmp3, [-delta_V + V_cmd]])
             cu = np.concatenate([cu_tmp3, [delta_V + V_cmd]])
 
@@ -297,8 +297,10 @@ class nlpProb(object):
         elif ns_option == 3:
 
             # Terminal Constraint
-            cl = np.concatenate([cl_tmp1, [-dyRoadL]])
-            cu = np.concatenate([cu_tmp1, [dyRoadR]])
+            #cl = np.concatenate([cl_tmp1, [-dyRoadL]])
+            #cu = np.concatenate([cu_tmp1, [dyRoadR]])
+            cl = cl_tmp1
+            cu = cu_tmp1
 
 
         # elif ns == 4:
@@ -306,6 +308,14 @@ class nlpProb(object):
         #     # Terminal Constraint
         #     cl = np.concatenate([cl_tmp1,[-dyRoadL]])
         #     cu = np.concatenate([cu_tmp1,[ dyRoadR]])
+
+        if obstacle.Present == True:
+
+            nObstacle = len(obstacle.N)
+            for k in range(nObstacle):
+                obstacleMaxDim = np.maximum(obstacle.w[k], obstacle.l[k])
+                cl = np.concatenate([cl, [obstacleMaxDim/2]])
+                cu = np.concatenate([cu, [LARGE_NO]])
 
 
         if ncons != len(cl) and ncons != len(cu):

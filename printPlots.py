@@ -227,7 +227,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         plt.plot(t, dyError)
         plt.plot(t, delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
         plt.plot(t, -delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
-        plt.ylabel('dy Error [m]')
+        plt.ylabel('dy Error [ft]')
         plt.xlabel('t [sec]')
         plt.grid(True)
 
@@ -328,7 +328,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         plt.plot(t, dyError)
         plt.plot(t, delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
         plt.plot(t, -delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
-        plt.ylabel('dy Error [m]')
+        plt.ylabel('dy Error [ft]')
         plt.xlabel('t [sec]')
         plt.grid(True)
 
@@ -473,16 +473,22 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
     status = info['status']
     cost = info['obj_val']
     g = info['g']
-    idx_lataccel = 2*N
-    if pdata.ns == 6:
-        #idx_trackingerror = 2*N + 2 # (nlp.py, option 1)
-        idx_trackingerror = 2*N + 1 # (nlp.py, option 2,3)
-    elif pdata.ns == 4:
-        idx_trackingerror = 2*N + 1
+    # idx_lataccel = 2*N
+    # # if pdata.ns == 6:
+    # #     #idx_trackingerror = 2*N + 2 # (nlp.py, option 1)
+    # #     idx_trackingerror = 2*N + 1 # (nlp.py, option 2,3)
+    # # elif pdata.ns == 4:
+    # #     idx_trackingerror = 2*N + 1
+
+    idx_lataccel = 0
+    idx_Vterm = 1
+    idx_dist = 2
+
     g1 = g[idx_lataccel]/32.2 # g
-    g2 = g[idx_trackingerror] # ft
+    g2 = g[idx_dist] # ft
     text_g1 = "ay [g]"
-    text_g2 = "dy [ft]"
+    #text_g2 = "dy [ft]"
+    text_g2 = "dist [ft]"
 
     status_msg = info['status_msg']
     u = info['x']

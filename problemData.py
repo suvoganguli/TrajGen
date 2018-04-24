@@ -272,7 +272,7 @@ elif ns == 6:
 
 # Obstacle Data
 
-obstaclePresent = False # don't set this True
+obstaclePresent = True
 
 if no == 0:
     #runOnce = False
@@ -308,14 +308,24 @@ if ns == 4:
 
     ncons_option = 2
 
+    # if ncons_option == 1:
+    #     ncons = 2*N + 4 # (option 1 in nlp.py) running + lataccel + V0 + terminal constraint-y + terminal constraint-V
+    #
+    # elif ncons_option == 2:
+    #     ncons = 2*N + 3 # (option 2 in nlp.py) running + lataccel + terminal constraint-y + terminal constraint-V
+    #
+    # elif ncons_option == 3:
+    #     ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
+
     if ncons_option == 1:
-        ncons = 2*N + 4 # (option 1 in nlp.py) running + lataccel + V0 + terminal constraint-y + terminal constraint-V
+        ncons = 3  # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V
 
     elif ncons_option == 2:
-        ncons = 2*N + 3 # (option 2 in nlp.py) running + lataccel + terminal constraint-y + terminal constraint-V
+        ncons = 2  # (option 2 in nlp.py) lataccel + terminal constraint-V
 
     elif ncons_option == 3:
-        ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
+        ncons = 1  # (option 3 in nlp.py) lataccel
+
 
     t0 = 0
     u0 = np.zeros([N, nu])
@@ -341,14 +351,24 @@ elif ns == 6:
 
     ncons_option = 2
 
+    # if ncons_option == 1:
+    #     ncons = 2*N + 4 # (option 1 in nlp.py) running + lataccel + V0 + terminal constraint-y + terminal constraint-V
+    #
+    # elif ncons_option == 2:
+    #     ncons = 2*N + 3 # (option 2 in nlp.py) running + lataccel + terminal constraint-y + terminal constraint-V
+    #
+    # elif ncons_option == 3:
+    #     ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
+
     if ncons_option == 1:
-        ncons = 2*N + 4 # (option 1 in nlp.py) running + lataccel + V0 + terminal constraint-y + terminal constraint-V
+        ncons = 3 # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V
 
     elif ncons_option == 2:
-        ncons = 2*N + 3 # (option 2 in nlp.py) running + lataccel + terminal constraint-y + terminal constraint-V
+        ncons = 2 # (option 2 in nlp.py) lataccel + terminal constraint-V
 
     elif ncons_option == 3:
-        ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
+        ncons = 1  # (option 3 in nlp.py) lataccel
+
 
     t0 = 0
     u0 = np.zeros([N,nu])
@@ -369,6 +389,12 @@ elif ns == 6:
 
 else:
     print("Error in ns")
+
+if obstaclePresent:
+    nObstacle = len(obstacleN)
+    ncons = ncons + nObstacle
+else:
+    nObstacle = 0
 
 # -------------------------------------------------------
 # Save settings in file
