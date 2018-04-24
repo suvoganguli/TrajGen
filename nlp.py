@@ -5,14 +5,14 @@ from problemData import *
 
 class nlpProb(object):
 
-    def __init__(self, N, T, t0, x0, ncons, nu, lanes, obstacle, posIdx, ns_option):
+    def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option):
         self.N = N
         self.T = T
         self.t0 = t0
         self.x0 = x0
         self.ncons = ncons  # number of constraints
         self.nu = nu # number of controls
-        self.lanes = lanes
+        self.path = path
         self.obstacle = obstacle
         self.posIdx = posIdx
         self.ns_option = ns_option
@@ -24,7 +24,7 @@ class nlpProb(object):
         T = self.T
         t0 = self.t0
         x0 = self.x0
-        lanes = self.lanes
+        path = self.path
         obstacle = self.obstacle
         posIdx = self.posIdx
 
@@ -34,8 +34,12 @@ class nlpProb(object):
 
         for k in range(N):
             uk = np.array([u[k],u[k+N]])
-            costvec[k] = prob.runningCosts( uk, x[k], t0 + k*T, lanes, obstacle, posIdx)
+            costvec[k] = prob.runningCosts( uk, x[k], t0 + k*T, path, obstacle, posIdx)
             cost = cost + costvec[k]
+
+        costGoal = prob.goalCost(x0, t0)
+
+        cost = cost + costGoal
 
         return cost
 
@@ -66,7 +70,7 @@ class nlpProb(object):
         T = self.T
         t0 = self.t0
         x0 = self.x0
-        lanes = self.lanes
+        path = self.path
         obstacle = self.obstacle
         posIdx = self.posIdx
         ns_option = self.ns_option
@@ -78,7 +82,7 @@ class nlpProb(object):
         consR1_L = np.zeros(N)
 
         for k in range(N):
-            consR1_R[k], consR1_L[k] = prob.runningCons(u, x[k], t0, lanes, obstacle, posIdx)
+            consR1_R[k], consR1_L[k] = prob.runningCons(u, x[k], t0, path, obstacle, posIdx)
 
         consR1 = np.concatenate([consR1_R, consR1_L])
 
@@ -93,7 +97,7 @@ class nlpProb(object):
                 consR = np.concatenate([constmp, consR3])
 
                 # terminal constraint (dy, V)
-                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, lanes, obstacle, posIdx)
+                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
                 consT = np.concatenate([consT1, consT2])
 
             elif ns_option == 2:
@@ -104,7 +108,7 @@ class nlpProb(object):
                 consR = np.concatenate([consR1, consR2])
 
                 # terminal constraint (dy, dV)
-                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, lanes, obstacle, posIdx)
+                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
                 consT = np.concatenate([consT1, consT2])
 
 
@@ -116,7 +120,7 @@ class nlpProb(object):
                 consR = np.concatenate([consR1, consR2])
 
                 # terminal constraint (dy)
-                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, lanes, obstacle, posIdx)
+                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
                 consT = consT1
 
 
@@ -132,7 +136,7 @@ class nlpProb(object):
                 consR = np.concatenate([constmp, consR3])
 
                 # terminal constraint (dy, V)
-                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, lanes, obstacle, posIdx)
+                consT1, consT2 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
                 consT = np.concatenate([consT1, consT2])
 
             elif ns_option == 2:
@@ -143,7 +147,7 @@ class nlpProb(object):
                 consR = np.concatenate([consR1, consR2])
 
                 # terminal constraint
-                consT1, consT2 = prob.terminalCons(u, x[N-1], t0, lanes, obstacle, posIdx)  # ydist, VEnd
+                consT1, consT2 = prob.terminalCons(u, x[N-1], t0, path, obstacle, posIdx)  # ydist, VEnd
                 consT = np.concatenate([consT1, consT2])
 
 
@@ -155,9 +159,8 @@ class nlpProb(object):
                 consR = np.concatenate([consR1, consR2])
 
                 # terminal constraint
-                consT1, consT2 = prob.terminalCons(u, x[N-1], t0, lanes, obstacle, posIdx)  # ydist, VEnd
+                consT1, consT2 = prob.terminalCons(u, x[N-1], t0, path, obstacle, posIdx)  # ydist, VEnd
                 consT = consT1
-
 
 
         # total constraints
@@ -198,7 +201,7 @@ class nlpProb(object):
         t0 = self.t0
         x0 = self.x0
         nu = self.nu
-        lanes = self.lanes
+        path = self.path
         obstacle = self.obstacle
         posIdx = self.posIdx
         ns_option = self.ns_option
@@ -234,11 +237,11 @@ class nlpProb(object):
 
         if obstacle.Present == True:
 
-            lane1Lines = lanes.lane1Lines
-            lane2Lines = lanes.lane2Lines
-            acrossLines = lanes.acrossLines
+            lane1Lines = path.lane1Lines
+            lane2Lines = path.lane2Lines
+            acrossLines = path.acrossLines
 
-            idx_Vehicle, laneNo = lanes.insideRoadSegment(x0[0], x0[1], lane1Lines, lane2Lines,
+            idx_Vehicle, laneNo = path.insideRoadSegment(x0[0], x0[1], lane1Lines, lane2Lines,
                                                                      acrossLines)
 
             if (idx_Vehicle < obstacle.idx_StartSafeZone):
@@ -311,7 +314,7 @@ class nlpProb(object):
         nlp = ipopt.problem(
             n=nu*N,
             m=len(cl),
-            problem_obj=nlpProb(N, T, t0, x0, ncons, nu, lanes, obstacle, posIdx, ns_option),
+            problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option),
             lb=lb,
             ub=ub,
             cl=cl,

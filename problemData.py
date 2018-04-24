@@ -218,6 +218,7 @@ if ns == 4:
     W_V = 1.0
     W_Vdot = 10.0
     W_Chidot = 1.0
+    W_g = 0.01
 
     V_cmd = V0  # fps
 
@@ -271,7 +272,7 @@ elif ns == 6:
 
 # Obstacle Data
 
-obstaclePresent = False
+obstaclePresent = False # don't set this True
 
 if no == 0:
     #runOnce = False

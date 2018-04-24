@@ -125,6 +125,15 @@ def runningCosts(u, x, t0, path, obstacle, posIdx=None):
     return cost
 
 
+
+def goalCost(x, t0):
+
+    goalDist = np.sqrt((endPoint[0] - x[0]) ** 2 + (endPoint[1] - x[1]) ** 2)
+    cost = W_g * goalDist
+
+    return np.array([cost])
+
+
 def runningCons(u, x, t0, path, obstacle, posIdx=None):
 
     cons = [0,0] #[1,-1]  will lead to both constraints false in nlp.py
@@ -193,8 +202,6 @@ def runningCons(u, x, t0, path, obstacle, posIdx=None):
         return yDist
 
 
-
-
 def terminalCons(u, x, t0, path, obstacle, posIdx=None):
 
     found_sol = False
@@ -215,6 +222,7 @@ def terminalCons(u, x, t0, path, obstacle, posIdx=None):
     D2 = path.acrossPathLines.D2
     E2 = path.acrossPathLines.E2
     F2 = path.acrossPathLines.F2
+
 
     nSections = len(D1)
 
