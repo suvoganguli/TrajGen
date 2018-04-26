@@ -45,7 +45,7 @@ dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
 sf_T = 1
 
 # default
-N = 4
+N = 8
 T = 0.4*sf_T
 ns = 4
 no = 1
@@ -54,13 +54,13 @@ V0 = 10*mph2fps
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
         if N == 4:
-            mpciterations = 35/sf_T #36
+            mpciterations = 35/sf_T # 35
         elif N == 6:
-            mpciterations = 33/sf_T #34
+            mpciterations = 33/sf_T # 33
         elif N == 8:
-            mpciterations = 31/sf_T # 32
+            mpciterations = 31/sf_T # 31
         elif N == 10:
-            mpciterations = 29/sf_T  # 30
+            mpciterations = 29/sf_T  # 29
 
 
     elif no == 1:
@@ -68,10 +68,10 @@ if abs(V0 - 5*mph2fps) <= 10**(-3):
             if ns == 4:
                 mpciterations = 36/sf_T  # 36
             elif ns == 6:
-                mpciterations = 18/sf_T  # 18
+                mpciterations = 18/sf_T # 18
         elif N == 6:
             if ns == 4:
-                mpciterations = 34/sf_T  # 34
+                mpciterations = 34/sf_T # 34
             elif ns == 6:
                 mpciterations = 34/sf_T  # 38 - check mpciterations
         elif N == 8:
@@ -120,15 +120,12 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
         if N == 4:
             if ns == 4:
                 mpciterations = 36/sf_T  # 36
-
         if N == 6:
             if ns == 4:
-                mpciterations = 34  #34/sf_T  # 34
-
+                mpciterations = 34/sf_T  # 34
         if N == 8:
             if ns == 4:
-                mpciterations = 32/sf_T  # 36
-
+                mpciterations = 13/sf_T  # 32
 
     elif no == 2:
         if N == 4:
@@ -206,19 +203,21 @@ if ns == 4:
 
     lb_VdotVal = -2  # fps30
     ub_VdotVal = 2  # fps3
-    lb_ChidotVal = -20 * np.pi / 180  # rad/s2
-    ub_ChidotVal = 20 * np.pi / 180  # rad/s2
+    lb_ChidotVal = -100 * np.pi / 180  # rad/s2
+    ub_ChidotVal = 100 * np.pi / 180  # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
     useLatAccelCons = 1
     lb_V = 0.8 * V0
     ub_V = 1.2 * V0
+    delChi_max = 30 * np.pi / 180
 
     # Tracking Tuning and Data
-    W_P = 1.0
-    W_V = 1.0
-    W_Vdot = 10.0
-    W_Chidot = 1.0
-    W_g = 0.01
+    W_P = 1.0*0
+    W_V = 1.0*0
+    W_Vdot = 10.0*0
+    W_Chidot = 1.0*0
+    W_gDist = 1.0
+    W_gChi = 1.0
 
     V_cmd = V0  # fps
 
@@ -251,6 +250,7 @@ elif ns == 6:
     useLatAccelCons = 1
     lb_V = 0.8*V0
     ub_V = 1.2*V0
+    delChi_max = 30 * np.pi / 180
 
     # Tracking Tuning and Data
     W_P = 1.0      #1.0
@@ -284,7 +284,7 @@ if no == 0:
 
 elif no == 1:
     #runOnce = True
-    obstacleE = np.array([4.0]) * scaleFactorE # ft, left-bottom
+    obstacleE = np.array([4.0+2.0]) * scaleFactorE # ft, left-bottom
     obstacleN = np.array([63.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
@@ -318,13 +318,13 @@ if ns == 4:
     #     ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
 
     if ncons_option == 1:
-        ncons = 3  # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V
+        ncons = 4  # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V + terminal delChi
 
     elif ncons_option == 2:
-        ncons = 2  # (option 2 in nlp.py) lataccel + terminal constraint-V
+        ncons = 3  # (option 2 in nlp.py) lataccel + terminal constraint-V + terminal delChi
 
     elif ncons_option == 3:
-        ncons = 1  # (option 3 in nlp.py) lataccel
+        ncons = 2  # (option 3 in nlp.py) lataccel + terminal delChi
 
 
     t0 = 0
@@ -361,13 +361,13 @@ elif ns == 6:
     #     ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
 
     if ncons_option == 1:
-        ncons = 3 # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V
+        ncons = 4 # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V + terminal delChi
 
     elif ncons_option == 2:
-        ncons = 2 # (option 2 in nlp.py) lataccel + terminal constraint-V
+        ncons = 3 # (option 2 in nlp.py) lataccel + terminal constraint-V + terminal delChi
 
     elif ncons_option == 3:
-        ncons = 1  # (option 3 in nlp.py) lataccel
+        ncons = 2  # (option 3 in nlp.py) lataccel + terminal delChi
 
 
     t0 = 0

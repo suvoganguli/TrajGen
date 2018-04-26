@@ -132,9 +132,19 @@ def runningCosts(u, x, t0, path, obstacle, posIdx=None):
 def goalCost(x, t0):
 
     goalDist = np.sqrt((endPoint[0] - x[0]) ** 2 + (endPoint[1] - x[1]) ** 2)
-    cost = W_g * goalDist
+    cost_goalDist = W_gDist * goalDist
 
-    return np.array([cost])
+    dy = (endPoint[1] - x[1])
+    dx = (endPoint[0] - x[0])
+
+    if np.abs(dx) > 1e-6:
+        delChi = (np.pi/2 - np.arctan( dy/dx)) * 180 / np.pi
+    else:
+        delChi = 0
+
+    cost_goalDelChi = W_gChi * np.abs(delChi)**2
+
+    return np.array([cost_goalDist]), np.array([cost_goalDelChi])
 
 
 def runningCons(u, x, t0, path, obstacle, posIdx=None):
@@ -212,7 +222,17 @@ def terminalCons(u, x, t0, path, obstacle, posIdx=None):
     empty = np.array([], dtype=float)
     VEnd = np.array([x[2]])
 
-    return empty, VEnd
+    dy = (endPoint[1] - x[1])
+    dx = (endPoint[0] - x[0])
+
+    if np.abs(dx) > 1e-6:
+        delChi = (np.pi/2 - np.arctan( dy/dx)) * 180 / np.pi
+    else:
+        delChi = 0
+
+    delChi = np.array([delChi])
+
+    return empty, VEnd, delChi
 
     # found_sol = False
     #
