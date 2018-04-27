@@ -37,7 +37,7 @@ def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
         plt.plot(path.pathData.PathStartPoint[0], path.pathData.PathStartPoint[1], marker='o', markersize=8, color='r')
         plt.plot(path.pathData.PathEndPoint[0], path.pathData.PathEndPoint[1], marker='o', markersize=8, color='g')
 
-        if True:
+        if False:
             plt.plot(path.pathData.PathRightEndPointsE, path.pathData.PathRightEndPointsN,'m+')
             plt.plot(path.pathData.PathLeftEndPointsE, path.pathData.PathLeftEndPointsN,'m+')
 
@@ -109,7 +109,7 @@ def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
     return V_terminal
 
 
-def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFile,pathObjArray):
+def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFile,pathObjArray):
 
     f_pData = file(settingsFile, 'r')
     cols, indexToName = getColumns(f_pData, delim=" ", header=False)
@@ -134,7 +134,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         ub_VdotVal = np.array(cols[5]).astype(np.float)
         lb_ChidotVal = np.array(cols[6]).astype(np.float)
         ub_ChidotVal = np.array(cols[7]).astype(np.float)
-        delta_yRoad = np.array(cols[8]).astype(np.float)
+        delChi_max = np.array(cols[8]).astype(np.float)
         lataccel_maxVal = np.array(cols[9]).astype(np.float)
         lb_V = np.array(cols[10]).astype(np.float)
         ub_V = np.array(cols[11]).astype(np.float)
@@ -145,7 +145,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         ub_VddotVal = np.array(cols[5]).astype(np.float)
         lb_ChiddotVal = np.array(cols[6]).astype(np.float)
         ub_ChiddotVal = np.array(cols[7]).astype(np.float)
-        delta_yRoad = np.array(cols[8]).astype(np.float)
+        delChi_max = np.array(cols[8]).astype(np.float)
         lataccel_maxVal = np.array(cols[9]).astype(np.float)
         lb_V = np.array(cols[10]).astype(np.float)
         ub_V = np.array(cols[11]).astype(np.float)
@@ -224,10 +224,10 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         plt.grid(True)
 
         plt.subplot(212)
-        plt.plot(t, dyError)
-        plt.plot(t, delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
-        plt.plot(t, -delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
-        plt.ylabel('dy Error [ft]')
+        plt.plot(t, delChi)
+        plt.plot(t, delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t, -delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.ylabel('delChi [deg]')
         plt.xlabel('t [sec]')
         plt.grid(True)
 
@@ -325,10 +325,10 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         print('intg(latAccel.dt) = ' + np.str(sum(abs(latAccel))))
 
         plt.subplot(212)
-        plt.plot(t, dyError)
-        plt.plot(t, delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
-        plt.plot(t, -delta_yRoad * np.ones(t.shape), linestyle='--', color='r')
-        plt.ylabel('dy Error [ft]')
+        plt.plot(t, delChi)
+        plt.plot(t, delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t, -delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.ylabel('delChi [deg]')
         plt.xlabel('t [sec]')
         plt.grid(True)
 
@@ -393,7 +393,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,dyError,settingsFi
         plt.plot(PathStartPoint[0], PathStartPoint[1], marker='o', markersize=8, color='r')
         plt.plot(PathEndPoint[0], PathEndPoint[1], marker='o', markersize=8, color='g')
 
-        if True:
+        if False:
             plt.plot(PathRightEndPointsE, PathRightEndPointsN,'m+')
             plt.plot(PathLeftEndPointsE, PathLeftEndPointsN,'m+')
 
@@ -482,13 +482,14 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
 
     idx_lataccel = 0
     idx_Vterm = 1
-    idx_dist = 2
+    idx_delChi = 2
+    idx_obstacle = 3
 
     g1 = g[idx_lataccel]/32.2 # g
-    g2 = g[idx_dist] # ft
+    g2 = g[idx_delChi] * 180/np.pi # ft
     text_g1 = "ay [g]"
     #text_g2 = "dy [ft]"
-    text_g2 = "dist [ft]"
+    text_g2 = "delChi [deg]"
 
     status_msg = info['status_msg']
     u = info['x']
@@ -574,7 +575,7 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
     print("%*d %*.1f %*.1f %*.1f %*.1f %*.1f %*.1f %*.2f %*.2f %*s %*.1f\n" % (10, mpciter, 10, cost,
                                                  7, u0, 7, u1*180/np.pi,
                                                  7, x[2], 7, x[3]*180/np.pi, 7, VTerminal,
-                                                 7, g1, 7, g2, 15, status_msg_short,
+                                                 8, g1, 10, g2, 16, status_msg_short,
                                                 10, cpuTime))
 
     return g1, g2
@@ -621,7 +622,7 @@ def plotSavedData(inFile, pathObjArray, delim, header=False):
         obstacle = None
 
         latAccel = np.array(cols[6]).astype(np.float)
-        dyError = np.array(cols[7]).astype(np.float)
+        delChi = np.array(cols[7]).astype(np.float)
         VTerminal = np.array(cols[8]).astype(np.float)
 
         cpuTime = np.array(cols[10]).astype(np.float)
@@ -648,7 +649,7 @@ def plotSavedData(inFile, pathObjArray, delim, header=False):
         obstacle = None
 
         latAccel = np.array(cols[8]).astype(np.float)
-        dyError = np.array(cols[9]).astype(np.float)
+        delChi = np.array(cols[9]).astype(np.float)
         VTerminal = np.array(cols[10]).astype(np.float)
 
         cpuTime = np.array(cols[12]).astype(np.float)
@@ -656,7 +657,7 @@ def plotSavedData(inFile, pathObjArray, delim, header=False):
 
     suffix = inFile[7:]
     settingsFile = 'settings' + suffix
-    nmpcPlot(t, x.T, u.T, path, obstacle, cpuTime, VTerminal, latAccel, dyError, settingsFile, pathObjArray)
+    nmpcPlot(t, x.T, u.T, path, obstacle, cpuTime, VTerminal, latAccel, delChi, settingsFile, pathObjArray)
 
     f.close()
 

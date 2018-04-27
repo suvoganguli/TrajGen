@@ -125,7 +125,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 34/sf_T  # 34
         if N == 8:
             if ns == 4:
-                mpciterations = 13/sf_T  # 32
+                mpciterations = 32/sf_T  # 32
 
     elif no == 2:
         if N == 4:
@@ -203,13 +203,13 @@ if ns == 4:
 
     lb_VdotVal = -2  # fps30
     ub_VdotVal = 2  # fps3
-    lb_ChidotVal = -100 * np.pi / 180  # rad/s2
-    ub_ChidotVal = 100 * np.pi / 180  # rad/s2
+    lb_ChidotVal = -10 * np.pi / 180  # rad/s2
+    ub_ChidotVal = 10 * np.pi / 180  # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
     useLatAccelCons = 1
     lb_V = 0.8 * V0
     ub_V = 1.2 * V0
-    delChi_max = 30 * np.pi / 180
+    delChi_max = 10 * np.pi / 180
 
     # Tracking Tuning and Data
     W_P = 1.0*0
@@ -284,8 +284,8 @@ if no == 0:
 
 elif no == 1:
     #runOnce = True
-    obstacleE = np.array([4.0+2.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([63.0]) * scaleFactorN # ft, left-bottom
+    obstacleE = np.array([4.0+0.1]) * scaleFactorE # ft, left-bottom
+    obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
     obstacleWidth = np.array([6.0]) * scaleFactorE # ft
@@ -408,7 +408,7 @@ if ns == 4:
         N, T, ns, no,
         lb_VdotVal, ub_VdotVal,
         lb_ChidotVal, ub_ChidotVal,
-        delta_yRoad, lataccel_maxVal,
+        delChi_max, lataccel_maxVal,
         lb_V, ub_V, V_cmd
         ))
 elif ns == 6:
@@ -417,7 +417,7 @@ elif ns == 6:
         N, T, ns, no,
         lb_VddotVal, ub_VddotVal,
         lb_ChiddotVal, ub_ChiddotVal,
-        delta_yRoad, lataccel_maxVal,
+        delChi_max, lataccel_maxVal,
         lb_V, ub_V, V_cmd
         ))
 

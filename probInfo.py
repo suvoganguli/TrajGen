@@ -219,18 +219,18 @@ def runningCons(u, x, t0, path, obstacle, posIdx=None):
 
 def terminalCons(u, x, t0, path, obstacle, posIdx=None):
 
-    empty = np.array([], dtype=float)
-    VEnd = np.array([x[2]])
+    empty = np.array([], dtype=float) # yDist
+    VEnd = np.array([x[2]]) # VEnd
 
     dy = (endPoint[1] - x[1])
     dx = (endPoint[0] - x[0])
 
     if np.abs(dx) > 1e-6:
-        delChi = (np.pi/2 - np.arctan( dy/dx)) * 180 / np.pi
+        delChi = (np.pi/2 - np.arctan( dy/dx))
     else:
         delChi = 0
 
-    delChi = np.array([delChi])
+    delChi = np.array([delChi]) # delChi
 
     return empty, VEnd, delChi
 

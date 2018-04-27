@@ -56,7 +56,7 @@ else:
 tElapsed = np.zeros(mpciterations)
 VTerminal = np.zeros(mpciterations)
 latAccel = np.zeros(mpciterations)
-dyError = np.zeros(mpciterations)
+delChi = np.zeros(mpciterations)
 
 # Speficy initial position index
 posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
@@ -135,7 +135,7 @@ while mpciter < mpciterations:
     drawLPPath = False
 
     # solution information
-    latAccel[mpciter], dyError[mpciter] = printPlots.nmpcPrint(mpciter, info, N, x0, u_new, writeToFile,
+    latAccel[mpciter], delChi[mpciter] = printPlots.nmpcPrint(mpciter, info, N, x0, u_new, writeToFile,
                                                                fHandle, tElapsed[mpciter], VTerminal[mpciter])
 
     # store closed loop data
@@ -191,7 +191,7 @@ if saveData == True:
 oldpwd = os.getcwd()
 os.chdir(rundir)
 settingsFile = 'settings' + suffix + '.txt'
-figno = printPlots.nmpcPlot(t, x, u, path, obstacle, tElapsed, VTerminal, latAccel, dyError, settingsFile, pathObjArray)
+figno = printPlots.nmpcPlot(t, x, u, path, obstacle, tElapsed, VTerminal, latAccel, delChi, settingsFile, pathObjArray)
 os.chdir(oldpwd)
 
 if saveData == True:
