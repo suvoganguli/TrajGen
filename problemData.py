@@ -51,6 +51,8 @@ ns = 4
 no = 1
 V0 = 10*mph2fps
 
+distGoalVal = 75 # ft
+
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
         if N == 4:
@@ -192,7 +194,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 100
+    nlpMaxIter = 1000
 
 
     # Kinematic Constraints
@@ -201,7 +203,7 @@ if ns == 4:
     Chi0 = 0 * np.pi / 180  # rad
     x0 = [E0, N0, V0, Chi0]  # E, N, V, Chi, Vdot, Chidot
 
-    lb_VdotVal = -2  # fps30
+    lb_VdotVal = -2  # fps3
     ub_VdotVal = 2  # fps3
     lb_ChidotVal = -10 * np.pi / 180  # rad/s2
     ub_ChidotVal = 10 * np.pi / 180  # rad/s2
@@ -213,9 +215,9 @@ if ns == 4:
 
     # Tracking Tuning and Data
     W_P = 1.0*0
-    W_V = 1.0*0
-    W_Vdot = 10.0*0
-    W_Chidot = 1.0*0
+    W_V = 1.0
+    W_Vdot = 1.0
+    W_Chidot = 1e-4
     W_gDist = 1.0
     W_gChi = 1.0
 
@@ -284,7 +286,7 @@ if no == 0:
 
 elif no == 1:
     #runOnce = True
-    obstacleE = np.array([4.0+0.1]) * scaleFactorE # ft, left-bottom
+    obstacleE = np.array([4.0+0.5]) * scaleFactorE # ft, left-bottom
     obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft

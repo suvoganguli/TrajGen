@@ -148,6 +148,13 @@ while mpciter < mpciterations:
     # apply control
     tmeasure, xmeasure = applyControl(T, t0, x0, u_new)
 
+    # change V_cmd to 0 if close to goal
+    distGoal = distance(x0[0:2],endPoint)
+    # if distGoal < distGoalVal:
+    #     V_cmd = 0
+    #     lb_V = 0
+    #     delta_V = 1.2 * V_cmd
+
     # prepare restart
     u0 = shiftHorizon(N, u_new)
 
