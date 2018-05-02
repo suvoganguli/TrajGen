@@ -106,9 +106,6 @@ def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
         #   del ax1.lines[7:12]
         #dummy = raw_input('Press Enter to continue: ')
 
-    print(East[-1],North[-1])
-    print( np.sqrt( (14-East[-1])**2 + (66 - North[-1])**2) )
-
     return V_terminal
 
 

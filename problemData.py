@@ -51,7 +51,7 @@ ns = 4
 no = 1
 V0 = 10*mph2fps
 
-distGoalVal = 75 # ft
+distGoalVal = 50 # ft
 
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
@@ -73,7 +73,7 @@ if abs(V0 - 5*mph2fps) <= 10**(-3):
                 mpciterations = 18/sf_T # 18
         elif N == 6:
             if ns == 4:
-                mpciterations = 34/sf_T # 34
+                mpciterations = 50/sf_T # 34
             elif ns == 6:
                 mpciterations = 34/sf_T  # 38 - check mpciterations
         elif N == 8:
@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 34/sf_T  # 34
+                mpciterations = 50/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -325,7 +325,7 @@ if ns == 4:
     #     ncons = 2*N + 2  # (option 3 in nlp.py) running + lataccel + terminal constraint-y
 
     if ncons_option == 1:
-        ncons = 4  # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V + terminal delChi
+        ncons = 4  # (option 1 in nlp.py) lataccel + V0 + terminal constraint-V + N terminal delChi
 
     elif ncons_option == 2:
         ncons = 3  # (option 2 in nlp.py) lataccel + terminal constraint-V + terminal delChi
@@ -399,7 +399,7 @@ else:
 
 if obstaclePresent:
     nObstacle = len(obstacleN)
-    ncons = ncons + nObstacle
+    ncons = ncons + nObstacle*N
 else:
     nObstacle = 0
 

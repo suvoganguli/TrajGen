@@ -162,6 +162,12 @@ while mpciter < mpciterations:
 
     mpciter = mpciter + 1
 
+    # stop vehicle when close to goal
+    terminal_point = x[-1, 0:2]
+    if distance(terminal_point, endPoint) < distGoalVal:
+        global V_cmd
+        V_cmd = 0.75 * V_cmd  # Changing global variable for stopping vehicle
+
 # close log file
 if writeToFile == True:
     fHandle.close()

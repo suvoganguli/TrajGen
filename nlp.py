@@ -170,10 +170,11 @@ class nlpProb(object):
         if nObstacle > 0:
             for k in range(nObstacle):
                 obstacleFaceCenter = np.array([ (obstacle.E[k] + obstacle.w[k]/2), (obstacle.N[k]) ])
-                terminalPosition = x[-1,0:2]
-                consObstacle = np.sqrt([(obstacleFaceCenter[0]-terminalPosition[0])**2 +
-                                        (obstacleFaceCenter[1]-terminalPosition[1])**2])
-                cons = np.concatenate([cons, consObstacle])
+                terminalPositions = x[:,0:2]
+                for k in range(N):
+                    consObstacle = np.sqrt([(obstacleFaceCenter[0]-terminalPositions[k][0])**2 +
+                                        (obstacleFaceCenter[1]-terminalPositions[k][1])**2])
+                    cons = np.concatenate([cons, consObstacle])
 
                 #if consObstacle < 5.9:
                 #print(terminalPosition)
@@ -263,7 +264,20 @@ class nlpProb(object):
         cl_tmp1 = np.concatenate([cl_running, [-lataccel_max]])
         cu_tmp1 = np.concatenate([cu_running, [+lataccel_max]])
 
-        # if ns == 6:
+        u_approx = u0.flatten(1)
+        x = prob.computeOpenloopSolution(u_approx, N, T, t0, x0)
+
+        terminal_point = x[-1,0:2]
+
+        if distance(terminal_point, endPoint) < distGoalVal:
+            V_cmd_lo = 0
+            V_cmd_hi = V_cmd + delta_V
+        else:
+            V_cmd_lo = V_cmd - delta_V
+            V_cmd_hi = V_cmd + delta_V
+
+        # V_cmd_lo = V_cmd - delta_V
+        # V_cmd_hi = V_cmd + delta_V
 
         if ns_option == 1:
 
@@ -272,8 +286,8 @@ class nlpProb(object):
             cu_tmp2 = np.concatenate([cu_tmp1, [ub_V]])
 
             # Terminal Constraint - V
-            cl_tmp3 = np.concatenate([cl_tmp2, [-delta_V + V_cmd]])
-            cu_tmp3 = np.concatenate([cu_tmp2, [delta_V + V_cmd]])
+            cl_tmp3 = np.concatenate([cl_tmp2, [V_cmd_lo]])
+            cu_tmp3 = np.concatenate([cu_tmp2, [V_cmd_hi]])
 
             # Terminal Constraint - delChi
             cl = np.concatenate([cl_tmp3, [-delChi_max]])
@@ -288,8 +302,8 @@ class nlpProb(object):
             cl_tmp2 = cl_tmp1
             cu_tmp2 = cu_tmp1
 
-            cl_tmp3 = np.concatenate([cl_tmp2, [-delta_V + V_cmd]])
-            cu_tmp3 = np.concatenate([cu_tmp2, [delta_V + V_cmd]])
+            cl_tmp3 = np.concatenate([cl_tmp2, [V_cmd_lo]])
+            cu_tmp3 = np.concatenate([cu_tmp2, [V_cmd_hi]])
 
             # Terminal Constraint - delChi
             cl = np.concatenate([cl_tmp3, [-delChi_max]])
@@ -310,12 +324,13 @@ class nlpProb(object):
             nObstacle = len(obstacle.N)
             for k in range(nObstacle):
                 obstacleMaxDim = np.maximum(obstacle.w[k], obstacle.l[k])
-                cl = np.concatenate([cl, [obstacleMaxDim/2]])
-                cu = np.concatenate([cu, [LARGE_NO]])
+                for k in range(N):
+                    cl = np.concatenate([cl, [obstacleMaxDim/2]])
+                    cu = np.concatenate([cu, [LARGE_NO]])
 
 
         if ncons != len(cl) and ncons != len(cu):
-            print('Error: resolve number of constraints')
+           print('Error: resolve number of constraints')
 
         nlp = ipopt.problem(
             n=nu*N,
