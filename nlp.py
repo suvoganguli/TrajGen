@@ -175,6 +175,11 @@ class nlpProb(object):
                                         (obstacleFaceCenter[1]-terminalPosition[1])**2])
                 cons = np.concatenate([cons, consObstacle])
 
+                #if consObstacle < 5.9:
+                #print(terminalPosition)
+                #print(consObstacle)
+                #    None
+
         return cons
 
 
@@ -324,9 +329,9 @@ class nlpProb(object):
         nlp.addOption('print_level', nlpPrintLevel)
         nlp.addOption('max_iter', nlpMaxIter)
         #nlp.addOption('dual_inf_tol',10.0)  # defaut = 1
-        nlp.addOption('constr_viol_tol',0.1)  # default = 1e-4
-        nlp.addOption('compl_inf_tol',0.1) # default = 1e-4
-        nlp.addOption('acceptable_tol',0.1) # default = 0.01
-        nlp.addOption('acceptable_constr_viol_tol',0.1)  # default = 0.01
+        nlp.addOption('constr_viol_tol',1e-4)  # default = 1e-4
+        nlp.addOption('compl_inf_tol',1e-4) # default = 1e-4
+        nlp.addOption('acceptable_tol',1e-6) # default = 1e-6
+        nlp.addOption('acceptable_constr_viol_tol',0.01)  # default = 0.01
 
         return nlp

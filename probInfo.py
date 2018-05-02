@@ -226,9 +226,13 @@ def terminalCons(u, x, t0, path, obstacle, posIdx=None):
     dx = (endPoint[0] - x[0])
 
     if np.abs(dx) > 1e-6:
-        delChi = (np.pi/2 - np.arctan( dy/dx))
+        ChiGoal = (np.pi/2 - np.arctan( dy/dx))
     else:
-        delChi = 0
+        ChiGoal = 0
+
+    Chi = x[3]
+
+    delChi = ChiGoal - Chi
 
     delChi = np.array([delChi]) # delChi
 

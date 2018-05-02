@@ -106,6 +106,9 @@ def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
         #   del ax1.lines[7:12]
         #dummy = raw_input('Press Enter to continue: ')
 
+    print(East[-1],North[-1])
+    print( np.sqrt( (14-East[-1])**2 + (66 - North[-1])**2) )
+
     return V_terminal
 
 
@@ -479,6 +482,10 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
     # #     idx_trackingerror = 2*N + 1 # (nlp.py, option 2,3)
     # # elif pdata.ns == 4:
     # #     idx_trackingerror = 2*N + 1
+
+
+    #if mpciter >= 8:
+    #    None
 
     idx_lataccel = 0
     idx_Vterm = 1

@@ -45,7 +45,7 @@ dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
 sf_T = 1
 
 # default
-N = 8
+N = 6
 T = 0.4*sf_T
 ns = 4
 no = 1
@@ -128,6 +128,9 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
+            elif ns == 6:
+                mpciterations = 32/sf_T
+
 
     elif no == 2:
         if N == 4:
@@ -214,10 +217,10 @@ if ns == 4:
     delChi_max = 10 * np.pi / 180
 
     # Tracking Tuning and Data
-    W_P = 1.0*0
+    W_P = 0.0
     W_V = 1.0
     W_Vdot = 1.0
-    W_Chidot = 1e-4
+    W_Chidot = 1e-2
     W_gDist = 1.0
     W_gChi = 1.0
 
@@ -252,13 +255,15 @@ elif ns == 6:
     useLatAccelCons = 1
     lb_V = 0.8*V0
     ub_V = 1.2*V0
-    delChi_max = 30 * np.pi / 180
+    delChi_max = 10 * np.pi / 180
 
     # Tracking Tuning and Data
-    W_P = 1.0      #1.0
+    W_P = 0.0     #1.0
     W_V = 1.0
-    W_Vddot = 10.0   # 20.0
-    W_Chiddot = 1.0 #0.1
+    W_Vddot = 1.0   # 20.0
+    W_Chiddot = 1e-2 #0.1
+    W_gDist = 1.0*0
+    W_gChi = 1.0
 
     V_cmd = V0  # fps
 
