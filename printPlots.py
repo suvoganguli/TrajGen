@@ -13,7 +13,7 @@ from utils import *
 # *X, *Y = E [ft], N [ft], theta [rad] (theta is w.r.t +E axis)
 
 
-def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
+def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
 
     u_mpciter = u_new.flatten(1)
     x_mpciter = probInfo.computeOpenloopSolution(u_mpciter, pdata.N, pdata.T, pdata.t0, x0)
@@ -29,69 +29,67 @@ def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
     plt.xlabel('E [ft]')
     #plt.axis('equal')
 
-    if drawLPPath == True:
+    # Detailed Path
+    plt.plot(path.pathData.E, path.pathData.N, linestyle='--', color='c')
 
-        # Detailed Path
-        plt.plot(path.pathData.E, path.pathData.N, linestyle='--', color='c')
+    plt.plot(path.pathData.PathStartPoint[0], path.pathData.PathStartPoint[1], marker='o', markersize=8, color='r')
+    plt.plot(path.pathData.PathEndPoint[0], path.pathData.PathEndPoint[1], marker='o', markersize=8, color='g')
 
-        plt.plot(path.pathData.PathStartPoint[0], path.pathData.PathStartPoint[1], marker='o', markersize=8, color='r')
-        plt.plot(path.pathData.PathEndPoint[0], path.pathData.PathEndPoint[1], marker='o', markersize=8, color='g')
+    if False:
+        plt.plot(path.pathData.PathRightEndPointsE, path.pathData.PathRightEndPointsN,'m+')
+        plt.plot(path.pathData.PathLeftEndPointsE, path.pathData.PathLeftEndPointsN,'m+')
 
-        if False:
-            plt.plot(path.pathData.PathRightEndPointsE, path.pathData.PathRightEndPointsN,'m+')
-            plt.plot(path.pathData.PathLeftEndPointsE, path.pathData.PathLeftEndPointsN,'m+')
+        x1 = path.pathData.PathRightEndPointsE
+        x2 = path.pathData.PathLeftEndPointsE
+        y1 = path.pathData.PathRightEndPointsN
+        y2 = path.pathData.PathLeftEndPointsN
 
-            x1 = path.pathData.PathRightEndPointsE
-            x2 = path.pathData.PathLeftEndPointsE
-            y1 = path.pathData.PathRightEndPointsN
-            y2 = path.pathData.PathLeftEndPointsN
+        if pathType == 'default':
+            plt.plot(x1, y1, 'm', x2, y2, 'm')
+        else:
+            #plt.plot(x1, y1, 'g', x2, y2, 'g--')
+            plt.plot(x1, y1, 'm', x2, y2, 'm')
 
-            if pathType == 'default':
-                plt.plot(x1, y1, 'm', x2, y2, 'm')
-            else:
-                #plt.plot(x1, y1, 'g', x2, y2, 'g--')
-                plt.plot(x1, y1, 'm', x2, y2, 'm')
+        x3 = path.pathData.PathCenterEndPointsE + pdata.delta_yRoad*np.sin(path.pathData.Theta_endpoints)
+        x4 = path.pathData.PathCenterEndPointsE - pdata.delta_yRoad*np.sin(path.pathData.Theta_endpoints)
+        y3 = path.pathData.PathCenterEndPointsN - pdata.delta_yRoad*np.cos(path.pathData.Theta_endpoints)
+        y4 = path.pathData.PathCenterEndPointsN + pdata.delta_yRoad*np.cos(path.pathData.Theta_endpoints)
 
-            x3 = path.pathData.PathCenterEndPointsE + pdata.delta_yRoad*np.sin(path.pathData.Theta_endpoints)
-            x4 = path.pathData.PathCenterEndPointsE - pdata.delta_yRoad*np.sin(path.pathData.Theta_endpoints)
-            y3 = path.pathData.PathCenterEndPointsN - pdata.delta_yRoad*np.cos(path.pathData.Theta_endpoints)
-            y4 = path.pathData.PathCenterEndPointsN + pdata.delta_yRoad*np.cos(path.pathData.Theta_endpoints)
+        if pathType == 'default':
+            plt.plot(x3, y3, 'r', x4, y4, 'r')
+        else:
+            #plt.plot(x3, y3, 'k', x4, y4, 'k--')
+            plt.plot(x3, y3, 'r', x4, y4, 'r')
 
-            if pathType == 'default':
-                plt.plot(x3, y3, 'r', x4, y4, 'r')
-            else:
-                #plt.plot(x3, y3, 'k', x4, y4, 'k--')
-                plt.plot(x3, y3, 'r', x4, y4, 'r')
+    plt.grid(True)
 
-        plt.grid(True)
+    if True: # obstacle is present:
 
-        if True: # obstacle is present:
+        nObs = obstacle.E.size
 
-            nObs = obstacle.E.size
+        if nObs > 0:
+            for k in range(nObs):
 
-            if nObs > 0:
-                for k in range(nObs):
-
-                    Efc = obstacle.E[k] + pdata.pathWidth/2
-                    Nfc = obstacle.N[k]
-                    W = obstacle.w[k] - pdata.pathWidth
-                    L = obstacle.l[k]
-                    Theta = obstacle.Chi[k]
-                    fc = "red"
-                    polygon_obstacle = getPatch(Efc, Nfc, W, L, Theta, fc)
+                Efc = obstacle.E[k] + pdata.pathWidth/2
+                Nfc = obstacle.N[k]
+                W = obstacle.w[k] - pdata.pathWidth
+                L = obstacle.l[k]
+                Theta = obstacle.Chi[k]
+                fc = "red"
+                polygon_obstacle = getPatch(Efc, Nfc, W, L, Theta, fc)
 
 
-                    Efc = obstacle.E[k]
-                    Nfc = obstacle.N[k]
-                    W = obstacle.w[k]
-                    L = obstacle.l[k]
-                    Theta = obstacle.Chi[k]
-                    fc = "green"
-                    polygon_safezone = getPatch(Efc, Nfc, W, L, Theta, fc)
+                Efc = obstacle.E[k]
+                Nfc = obstacle.N[k]
+                W = obstacle.w[k]
+                L = obstacle.l[k]
+                Theta = obstacle.Chi[k]
+                fc = "green"
+                polygon_safezone = getPatch(Efc, Nfc, W, L, Theta, fc)
 
-                    ax = plt.gca()
-                    ax.add_patch(polygon_safezone)
-                    ax.add_patch(polygon_obstacle)
+                ax = plt.gca()
+                ax.add_patch(polygon_safezone)
+                ax.add_patch(polygon_obstacle)
 
     nEN = len(East)
     plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
@@ -130,17 +128,14 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     useLatAccelCons = 1
 
     # find time instance where V starts decreasing to 0
+    t_index = len(t)
     for k in range(t.size):
         if np.abs(t_slowDown - t[k]) < 1e-3:
             t_index = k
             break
 
-    if t_index > 0:
-        t1 = t[0:t_index]
-        t2 = t[t_index:None]
-    else:
-        t1 = t
-        t2 = np.array([])
+    t1 = t[0:t_index]
+    t2 = t[t_index:None]
 
     if ns == 4:
         lb_VdotVal = np.array(cols[4]).astype(np.float)

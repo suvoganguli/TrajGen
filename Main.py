@@ -44,6 +44,7 @@ u_new = np.zeros([1,nu])
 mpciter = 0
 
 # Other parameters
+t_slowDown = []
 t_slowDown_detected = False
 
 # Print to File
@@ -67,7 +68,6 @@ posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
 # Specify Booleans
 saveData = True
 plotData = True
-drawLPPath = True
 
 # Create array of paths
 pathObj = makePathObj(pdata, path, obstacle)
@@ -88,8 +88,7 @@ while mpciter < mpciterations:
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
-    VTerminal[mpciter] = printPlots.nmpcPlotSol(u_new, path, drawLPPath, x0, obstacle, pathType)
-    drawLPPath = False
+    VTerminal[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0, obstacle, pathType)
 
     # solution information
     latAccel[mpciter], delChi[mpciter] = printPlots.nmpcPrint(mpciter, info, N, x0, u_new, writeToFile,
