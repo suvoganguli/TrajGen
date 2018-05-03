@@ -51,7 +51,7 @@ ns = 4
 no = 1
 V0 = 10*mph2fps
 
-distGoalVal = 50 # ft
+lb_distGoal = 50 # ft
 
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
@@ -73,7 +73,7 @@ if abs(V0 - 5*mph2fps) <= 10**(-3):
                 mpciterations = 18/sf_T # 18
         elif N == 6:
             if ns == 4:
-                mpciterations = 50/sf_T # 34
+                mpciterations = 34/sf_T # 34
             elif ns == 6:
                 mpciterations = 34/sf_T  # 38 - check mpciterations
         elif N == 8:
@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 50/sf_T  # 34
+                mpciterations = 60/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32

@@ -39,7 +39,7 @@ def system(uk, xk, T):
     return xkp1
 
 
-def runningCosts(u, x, t0, path, obstacle, posIdx=None):
+def runningCosts(u, x, t0, path, obstacle, posIdx = None, V_cmd = None):
 
     if ns == 6:
         cost_v = W_V * (V_cmd - x[2]) ** 2

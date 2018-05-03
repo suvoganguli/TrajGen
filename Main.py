@@ -127,7 +127,7 @@ while mpciter < mpciterations:
 
     # solve optimal control problem
     tStart = time.time()
-    u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path, obstacle, posIdx, ncons_option)
+    u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path, obstacle, posIdx, ncons_option, V_cmd)
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
@@ -163,10 +163,12 @@ while mpciter < mpciterations:
     mpciter = mpciter + 1
 
     # stop vehicle when close to goal
-    terminal_point = x[-1, 0:2]
-    if distance(terminal_point, endPoint) < distGoalVal:
-        global V_cmd
-        V_cmd = 0.75 * V_cmd  # Changing global variable for stopping vehicle
+    x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), N, T, t0, x0)
+    terminal_point = x_mpciter[-1, 0:2]
+    print(distance(terminal_point, endPoint))
+    if distance(terminal_point, endPoint) < lb_distGoal:
+        V_cmd = 0.9 * V_cmd  # Changing global variable for stopping vehicle
+        print(V_cmd)
 
 # close log file
 if writeToFile == True:

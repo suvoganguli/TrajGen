@@ -5,7 +5,7 @@ from problemData import *
 
 class nlpProb(object):
 
-    def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option):
+    def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option, V_cmd):
         self.N = N
         self.T = T
         self.t0 = t0
@@ -16,6 +16,7 @@ class nlpProb(object):
         self.obstacle = obstacle
         self.posIdx = posIdx
         self.ns_option = ns_option
+        self.V_cmd = V_cmd
         pass
 
 
@@ -27,6 +28,7 @@ class nlpProb(object):
         path = self.path
         obstacle = self.obstacle
         posIdx = self.posIdx
+        V_cmd = self.V_cmd
 
         x = prob.computeOpenloopSolution(u, N, T, t0, x0)
         cost = 0.0
@@ -34,7 +36,7 @@ class nlpProb(object):
 
         for k in range(N):
             uk = np.array([u[k],u[k+N]])
-            costvec[k] = prob.runningCosts( uk, x[k], t0 + k*T, path, obstacle, posIdx)
+            costvec[k] = prob.runningCosts( uk, x[k], t0 + k*T, path, obstacle, posIdx, V_cmd)
             cost = cost + costvec[k]
 
         cost_goalDist, cost_goalDelChi = prob.goalCost(x0, t0)
@@ -220,6 +222,7 @@ class nlpProb(object):
         obstacle = self.obstacle
         posIdx = self.posIdx
         ns_option = self.ns_option
+        V_cmd = self.V_cmd
 
         LARGE_NO = 1e12
 
@@ -269,7 +272,7 @@ class nlpProb(object):
 
         terminal_point = x[-1,0:2]
 
-        if distance(terminal_point, endPoint) < distGoalVal:
+        if distance(terminal_point, endPoint) < lb_distGoal:
             V_cmd_lo = 0
             V_cmd_hi = V_cmd + delta_V
         else:
@@ -335,7 +338,7 @@ class nlpProb(object):
         nlp = ipopt.problem(
             n=nu*N,
             m=len(cl),
-            problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option),
+            problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option, V_cmd),
             lb=lb,
             ub=ub,
             cl=cl,
