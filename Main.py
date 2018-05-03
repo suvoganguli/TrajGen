@@ -115,7 +115,7 @@ while mpciter < mpciterations:
 
     #print(tmeasure, distGoal)
 
-    # stop vehicle when close to goal
+    # stop vehicle when close to the goal
     x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), N, T, t0, x0)
     terminal_point = x_mpciter[-1, 0:2]
 
