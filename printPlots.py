@@ -109,7 +109,7 @@ def nmpcPlotSol(u_new,path,drawLPPath,x0,obstacle,pathType):
     return V_terminal
 
 
-def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFile,pathObjArray):
+def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFile,pathObjArray,t_slowDown):
 
     f_pData = file(settingsFile, 'r')
     cols, indexToName = getColumns(f_pData, delim=" ", header=False)
@@ -128,6 +128,19 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     # useLatAccelCons is now hard-coded here since we want to create plot from
     # plotSavedData.py also.
     useLatAccelCons = 1
+
+    # find time instance where V starts decreasing to 0
+    for k in range(t.size):
+        if np.abs(t_slowDown - t[k]) < 1e-3:
+            t_index = k
+            break
+
+    if t_index > 0:
+        t1 = t[0:t_index]
+        t2 = t[t_index:None]
+    else:
+        t1 = t
+        t2 = np.array([])
 
     if ns == 4:
         lb_VdotVal = np.array(cols[4]).astype(np.float)
@@ -349,8 +362,11 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     figno[7] = plt.gcf().number
     plt.plot(t, V_terminal)
     if ncons_option != 3:
-        plt.plot(t, lb_V * np.ones(t.shape), linestyle='--', color='r')
-        plt.plot(t, ub_V * np.ones(t.shape), linestyle='--', color='r')
+        plt.plot(t1, lb_V * np.ones(t1.shape), linestyle='--', color='r')
+        plt.plot(t1, ub_V * np.ones(t1.shape), linestyle='--', color='r')
+        plt.plot(t2, 0 * np.ones(t2.shape), linestyle='--', color='r')
+        plt.plot(t2, ub_V * np.ones(t2.shape), linestyle='--', color='r')
+
     plt.ylabel('V-terminal [fps]')
     plt.xlabel('time [sec]')
     plt.grid(True)

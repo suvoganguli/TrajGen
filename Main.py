@@ -43,6 +43,9 @@ xmeasure = x0
 u_new = np.zeros([1,nu])
 mpciter = 0
 
+# Other parameters
+t_slowDown_detected = False
+
 # Print to File
 writeToFile = True
 if writeToFile == True:
@@ -79,52 +82,6 @@ while mpciter < mpciterations:
     # search for obstacle
     detected = detectObstacle(x0, detectionWindow, obstacle)
 
-    # create new path (only once), if obstacle detected
-    # if detected == True:
-    #
-    #     currentObstacleClass = getCurrentObstacle(obstacle)
-    #     currentObstacle = currentObstacleClass()
-    #
-    #     if mpciter == 1:
-    #         startPoint = np.array([x0[0], x0[1]])
-    #         pathClass = pathInfo('newpath', startPoint, endPoint, currentObstacle)
-    #         path = pathClass()
-    #     else:
-    #         chi = np.array([x0[3]])
-    #         dN = dNewPathAdjust * np.cos(chi)
-    #         dE = dNewPathAdjust * np.sin(chi)
-    #         startPoint = np.array([x0[0]-dE, x0[1]-dN])
-    #
-    #         u_newpath = u0.flatten(1)
-    #         x_newpath = probInfo.computeOpenloopSolution(u_newpath, pdata.N, pdata.T, pdata.t0, x0)
-    #         E_newpath = x_newpath[-1, 0]
-    #         N_newpath = x_newpath[-1, 1]
-    #         startPoint_newpath = np.array([E_newpath, N_newpath])
-    #
-    #         pathClass = pathInfo('newpath', startPoint_newpath, endPoint, currentObstacle, startPoint)
-    #         path = pathClass()
-    #         #path = addCurrentPointToPath(path, startPoint, chi)
-    #         pathType = 'newpath'
-    #
-    #         posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
-    #
-    #         None
-    #
-    #     # Update array with new path
-    #     pathObj = makePathObj(pdata, path, obstacle)
-    #     pathObjArray.append(pathObj)
-    #
-    #     # Discard current object in view
-    #     print(obstacle.E.size)
-    #     if obstacle.E.size > 0:
-    #         remainingObstacleClass = remainingObstacle(obstacle)
-    #         obstacle = remainingObstacleClass()
-    #
-    #     drawLPPath = True # draw path again
-    #
-    #     # setup for next obstacle
-    #     detected = False
-
     # solve optimal control problem
     tStart = time.time()
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path, obstacle, posIdx, ncons_option, V_cmd)
@@ -150,25 +107,28 @@ while mpciter < mpciterations:
 
     # change V_cmd to 0 if close to goal
     distGoal = distance(x0[0:2],endPoint)
-    # if distGoal < distGoalVal:
-    #     V_cmd = 0
-    #     lb_V = 0
-    #     delta_V = 1.2 * V_cmd
 
     # prepare restart
     u0 = shiftHorizon(N, u_new)
 
     posIdx = getPosIdx(xmeasure[0], xmeasure[1], path, posIdx)
 
-    mpciter = mpciter + 1
+    #print(tmeasure, distGoal)
 
     # stop vehicle when close to goal
     x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), N, T, t0, x0)
     terminal_point = x_mpciter[-1, 0:2]
-    print(distance(terminal_point, endPoint))
-    if distance(terminal_point, endPoint) < lb_distGoal:
-        V_cmd = 0.9 * V_cmd  # Changing global variable for stopping vehicle
-        print(V_cmd)
+
+    # slow down V_cmd near goal
+    if (distance(terminal_point, endPoint) < lb_distGoal):
+        V_cmd = 0.9 * V_cmd
+
+    # find detection time
+    if (distance(terminal_point, endPoint) < lb_distGoal) and (t_slowDown_detected == False):
+        t_slowDown = tmeasure
+        t_slowDown_detected = True
+
+    mpciter = mpciter + 1
 
 # close log file
 if writeToFile == True:
@@ -178,7 +138,7 @@ if writeToFile == True:
 rundate = datetime.datetime.now().strftime("%Y-%m-%d")
 rundir = './run_' + rundate + '/'
 if N < 10:
-    suffix = '_N0' + str(N) + '_Tp' + str(int(10*T)) + '_ns' + str(ns) + '_no' + str(no)
+    suffix = '_N0' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 else:
     suffix = '_N' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 
@@ -206,7 +166,8 @@ if saveData == True:
 oldpwd = os.getcwd()
 os.chdir(rundir)
 settingsFile = 'settings' + suffix + '.txt'
-figno = printPlots.nmpcPlot(t, x, u, path, obstacle, tElapsed, VTerminal, latAccel, delChi, settingsFile, pathObjArray)
+figno = printPlots.nmpcPlot(t, x, u, path, obstacle, tElapsed, VTerminal, latAccel,
+                            delChi, settingsFile, pathObjArray, t_slowDown)
 os.chdir(oldpwd)
 
 if saveData == True:
