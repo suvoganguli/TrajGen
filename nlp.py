@@ -89,6 +89,7 @@ class nlpProb(object):
         # consR1 = np.concatenate([consR1_R, consR1_L])
 
         consR1 = np.array([], dtype=float)
+        consObstacleAll = np.array([], dtype=float)
 
         if ns == 6:
 
@@ -178,18 +179,27 @@ class nlpProb(object):
                     # vehicle (point mass) location
                     position = x[k][0:2]
 
-                    n_shape = obstacle.E_array.shape # only one object
-                    if len(n_shape) == 1:
-                        inside = insideBox2(position[0], position[1], obstacle.E_array, obstacle.N_array)
-                    else:
-                        inside = insideBox2(position[0], position[1], obstacle.E_array[j], obstacle.N_array[j])
-                    if inside == False:
-                        consObstacle = [1]
-                    else:
-                        consObstacle = [-1]
+                    # n_shape = obstacle.E_array.shape # only one object
+                    # if len(n_shape) == 1:
+                    #     inside = insideBox2(position[0], position[1], obstacle.E_array, obstacle.N_array)
+                    # else:
+                    #     inside = insideBox2(position[0], position[1], obstacle.E_array[j], obstacle.N_array[j])
+                    # if inside == False:
+                    #     consObstacle = [1]
+                    # else:
+                    #     consObstacle = [-1]
 
+                    consObstacle = np.sqrt([(obstacle.E[0]-position[0])**2 +
+                                            (obstacle.N[0]-position[1])**2])
+
+                    consObstacleAll = np.concatenate([consObstacleAll, consObstacle])
                     # consObstacle > 0, if vehicle (point object) is outside rectangle)
                     cons = np.concatenate([cons, consObstacle])
+
+                if consObstacleAll[-1] < 28.42:
+                    print(consObstacleAll)
+                    print(obstacle.sr)
+                    None
 
         return cons
 
@@ -333,11 +343,12 @@ class nlpProb(object):
         if obstacle.Present == True:
 
             nObstacle = len(obstacle.N)
-            for k in range(nObstacle):
+            for j in range(nObstacle):
                 for k in range(N):
-                    cl = np.concatenate([cl, [0]])
+                    #cl = np.concatenate([cl, [0]])
+                    #cu = np.concatenate([cu, [LARGE_NO]])
+                    cl = np.concatenate([cl, [obstacle.sr[j]]])
                     cu = np.concatenate([cu, [LARGE_NO]])
-
 
         if ncons != len(cl) and ncons != len(cu):
            print('Error: resolve number of constraints')

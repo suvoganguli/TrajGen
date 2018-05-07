@@ -82,12 +82,13 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
                 Nc = obstacle.N[k]
                 W = obstacle.sw[k]
                 L = obstacle.sl[k]
-                Theta = obstacle.Chi[k]
+                Theta = -obstacle.Chi[k]
                 fc = "green"
-                polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
+                #polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
+                ellipse_safezone = patches.Ellipse((Ec,Nc), W, L, angle=Theta, fc=fc)
 
                 ax = plt.gca()
-                ax.add_patch(polygon_safezone)
+                ax.add_patch(ellipse_safezone)
                 ax.add_patch(polygon_obstacle)
 
     nEN = len(East)
@@ -95,6 +96,7 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
     plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
     #plt.xlim([0, 16])
     #plt.ylim([0, 128])
+    plt.axis('equal')
 
     #plt.draw()
     plt.pause(0.01)

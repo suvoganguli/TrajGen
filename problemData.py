@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 34/sf_T  # 34
+                mpciterations = 10/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -280,8 +280,8 @@ elif ns == 6:
 # Obstacle Data
 
 obstaclePresent = True
-obstacleLengthMargin = 1 * scaleFactorN # ft
-obstacleWidthMargin = 1 * scaleFactorE# ft
+obstacleLengthMargin = 2.5 * scaleFactorN # ft
+obstacleWidthMargin = 2.5 * scaleFactorE# ft
 
 if no == 0:
     #runOnce = False
@@ -293,7 +293,7 @@ if no == 0:
 
 elif no == 1:
 
-    obstacleE = np.array([7.0 + 2]) * scaleFactorE # ft, center
+    obstacleE = np.array([7.0 + 0.5]) * scaleFactorE # ft, center
     obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
@@ -301,7 +301,8 @@ elif no == 1:
 
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
-    obstacleSafeRadius = np.maximum(obstacleSafeWidth, obstacleSafeLength)
+    #obstacleSafeRadius = np.maximum(obstacleSafeWidth, obstacleSafeLength)
+    obstacleSafeRadius = np.sqrt(obstacleSafeWidth**2 + obstacleSafeLength**2)
 
 elif no == 2:
     None
