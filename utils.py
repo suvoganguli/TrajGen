@@ -2,6 +2,15 @@ import numpy as np
 from matplotlib.patches import Polygon
 import pickle
 
+def getLine(x1, y1, x2, y2):
+
+    a = y2 - y1 # LHS
+    b = -(x2 - x1)  # LHS
+    c = x1 * y2 - x2 * y1  # RHS
+
+    return a, b, c
+
+
 def getPosIdx(E, N, path, posIdx0 = None):
 
     posIdx = {'number': -1}
@@ -70,6 +79,46 @@ def insideBox(x,y,AR,BR,CR,AL,BL,CL,D1,E1,F1,D2,E2,F2):
     else:
         return False
 
+
+def insideBox2(x, y, x_rect, y_rect):
+
+    x1 = x_rect[0]
+    x2 = x_rect[1]
+    x3 = x_rect[2]
+    x4 = x_rect[3]
+
+    y1 = y_rect[0]
+    y2 = y_rect[1]
+    y3 = y_rect[2]
+    y4 = y_rect[3]
+
+    AR, BR, CR = getLine(x2, y2, x3, y3) # right-bottom to right-top
+    AL, BL, CL = getLine(x1, y1, x4, y4) # left-bottom to left-top
+    D1, E1, F1 = getLine(x2, y2, x1, y1) # right-bottom to left-bottom
+    D2, E2, F2 = getLine(x2, y2, x3, y3) # right-top to left-top
+
+    # print(AR, BR, CR)
+    # print(AL, BL, CL)
+    # print(D1, E1, F1)
+    # print(D2, E2, F2)
+
+    inside = insideBox(x, y, AR, BR, CR, AL, BL, CL, D1, E1, F1, D2, E2, F2)
+
+    return inside
+
+
+def insideBox3(x,y,x1,y1,x2,y2):
+
+    AR, BR, CR = getLine(x2, y1, x2, y2) # right-bottom to right-top
+    AL, BL, CL = getLine(x1, y1, x1, y2) # left-bottom to left-top
+    D1, E1, F1 = getLine(x2, y1, x1, y1) # right-bottom to left-bottom
+    D2, E2, F2 = getLine(x2, y2, x1, y2) # right-top to left-top
+
+    inside = insideBox(x, y, AR, BR, CR, AL, BL, CL, D1, E1, F1, D2, E2, F2)
+
+    return inside
+
+
 def insideGap(x,y,AR,BR,CR,AL,BL,CL):
 
     chk1bool = False
@@ -129,18 +178,39 @@ def intersect2(a1,b1,c1,a2,b2,c2):
 
     return x, y
 
+def rotateRectangle(Ec, Nc, E, N, theta): # del_chi = - theta
 
-def getPatch(Efc,Nfc,W,L,theta,fc):
+    E = E - Ec
+    N = N - Nc
+
+    ERot = np.zeros(4)
+    NRot = np.zeros(4)
+
+    C = np.array([[np.cos(theta), +np.sin(theta)],[-np.sin(theta), np.cos(theta)]])
+
+    for k in range(len(E)):
+        p = np.array([E[k], N[k]])
+        p = p[:,None]
+        pRot = np.dot(C,p)
+        ERot[k] = pRot[0]
+        NRot[k] = pRot[1]
+
+    ERot = E + Ec
+    NRot = N + Nc
+
+    return ERot, NRot
+
+def getPatch(Ec,Nc,W,L,theta,fc):
 
     # create object with heading = 0 deg
 
-    E1 = 0
-    E2 = W
+    E1 = -W/2
+    E2 = W/2
     E3 = E2
     E4 = E1
-    N1 = 0
+    N1 = -L/2
     N2 = N1
-    N3 = L
+    N3 = L/2
     N4 = N3
     E = np.array([E1,E2,E3,E4])
     N = np.array([N1,N2,N3,N4])
@@ -154,13 +224,22 @@ def getPatch(Efc,Nfc,W,L,theta,fc):
         p = np.array([E[k], N[k]])
         p = p[:,None]
         pRot = np.dot(C,p)
-        ERot[k] = pRot[0] + Efc
-        NRot[k] = pRot[1] + Nfc
+        ERot[k] = pRot[0] + Ec
+        NRot[k] = pRot[1] + Nc
 
     vertices = np.array([ERot, NRot])
     polygon = Polygon(vertices.T, facecolor=fc, alpha=0.75)
 
     return polygon
+
+def getEllipse(W, L):
+
+    theta_sol = np.arctan(L / W)
+    a = W / (2 * np.cos(theta_sol))
+    b = L / (2 * np.sin(theta_sol))
+
+    return a, b
+
 
 def distance(p1,p2):
     x1 = p1[0]

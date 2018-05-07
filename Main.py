@@ -28,7 +28,8 @@ path = pathClass()
 pathType = 'default'
 
 # Obstacle data (static)
-obstacleClass = obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength)
+obstacleClass = obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength,
+                             obstacleSafeWidth, obstacleSafeLength, obstacleSafeRadius)
 obstacle = obstacleClass()
 
 # Storage data

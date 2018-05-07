@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 60/sf_T  # 34
+                mpciterations = 34/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -280,6 +280,8 @@ elif ns == 6:
 # Obstacle Data
 
 obstaclePresent = True
+obstacleLengthMargin = 1 * scaleFactorN # ft
+obstacleWidthMargin = 1 * scaleFactorE# ft
 
 if no == 0:
     #runOnce = False
@@ -290,23 +292,37 @@ if no == 0:
     obstacleWidth = np.array([]) * scaleFactorE # ft
 
 elif no == 1:
-    #runOnce = True
-    obstacleE = np.array([4.0+0.5]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, left-bottom
+
+    obstacleE = np.array([7.0 + 2]) * scaleFactorE # ft, center
+    obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
     obstacleWidth = np.array([6.0]) * scaleFactorE # ft
 
-elif no == 2:
-    #runOnce = True
-    obstacleE = np.array([4.0, 7.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([31.0, 63.0]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([6.0, 6.0]) * scaleFactorE # ft
+    obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
+    obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
+    obstacleSafeRadius = np.maximum(obstacleSafeWidth, obstacleSafeLength)
 
+elif no == 2:
+    None
+    # obstacleE = np.array([4.0, 7.0]) * scaleFactorE # ft, left-bottom
+    # obstacleN = np.array([31.0, 63.0]) * scaleFactorN # ft, left-bottom
+    # obstacleChi = np.array([0.0, 0.0])  # rad
+    # obstacleLength = np.array([4.0, 4.0]) * scaleFactorN # ft
+    # obstacleWidth = np.array([6.0, 6.0]) * scaleFactorE # ft
+    #
+    # obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+    # obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+    # obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+    #
+    # obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+    # obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+    # obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
 # ------------------------------------------------------------
+
+print('Add obstacle rotation')
+print('Note: obstacleData.py is currently rotating obstacle')
 
 if ns == 4:
     # problem size

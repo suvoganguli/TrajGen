@@ -2,7 +2,6 @@ import numpy as np
 import probInfo
 import matplotlib.pyplot as plt
 import matplotlib.figure as fig
-import matplotlib.patches as patches
 import matplotlib.animation as animation
 import matplotlib.patches as patches
 import problemData as pdata
@@ -70,22 +69,22 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
         if nObs > 0:
             for k in range(nObs):
 
-                Efc = obstacle.E[k] + pdata.pathWidth/2
-                Nfc = obstacle.N[k]
-                W = obstacle.w[k] - pdata.pathWidth
-                L = obstacle.l[k]
-                Theta = obstacle.Chi[k]
-                fc = "red"
-                polygon_obstacle = getPatch(Efc, Nfc, W, L, Theta, fc)
-
-
-                Efc = obstacle.E[k]
-                Nfc = obstacle.N[k]
+                Ec = obstacle.E[k]
+                Nc = obstacle.N[k]
                 W = obstacle.w[k]
                 L = obstacle.l[k]
                 Theta = obstacle.Chi[k]
+                fc = "red"
+                polygon_obstacle = getPatch(Ec, Nc, W, L, Theta, fc)
+
+
+                Ec = obstacle.E[k]
+                Nc = obstacle.N[k]
+                W = obstacle.sw[k]
+                L = obstacle.sl[k]
+                Theta = obstacle.Chi[k]
                 fc = "green"
-                polygon_safezone = getPatch(Efc, Nfc, W, L, Theta, fc)
+                polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
 
                 ax = plt.gca()
                 ax.add_patch(polygon_safezone)

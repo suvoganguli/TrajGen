@@ -169,19 +169,27 @@ class nlpProb(object):
 
         # total constraints with obstacles
         nObstacle = len(obstacle.N)
-        if nObstacle > 0:
-            for k in range(nObstacle):
-                obstacleFaceCenter = np.array([ (obstacle.E[k] + obstacle.w[k]/2), (obstacle.N[k]) ])
-                terminalPositions = x[:,0:2]
-                for k in range(N):
-                    consObstacle = np.sqrt([(obstacleFaceCenter[0]-terminalPositions[k][0])**2 +
-                                        (obstacleFaceCenter[1]-terminalPositions[k][1])**2])
-                    cons = np.concatenate([cons, consObstacle])
 
-                #if consObstacle < 5.9:
-                #print(terminalPosition)
-                #print(consObstacle)
-                #    None
+        if nObstacle > 0:
+
+            for j in range(nObstacle):
+
+                for k in range(N):
+                    # vehicle (point mass) location
+                    position = x[k][0:2]
+
+                    n_shape = obstacle.E_array.shape # only one object
+                    if len(n_shape) == 1:
+                        inside = insideBox2(position[0], position[1], obstacle.E_array, obstacle.N_array)
+                    else:
+                        inside = insideBox2(position[0], position[1], obstacle.E_array[j], obstacle.N_array[j])
+                    if inside == False:
+                        consObstacle = [1]
+                    else:
+                        consObstacle = [-1]
+
+                    # consObstacle > 0, if vehicle (point object) is outside rectangle)
+                    cons = np.concatenate([cons, consObstacle])
 
         return cons
 
@@ -326,9 +334,8 @@ class nlpProb(object):
 
             nObstacle = len(obstacle.N)
             for k in range(nObstacle):
-                obstacleMaxDim = np.maximum(obstacle.w[k], obstacle.l[k])
                 for k in range(N):
-                    cl = np.concatenate([cl, [obstacleMaxDim/2]])
+                    cl = np.concatenate([cl, [0]])
                     cu = np.concatenate([cu, [LARGE_NO]])
 
 

@@ -1,16 +1,62 @@
 from utils import *
 import matplotlib.path as mplPath
 
-def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength):
+def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength,
+                             obstacleSafeWidth, obstacleSafeLength, obstacleSafeRadius):
 
     class obstacle():
         def __init__(self):
+
             self.Present = obstaclePresent
             self.E = obstacleE
             self.N = obstacleN
             self.Chi = obstacleChi
             self.w = obstacleWidth
             self.l = obstacleLength
+            self.sw = obstacleSafeWidth
+            self.sl = obstacleSafeLength
+            self.sr = obstacleSafeRadius
+
+            n = len(obstacleE)
+
+            E_corners = np.zeros([n,4])
+            N_corners = np.zeros([n,4])
+
+            for k in range(n):
+
+                xBL = obstacleE[k] - obstacleSafeWidth[k] / 2
+                xBR = obstacleE[k] + obstacleSafeWidth[k] / 2
+                xTR = obstacleE[k] + obstacleSafeWidth[k] / 2
+                xTL = obstacleE[k] - obstacleSafeWidth[k] / 2
+
+                yBL = obstacleN[k] - obstacleSafeLength[k] / 2
+                yBR = obstacleN[k] - obstacleSafeLength[k] / 2
+                yTR = obstacleN[k] + obstacleSafeLength[k] / 2
+                yTL = obstacleN[k] + obstacleSafeLength[k] / 2
+
+                E_array = np.array([xBL, xBR, xTR, xTL])
+                N_array = np.array([yBL, yBR, yTR, yTL])
+
+                theta = -obstacleChi[k]
+
+                ERot_array, NRot_array = rotateRectangle(obstacleE, obstacleN, E_array, N_array, theta)
+
+                E_corners[k] = ERot_array
+                N_corners[k] = NRot_array
+
+            # self.xBL = ERot_array[0]
+            # self.xBR = ERot_array[1]
+            # self.xTR = ERot_array[2]
+            # self.xBL = ERot_array[3]
+            #
+            # self.yBL = NRot_array[0]
+            # self.yBR = NRot_array[1]
+            # self.yTR = NRot_array[2]
+            # self.yBL = NRot_array[3]
+
+            self.E_array = ERot_array
+            self.N_array = NRot_array
+
             pass
 
     return obstacle
