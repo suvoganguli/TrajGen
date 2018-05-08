@@ -5,7 +5,8 @@ from problemData import *
 
 class nlpProb(object):
 
-    def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option, V_cmd):
+    def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
+                 ns_option, V_cmd, writeToFileCost, fHandleCost = None):
         self.N = N
         self.T = T
         self.t0 = t0
@@ -17,6 +18,8 @@ class nlpProb(object):
         self.posIdx = posIdx
         self.ns_option = ns_option
         self.V_cmd = V_cmd
+        self.writeToFileCost = writeToFileCost
+        self.fHandleCost = fHandleCost
         pass
 
 
@@ -29,19 +32,31 @@ class nlpProb(object):
         obstacle = self.obstacle
         posIdx = self.posIdx
         V_cmd = self.V_cmd
+        writeToFileCost = self.writeToFileCost
+        fHandleCost = self.fHandleCost
 
         x = prob.computeOpenloopSolution(u, N, T, t0, x0)
-        cost = 0.0
-        costvec = np.zeros([N, 1])
+        costvec = np.zeros([3*N+2, 1])
 
         for k in range(N):
             uk = np.array([u[k],u[k+N]])
-            costvec[k] = prob.runningCosts( uk, x[k], t0 + k*T, path, obstacle, posIdx, V_cmd)
-            cost = cost + costvec[k]
+            costout = prob.runningCosts( uk, x[k], t0 + k*T, path, obstacle, posIdx, V_cmd)
+            costvec[k] = costout[0]     # V
+            costvec[k+N] = costout[1]   # Vdot or Vddot
+            costvec[k+2*N] = costout[2] # Chidot or Chiddot
 
         cost_goalDist, cost_goalDelChi = prob.goalCost(x0, t0)
+        costvec[3*N] = cost_goalDist # goal dist
+        costvec[3*N+1] = cost_goalDelChi # goal delta chi
 
-        cost = cost + cost_goalDist + cost_goalDelChi
+        cost = np.sum(costvec)
+
+        if writeToFileCost == True:
+            for k in range(3*N):
+                fHandleCost.write('%.2f ' %(costvec[k]) )
+            fHandleCost.write('%.2f ' % (costvec[3*N]))
+            fHandleCost.write('%.2f ' % (costvec[3*N+1]))
+            fHandleCost.write('\n')
 
         return cost
 
@@ -196,11 +211,6 @@ class nlpProb(object):
                     # consObstacle > 0, if vehicle (point object) is outside rectangle)
                     cons = np.concatenate([cons, consObstacle])
 
-                if consObstacleAll[-1] < 14.3:
-                    #print(consObstacleAll)
-                    #print(obstacle.sr)
-                    None
-
         return cons
 
 
@@ -241,6 +251,8 @@ class nlpProb(object):
         posIdx = self.posIdx
         ns_option = self.ns_option
         V_cmd = self.V_cmd
+        writeToFileCost = self.writeToFileCost
+        fHandleCost = self.fHandleCost
 
         LARGE_NO = 1e12
 
@@ -356,7 +368,9 @@ class nlpProb(object):
         nlp = ipopt.problem(
             n=nu*N,
             m=len(cl),
-            problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path, obstacle, posIdx, ns_option, V_cmd),
+            problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
+                                obstacle, posIdx, ns_option, V_cmd,
+                                writeToFileCost, fHandleCost),
             lb=lb,
             ub=ub,
             cl=cl,

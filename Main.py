@@ -6,7 +6,7 @@ import probInfo
 import printPlots
 import time, datetime
 import shutil, distutils.dir_util
-import os
+import os, os.path
 
 # -------------------------------------------------------------------
 # Main.py lets the user run different test cases for Model
@@ -57,6 +57,17 @@ else:
     fHandle = -1
     fileName = ''
 
+writeToFileCost = True
+if writeToFileCost == True:
+    fileNameCost = 'logFileCost.txt'
+    import os.path
+    #if os.path.isfile(fileNameCost) == True:
+    #    os.remove('logFileCost.txt') # remove previous file
+    fHandleCost = open(fileName, 'w') # file to append cost (see nlp.py > objective function)
+else:
+    fHandleCost = -1
+    fileNameCost = ''
+
 # Initialize storage arrays
 tElapsed = np.zeros(mpciterations)
 VTerminal = np.zeros(mpciterations)
@@ -85,7 +96,9 @@ while mpciter < mpciterations:
 
     # solve optimal control problem
     tStart = time.time()
-    u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path, obstacle, posIdx, ncons_option, V_cmd)
+    u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
+                                             obstacle, posIdx, ncons_option, V_cmd,
+                                             writeToFileCost, fHandleCost)
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
@@ -134,6 +147,8 @@ while mpciter < mpciterations:
 if writeToFile == True:
     fHandle.close()
 
+if writeToFileCost == True:
+    fHandleCost.close()
 
 rundate = datetime.datetime.now().strftime("%Y-%m-%d")
 rundir = './run_' + rundate + '/'

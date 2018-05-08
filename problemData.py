@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 34/sf_T  # 34
+                mpciterations = 2/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -222,7 +222,7 @@ if ns == 4:
     W_Vdot = 1.0
     W_Chidot = 1e-2
     W_gDist = 1.0
-    W_gChi = 1.0
+    W_gChi = 10.0
 
     V_cmd = V0  # fps
 

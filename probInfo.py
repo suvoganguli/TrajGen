@@ -49,18 +49,28 @@ def runningCosts(u, x, t0, path, obstacle, posIdx = None, V_cmd = None):
         cost_u = cost_vddot + cost_Chiddot
         cost = cost_x + cost_u
 
+        costbreakdown = np.zeros(3)
+        costbreakdown[0] = cost_v
+        costbreakdown[1] = cost_vddot
+        costbreakdown[2] = cost_Chiddot
+
     elif ns == 4:
         cost_v = W_V * (V_cmd - x[2]) ** 2
         cost_vdot = W_Vdot * u[0] ** 2
         cost_Chidot = W_Chidot * (u[1] * 180 / np.pi) ** 2
-        cost_x = cost_v
-        cost_u = cost_vdot + cost_Chidot
-        cost = cost_x + cost_u
+        #cost_x = cost_v
+        #cost_u = cost_vdot + cost_Chidot
+        #cost = cost_x + cost_u
+
+        costvec = np.zeros(3)
+        costvec[0] = cost_v
+        costvec[1] = cost_vdot
+        costvec[2] = cost_Chidot
 
     else:
-        cost = 0.0
+        costvec = 0.0
 
-    return cost
+    return costvec
 
     # A = path.alongPathLines.A
     # B = path.alongPathLines.B
