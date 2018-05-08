@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 10/sf_T  # 34
+                mpciterations = 34/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -208,13 +208,13 @@ if ns == 4:
 
     lb_VdotVal = -2  # fps3
     ub_VdotVal = 2  # fps3
-    lb_ChidotVal = -10 * np.pi / 180  # rad/s2
-    ub_ChidotVal = 10 * np.pi / 180  # rad/s2
+    lb_ChidotVal = -30 * np.pi / 180  # rad/s2
+    ub_ChidotVal = 30 * np.pi / 180  # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
     useLatAccelCons = 1
     lb_V = 0.8 * V0
     ub_V = 1.2 * V0
-    delChi_max = 10 * np.pi / 180
+    delChi_max = 30 * np.pi / 180
 
     # Tracking Tuning and Data
     W_P = 0.0
@@ -302,7 +302,7 @@ elif no == 1:
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
     #obstacleSafeRadius = np.maximum(obstacleSafeWidth, obstacleSafeLength)
-    obstacleSafeRadius = np.sqrt(obstacleSafeWidth**2 + obstacleSafeLength**2)
+    obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
 
 elif no == 2:
     None

@@ -196,9 +196,9 @@ class nlpProb(object):
                     # consObstacle > 0, if vehicle (point object) is outside rectangle)
                     cons = np.concatenate([cons, consObstacle])
 
-                if consObstacleAll[-1] < 28.42:
-                    print(consObstacleAll)
-                    print(obstacle.sr)
+                if consObstacleAll[-1] < 14.3:
+                    #print(consObstacleAll)
+                    #print(obstacle.sr)
                     None
 
         return cons

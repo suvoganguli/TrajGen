@@ -80,12 +80,11 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
 
                 Ec = obstacle.E[k]
                 Nc = obstacle.N[k]
-                W = obstacle.sw[k]
-                L = obstacle.sl[k]
                 Theta = -obstacle.Chi[k]
                 fc = "green"
                 #polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
-                ellipse_safezone = patches.Ellipse((Ec,Nc), W, L, angle=Theta, fc=fc)
+                #ellipse_safezone = patches.Ellipse((Ec,Nc), W, L, angle=Theta, fc=fc)
+                ellipse_safezone = patches.Ellipse((Ec, Nc), 2*obstacle.sr, 2*obstacle.sr, angle=Theta, fc=fc)
 
                 ax = plt.gca()
                 ax.add_patch(ellipse_safezone)
@@ -437,20 +436,17 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
                     fc = "red"
                     polygon_obstacle = getPatch(Efc, Nfc, W, L, Theta, fc)
 
-
-                    Efc = ObstacleE[k]
-                    Nfc = ObstacleN[k]
-                    W = ObstacleW[k]
-                    L = ObstacleL[k]
-                    Theta = ObstacleChi[k]
+                    Ec = obstacle.E[k]
+                    Nc = obstacle.N[k]
+                    Theta = -obstacle.Chi[k]
                     fc = "green"
-                    polygon_safezone = getPatch(Efc, Nfc, W, L, Theta, fc)
+                    # polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
+                    # ellipse_safezone = patches.Ellipse((Ec,Nc), W, L, angle=Theta, fc=fc)
+                    ellipse_safezone = patches.Ellipse((Ec, Nc), 2 * obstacle.sr, 2 * obstacle.sr, angle=Theta, fc=fc)
 
                     ax = plt.gca()
-                    ax.add_patch(polygon_safezone)
+                    ax.add_patch(ellipse_safezone)
                     ax.add_patch(polygon_obstacle)
-
-                    None
 
 
 
@@ -461,6 +457,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     #plt.ylim([0, 128])
     plt.ylabel('N [ft]')
     plt.xlabel('E [ft]')
+    plt.axis('equal')
+    plt.grid('True')
 
     # if no != 0 and T == 0.4:
     #     if no == 1:
