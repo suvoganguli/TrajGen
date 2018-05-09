@@ -142,7 +142,7 @@ def runningCosts(u, x, t0, path, obstacle, posIdx = None, V_cmd = None):
 def goalCost(x, t0):
 
     goalDist = np.sqrt((endPoint[0] - x[0]) ** 2 + (endPoint[1] - x[1]) ** 2)
-    cost_goalDist = W_gDist * goalDist
+    cost_goalDist = W_gDist * goalDist**2
 
     dy = (endPoint[1] - x[1])
     dx = (endPoint[0] - x[0])

@@ -30,7 +30,7 @@ grid = gridClass()
 
 # Start and End Points
 startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-endPoint = np.array([7 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+endPoint = np.array([(7-1) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
 # Correction for new path generation with popup obstacle
 dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
@@ -124,7 +124,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 2/sf_T  # 34
+                mpciterations = 45/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -218,17 +218,16 @@ if ns == 4:
 
     # Tracking Tuning and Data
     W_P = 0.0
-    W_V = 1.0
+    W_V = 10.0
     W_Vdot = 1.0
-    W_Chidot = 1e-2
-    W_gDist = 1.0
-    W_gChi = 10.0
+    W_Chidot = 1
+    W_gDist = 1e-4
+    W_gChi = 1e-3
 
     V_cmd = V0  # fps
 
     # Terminal constraint
     delta_yRoad = 0.1*5  # ft
-    delta_yRoadRelaxed = 5  # ft, in safe zone
     delta_V = 1 * mph2fps  # fps
 
     # Path parameters
@@ -269,7 +268,6 @@ elif ns == 6:
 
     # Terminal constraint
     delta_yRoad = 0.1 # ft
-    delta_yRoadRelaxed = 5 # ft, in safe zone
     delta_V = 1*mph2fps # fps
 
     # Path parameters

@@ -7,6 +7,7 @@ import printPlots
 import time, datetime
 import shutil, distutils.dir_util
 import os, os.path
+import globalVars, setGlobalVars
 
 # -------------------------------------------------------------------
 # Main.py lets the user run different test cases for Model
@@ -21,6 +22,9 @@ import os, os.path
 #
 # 01/25/2018
 # -------------------------------------------------------------------
+
+# Set gloval vars
+setGlobalVars.initialize()
 
 # Path data
 pathClass = pathInfo('default', startPoint, endPoint)
@@ -57,13 +61,13 @@ else:
     fHandle = -1
     fileName = ''
 
-writeToFileCost = True
-if writeToFileCost == True:
+debug = True
+if debug == True:
+    globalVars.writeToFileCost = True
     fileNameCost = 'logFileCost.txt'
-    import os.path
-    #if os.path.isfile(fileNameCost) == True:
-    #    os.remove('logFileCost.txt') # remove previous file
-    fHandleCost = open(fileName, 'w') # file to append cost (see nlp.py > objective function)
+    if os.path.isfile(fileNameCost) == True:
+        os.remove('logFileCost.txt') # remove previous file
+    fHandleCost = open(fileNameCost, 'a') # file to append cost (see nlp.py > objective function)
 else:
     fHandleCost = -1
     fileNameCost = ''
@@ -98,7 +102,7 @@ while mpciter < mpciterations:
     tStart = time.time()
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                              obstacle, posIdx, ncons_option, V_cmd,
-                                             writeToFileCost, fHandleCost)
+                                             fHandleCost)
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
@@ -114,6 +118,10 @@ while mpciter < mpciterations:
         x[mpciter, k] = xmeasure[k]
     for j in range(nu):
         u[mpciter, j] = u_new[0,j]
+
+    # change flag (global variable) to write cost breakdown in nlp.py
+    if debug is True:
+        writeToFileCost = True
 
     # apply control
     tmeasure, xmeasure = applyControl(T, t0, x0, u_new)
@@ -141,13 +149,16 @@ while mpciter < mpciterations:
         t_slowDown = tmeasure
         t_slowDown_detected = True
 
+    # reset global variable to write cost breakdown in nlp.py
+    globalVars.writeToFileCost = True
+
     mpciter = mpciter + 1
 
 # close log file
 if writeToFile == True:
     fHandle.close()
 
-if writeToFileCost == True:
+if debug == True:
     fHandleCost.close()
 
 rundate = datetime.datetime.now().strftime("%Y-%m-%d")

@@ -1,12 +1,12 @@
 import ipopt
 import probInfo as prob
 from problemData import *
-
+import globalVars
 
 class nlpProb(object):
 
     def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
-                 ns_option, V_cmd, writeToFileCost, fHandleCost = None):
+                 ns_option, V_cmd, fHandleCost = None):
         self.N = N
         self.T = T
         self.t0 = t0
@@ -18,7 +18,6 @@ class nlpProb(object):
         self.posIdx = posIdx
         self.ns_option = ns_option
         self.V_cmd = V_cmd
-        self.writeToFileCost = writeToFileCost
         self.fHandleCost = fHandleCost
         pass
 
@@ -32,7 +31,6 @@ class nlpProb(object):
         obstacle = self.obstacle
         posIdx = self.posIdx
         V_cmd = self.V_cmd
-        writeToFileCost = self.writeToFileCost
         fHandleCost = self.fHandleCost
 
         x = prob.computeOpenloopSolution(u, N, T, t0, x0)
@@ -40,7 +38,7 @@ class nlpProb(object):
 
         for k in range(N):
             uk = np.array([u[k],u[k+N]])
-            costout = prob.runningCosts( uk, x[k], t0 + k*T, path, obstacle, posIdx, V_cmd)
+            costout = prob.runningCosts(uk, x[k], t0 + k*T, path, obstacle, posIdx, V_cmd)
             costvec[k] = costout[0]     # V
             costvec[k+N] = costout[1]   # Vdot or Vddot
             costvec[k+2*N] = costout[2] # Chidot or Chiddot
@@ -51,12 +49,16 @@ class nlpProb(object):
 
         cost = np.sum(costvec)
 
-        if writeToFileCost == True:
+        if x[0,1] > 75:
+            None
+
+        if globalVars.writeToFileCost == True:
             for k in range(3*N):
                 fHandleCost.write('%.2f ' %(costvec[k]) )
             fHandleCost.write('%.2f ' % (costvec[3*N]))
             fHandleCost.write('%.2f ' % (costvec[3*N+1]))
             fHandleCost.write('\n')
+            globalVars.writeToFileCost = False
 
         return cost
 
@@ -251,7 +253,6 @@ class nlpProb(object):
         posIdx = self.posIdx
         ns_option = self.ns_option
         V_cmd = self.V_cmd
-        writeToFileCost = self.writeToFileCost
         fHandleCost = self.fHandleCost
 
         LARGE_NO = 1e12
@@ -370,7 +371,7 @@ class nlpProb(object):
             m=len(cl),
             problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
                                 obstacle, posIdx, ns_option, V_cmd,
-                                writeToFileCost, fHandleCost),
+                                fHandleCost),
             lb=lb,
             ub=ub,
             cl=cl,

@@ -458,7 +458,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     plt.ylabel('N [ft]')
     plt.xlabel('E [ft]')
     plt.axis('equal')
-    plt.grid('True')
+    plt.grid('on')
 
     # if no != 0 and T == 0.4:
     #     if no == 1:
