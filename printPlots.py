@@ -73,18 +73,20 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
                 Nc = obstacle.N[k]
                 W = obstacle.w[k]
                 L = obstacle.l[k]
-                Theta = obstacle.Chi[k]
+                Theta = -obstacle.Chi[k]
                 fc = "red"
                 polygon_obstacle = getPatch(Ec, Nc, W, L, Theta, fc)
 
 
                 Ec = obstacle.E[k]
                 Nc = obstacle.N[k]
+                W = 2*obstacle.sr[k]
+                L = 2*obstacle.sr[k]
                 Theta = -obstacle.Chi[k]
                 fc = "green"
                 #polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
                 #ellipse_safezone = patches.Ellipse((Ec,Nc), W, L, angle=Theta, fc=fc)
-                ellipse_safezone = patches.Ellipse((Ec, Nc), 2*obstacle.sr, 2*obstacle.sr, angle=Theta, fc=fc)
+                ellipse_safezone = patches.Ellipse((Ec, Nc), W, L, angle=Theta, fc=fc)
 
                 ax = plt.gca()
                 ax.add_patch(ellipse_safezone)
@@ -440,11 +442,13 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
                     Ec = obstacle.E[k]
                     Nc = obstacle.N[k]
+                    W = 2 * obstacle.sr[k]
+                    L = 2 * obstacle.sr[k]
                     Theta = -obstacle.Chi[k]
                     fc = "green"
                     # polygon_safezone = getPatch(Ec, Nc, W, L, Theta, fc)
                     # ellipse_safezone = patches.Ellipse((Ec,Nc), W, L, angle=Theta, fc=fc)
-                    ellipse_safezone = patches.Ellipse((Ec, Nc), 2 * obstacle.sr, 2 * obstacle.sr, angle=Theta, fc=fc)
+                    ellipse_safezone = patches.Ellipse((Ec, Nc),W, L, angle=Theta, fc=fc)
 
                     ax = plt.gca()
                     ax.add_patch(ellipse_safezone)
@@ -673,7 +677,7 @@ def plotSavedData(inFile, pathObjArray, delim, header=False):
 
     suffix = inFile[7:]
     settingsFile = 'settings' + suffix
-    nmpcPlot(t, x.T, u.T, path, obstacle, cpuTime, VTerminal, latAccel, delChi, settingsFile, pathObjArray)
+    nmpcPlot(t, x.T, u.T, path, obstacle, cpuTime, VTerminal, latAccel, delChi, settingsFile, pathObjArray,10)
 
     f.close()
 

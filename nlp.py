@@ -206,8 +206,8 @@ class nlpProb(object):
                     # else:
                     #     consObstacle = [-1]
 
-                    consObstacle = np.sqrt([(obstacle.E[0]-position[0])**2 +
-                                            (obstacle.N[0]-position[1])**2])
+                    consObstacle = np.sqrt([(obstacle.E[j]-position[0])**2 +
+                                            (obstacle.N[j]-position[1])**2])
 
                     consObstacleAll = np.concatenate([consObstacleAll, consObstacle])
                     # consObstacle > 0, if vehicle (point object) is outside rectangle)

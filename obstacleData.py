@@ -39,7 +39,7 @@ def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWid
 
                 theta = -obstacleChi[k]
 
-                ERot_array, NRot_array = rotateRectangle(obstacleE, obstacleN, E_array, N_array, theta)
+                ERot_array, NRot_array = rotateRectangle(obstacleE[k], obstacleN[k], E_array, N_array, theta)
 
                 E_corners[k] = ERot_array
                 N_corners[k] = NRot_array

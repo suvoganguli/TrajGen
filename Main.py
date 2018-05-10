@@ -95,9 +95,6 @@ while mpciter < mpciterations:
     #  get new initial value
     t0, x0 = measureInitialValue(tmeasure, xmeasure)
 
-    # search for obstacle
-    detected = detectObstacle(x0, detectionWindow, obstacle)
-
     # solve optimal control problem
     tStart = time.time()
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
@@ -127,7 +124,7 @@ while mpciter < mpciterations:
     tmeasure, xmeasure = applyControl(T, t0, x0, u_new)
 
     # change V_cmd to 0 if close to goal
-    distGoal = distance(x0[0:2],endPoint)
+    #distGoal = distance(x0[0:2],endPoint)
 
     # prepare restart
     u0 = shiftHorizon(N, u_new)
@@ -153,6 +150,9 @@ while mpciter < mpciterations:
     globalVars.writeToFileCost = True
 
     mpciter = mpciter + 1
+
+    if mpciter >= 10:
+        None
 
 # close log file
 if writeToFile == True:

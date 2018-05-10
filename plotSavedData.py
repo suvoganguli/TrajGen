@@ -164,9 +164,9 @@ elif mode == 1:
         #              'logFile_N04_Tp4_ns4_no2.txt'
         #              ]
 
-        dirNames = ['run_2018-03-16']   # V_cmd = 5 mph
+        dirNames = ['run_2018-05-10_two_obstacles']   # V_cmd = 5 mph
 
-        fileNames = ['logFile_N04_Tp4_ns4_no1_Popup.txt'
+        fileNames = ['logFile_N08_Tp4_ns4_no2_Popup.txt'
                      ]
 
 
@@ -175,14 +175,14 @@ elif mode == 1:
         V_cmd = np.zeros(n)
 
         for k in range(n):
-            file_tmp = dirNames[k] + '/' + 'settings_N04_Tp4_ns4_no1_Popup.txt' # used for varying V0 (V0=Vcmd)
+            file_tmp = dirNames[k] + '/' + 'settings_N08_Tp4_ns4_no2_Popup.txt' # used for varying V0 (V0=Vcmd)
             fileSettings.append(file_tmp)
 
             f = file(fileSettings[k], 'r')
             cols, indexToName = getColumns(f, delim=" ", header=False)
             V_cmd[k] = np.array(cols[12]).astype(np.float)
 
-    filePkl = dirNames[0] + '/' + 'pathDict_no1_Popup.pkl'  # used for path as a function of no
+    filePkl = dirNames[0] + '/' + 'pathDict_no2_Popup.pkl'  # used for path as a function of no
     pathObjArray = loadpkl(filePkl)
     pathObjArray[0]['V_cmd'] = V_cmd  # V_cmd is stored for information only
 
