@@ -188,8 +188,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
         plt.subplot(212)
         plt.plot(t, u[:, [0]])  # Vdot
-        plt.plot(t, lb_VdotVal*np.ones(t.shape),linestyle='--', color='r')
-        plt.plot(t, ub_VdotVal*np.ones(t.shape), linestyle='--', color='r')
+        plt.plot(t, pdata.lb_VdotVal*np.ones(t.shape),linestyle='--', color='r')
+        plt.plot(t, pdata.ub_VdotVal*np.ones(t.shape), linestyle='--', color='r')
         plt.grid(True)
 
         plt.ylabel('Vdot [fps2]')
@@ -209,8 +209,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
         plt.subplot(212)
         plt.plot(t, u[:, [1]]*180/np.pi)
-        plt.plot(t, lb_ChidotVal*np.ones(t.shape)*180/np.pi,linestyle='--', color='r')
-        plt.plot(t, ub_ChidotVal*np.ones(t.shape)*180/np.pi, linestyle='--', color='r')
+        plt.plot(t, pdata.lb_ChidotVal*np.ones(t.shape)*180/np.pi,linestyle='--', color='r')
+        plt.plot(t, pdata.ub_ChidotVal*np.ones(t.shape)*180/np.pi, linestyle='--', color='r')
 
         plt.ylabel('Chidot [deg/s]')
         plt.xlabel('t [sec]')
@@ -225,16 +225,16 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
         plt.subplot(211)
         plt.plot(t, latAccel)
         if useLatAccelCons == 1:
-            plt.plot(t, lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
-            plt.plot(t, -lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
+            plt.plot(t, pdata.lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
+            plt.plot(t, -pdata.lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
 
         plt.ylabel('Lat Accel [g]')
         plt.grid(True)
 
         plt.subplot(212)
         plt.plot(t, delChi)
-        plt.plot(t, delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
-        plt.plot(t, -delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t, pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t, -pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
         plt.ylabel('delChi [deg]')
         plt.xlabel('t [sec]')
         plt.grid(True)
@@ -301,15 +301,15 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
         plt.subplot(211)
         plt.plot(t, u[:,0])
-        plt.plot(t, lb_VddotVal*np.ones(t.shape),linestyle='--', color='r')
-        plt.plot(t, ub_VddotVal*np.ones(t.shape), linestyle='--', color='r')
+        plt.plot(t, pdata.lb_VddotVal*np.ones(t.shape),linestyle='--', color='r')
+        plt.plot(t, pdata.ub_VddotVal*np.ones(t.shape), linestyle='--', color='r')
         plt.ylabel('Vddot [fps3]')
         plt.grid(True)
 
         plt.subplot(212)
         plt.plot(t, u[:,1]*180/np.pi)
-        plt.plot(t, lb_ChiddotVal*np.ones(t.shape)*180/np.pi,linestyle='--', color='r')
-        plt.plot(t, ub_ChiddotVal*np.ones(t.shape)*180/np.pi, linestyle='--', color='r')
+        plt.plot(t, pdata.lb_ChiddotVal*np.ones(t.shape)*180/np.pi,linestyle='--', color='r')
+        plt.plot(t, pdata.ub_ChiddotVal*np.ones(t.shape)*180/np.pi, linestyle='--', color='r')
         plt.ylabel('Chiddot [deg/s2]')
         plt.xlabel('t [sec]')
         plt.grid(True)
@@ -324,8 +324,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
         plt.subplot(211)
         plt.plot(t, latAccel)
         if useLatAccelCons == 1:
-            plt.plot(t, lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
-            plt.plot(t, -lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
+            plt.plot(t, pdata.lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
+            plt.plot(t, -pdata.lataccel_maxVal*np.ones(t.shape)/32.2, linestyle='--', color='r')
 
         plt.ylabel('Lat Accel [g]')
         plt.grid(True)
@@ -334,8 +334,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
         plt.subplot(212)
         plt.plot(t, delChi)
-        plt.plot(t, delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
-        plt.plot(t, -delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t, pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t, -pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
         plt.ylabel('delChi [deg]')
         plt.xlabel('t [sec]')
         plt.grid(True)
@@ -357,10 +357,13 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     figno[7] = plt.gcf().number
     plt.plot(t, V_terminal)
     if ncons_option != 3:
-        plt.plot(t1, lb_V * np.ones(t1.shape), linestyle='--', color='r')
-        plt.plot(t1, ub_V * np.ones(t1.shape), linestyle='--', color='r')
+        lb_Vterm = pdata.V0 - pdata.delta_V
+        ub_Vterm = pdata.V0 + pdata.delta_V
+
+        plt.plot(t1, lb_Vterm * np.ones(t1.shape), linestyle='--', color='r')
+        plt.plot(t1, ub_Vterm * np.ones(t1.shape), linestyle='--', color='r')
         plt.plot(t2, 0 * np.ones(t2.shape), linestyle='--', color='r')
-        plt.plot(t2, ub_V * np.ones(t2.shape), linestyle='--', color='r')
+        plt.plot(t2, pdata.ub_V * np.ones(t2.shape), linestyle='--', color='r')
 
     plt.ylabel('V-terminal [fps]')
     plt.xlabel('time [sec]')
@@ -427,14 +430,13 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
             nObs = len(ObstacleE)
             if nObs > 0:
                 for k in range(nObs):
-
-                    Efc = ObstacleE[k] + PathWidth/2
-                    Nfc = ObstacleN[k]
-                    W = ObstacleW[k] - PathWidth
-                    L = ObstacleL[k]
-                    Theta = ObstacleChi[k]
+                    Ec = obstacle.E[k]
+                    Nc = obstacle.N[k]
+                    W = obstacle.w[k]
+                    L = obstacle.l[k]
+                    Theta = obstacle.Chi[k]
                     fc = "red"
-                    polygon_obstacle = getPatch(Efc, Nfc, W, L, Theta, fc)
+                    polygon_obstacle = getPatch(Ec, Nc, W, L, Theta, fc)
 
                     Ec = obstacle.E[k]
                     Nc = obstacle.N[k]

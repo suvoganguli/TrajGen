@@ -24,11 +24,7 @@ def pathInitData(case, startPoint, endPoint, pathWidth, obstacle = None, grid = 
 
         dE = endPoint[0] - startPoint[0]
         dN = endPoint[1] - startPoint[1]
-
-        if dN != 0:
-            Chi = np.arctan(dE/dN)  # (road chi is w.r.t +North axis)
-        else:
-            Chi = np.sign(dN)*np.pi/2
+        Chi = np.arctan2(dE,dN)  # (road chi is w.r.t +North axis)
 
         npts = nPathSections + 1
         pathChi = Chi *  np.ones(npts)
@@ -161,10 +157,8 @@ def pathInitData(case, startPoint, endPoint, pathWidth, obstacle = None, grid = 
         for k in range(len(pathSectionLengths)):
             dE = pathE[k+1] - pathE[k]
             dN = pathN[k+1] - pathN[k]
-            if dN != 0:
-                pathChi[k] = np.arctan(dE / dN)  # (road chi is w.r.t +North axis)
-            else:
-                pathChi[k] = np.sign(dN) * np.pi / 2
+            pathChi[k] = np.arctan2(dE, dN)  # (road chi is w.r.t +North axis)
+
             pathSectionLengths[k] = np.sqrt(dE**2 + dN**2)
 
         # Set the last point heading as that of the previous point

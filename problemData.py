@@ -51,7 +51,7 @@ ns = 4
 no = 1
 V0 = 10*mph2fps
 
-lb_distGoal = 50 # ft
+lb_distGoal = 25 # ft
 
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
@@ -121,10 +121,10 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
     if no == 1:
         if N == 4:
             if ns == 4:
-                mpciterations = 36/sf_T  # 36
+                mpciterations = 60/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 45/sf_T  # 34
+                mpciterations = 80/sf_T  # 34
         if N == 8:
             if ns == 4:
                 mpciterations = 32/sf_T  # 32
@@ -207,19 +207,19 @@ if ns == 4:
     x0 = [E0, N0, V0, Chi0]  # E, N, V, Chi, Vdot, Chidot
 
     lb_VdotVal = -2  # fps3
-    ub_VdotVal = 2  # fps3
-    lb_ChidotVal = -30 * np.pi / 180  # rad/s2
-    ub_ChidotVal = 30 * np.pi / 180  # rad/s2
+    ub_VdotVal = 2 # fps3
+    lb_ChidotVal = -30 * np.pi / 180 # rad/s2
+    ub_ChidotVal = 30 * np.pi / 180 # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
     useLatAccelCons = 1
-    lb_V = 0.8 * V0
-    ub_V = 1.2 * V0
+    lb_V = 0.8 * V0 # not used for ncons_option = 2
+    ub_V = 1.2 * V0 # not used for ncons_option = 2
     delChi_max = 30 * np.pi / 180
 
     # Tracking Tuning and Data
     W_P = 0.0
-    W_V = 10.0
-    W_Vdot = 1.0
+    W_V = 10.0 *0
+    W_Vdot = 1.0 *0
     W_Chidot = 1
     W_gDist = 1e-4
     W_gChi = 1e-3
@@ -227,8 +227,8 @@ if ns == 4:
     V_cmd = V0  # fps
 
     # Terminal constraint
-    delta_yRoad = 0.1*5  # ft
-    delta_V = 1 * mph2fps  # fps
+    delta_yRoad = 0.1*5  # ft # is this used?
+    delta_V = 1 * mph2fps # fps
 
     # Path parameters
     pathWidth = 5.0 # ft
@@ -252,8 +252,8 @@ elif ns == 6:
     ub_ChiddotVal = 20*np.pi/180 # rad/s2
     lataccel_maxVal = 0.25*32.2 # fps2
     useLatAccelCons = 1
-    lb_V = 0.8*V0
-    ub_V = 1.2*V0
+    lb_V = 0.8*V0 # not used for ncons_option = 2
+    ub_V = 1.2*V0 # not used for ncons_option = 2
     delChi_max = 10 * np.pi / 180
 
     # Tracking Tuning and Data
@@ -291,7 +291,7 @@ if no == 0:
 
 elif no == 1:
 
-    obstacleE = np.array([7.0 + 0.5]) * scaleFactorE # ft, center
+    obstacleE = np.array([7.0]) * scaleFactorE # ft, center
     obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
