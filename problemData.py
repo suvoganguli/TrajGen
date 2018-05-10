@@ -303,8 +303,8 @@ elif no == 2:
     obstacleE = np.array([6.0, 22.0]) * scaleFactorE # ft, left-bottom
     obstacleN = np.array([31.0, 63.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([6.0, 6.0]) * scaleFactorE # ft
+    obstacleLength = np.array([4.0, 4.0*2]) * scaleFactorN # ft
+    obstacleWidth = np.array([6.0, 6.0*2]) * scaleFactorE # ft
 
     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
