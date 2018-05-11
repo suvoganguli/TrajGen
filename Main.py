@@ -23,6 +23,8 @@ import globalVars, setGlobalVars
 # 01/25/2018
 # -------------------------------------------------------------------
 
+print('increase velocity weight to get smoother plots')
+
 # Set gloval vars
 setGlobalVars.initialize()
 
