@@ -1,10 +1,10 @@
-To Do
+imTo Do
 =====
 
-Apr 24, 2018
+May 14, 2014
 
-1. Change the following:
-        cl_running = np.concatenate([-100*np.ones(N), 0*np.ones(N)])
-        cu_running = np.concatenate([ 0*np.ones(N), 100*np.ones(N)])
-
-2. Make correction for obstacle chi
+1. Find a criteria to justify max-iter = 20
+2. Read about IPOPT
+3. What happens if obstacle is symmetrically located w.r.t. starting point
+4. How to maneuver in hallways.
+5. Showcase MPC advantage

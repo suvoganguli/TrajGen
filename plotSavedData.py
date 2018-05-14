@@ -164,10 +164,11 @@ elif mode == 1:
         #              'logFile_N04_Tp4_ns4_no2.txt'
         #              ]
 
-        dirNames = ['run_2018-05-14']   # V_cmd = 5 mph
+        dirNames = ['run_2018-05-14_maxiter20',
+                    'run_2018-05-14_maxiter1000']   # V_cmd = 10 mph
 
-        fileNames = ['logFile_N08_Tp4_ns4_no2_NoPopup.txt'
-                     ]
+        fileNames = ['logFile_N08_Tp4_ns4_no2_NoPopup.txt',
+                     'logFile_N08_Tp4_ns4_no2_NoPopup.txt']
 
 
         n = len(dirNames)

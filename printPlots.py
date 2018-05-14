@@ -503,7 +503,7 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
     idx_lataccel = 0
     idx_Vterm = 1
     idx_delChi = 2
-    idx_obstacle = 3
+    #idx_obstacle = 3 to end
 
     g1 = g[idx_lataccel]/32.2 # g
     g2 = g[idx_delChi] * 180/np.pi # ft
@@ -551,6 +551,8 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
         status_msg_short = "Max-Iter"
     elif status == 5:
         status_msg_short = "User-Stop"
+    elif status == -2:
+        status_msg_short = "Restoration-Phase"
     elif status == -13:
         status_msg_short = "Algorithm-Received"
     else:

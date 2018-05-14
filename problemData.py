@@ -48,7 +48,7 @@ sf_T = 1
 N = 8
 T = 0.4*sf_T
 ns = 4
-no = 2
+no = 7
 V0 = 10*mph2fps
 
 lb_distGoal = 35 # ft
@@ -128,7 +128,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 80/sf_T  # 34
         if N == 8:
             if ns == 4:
-                mpciterations = 32/sf_T  # 32
+                mpciterations = 80/sf_T  # 32
             elif ns == 6:
                 mpciterations = 32/sf_T
 
@@ -146,10 +146,19 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 20 = wider dy with V terminal constraint, stops
         if N == 8:
             if ns == 4:
-                mpciterations = 3 / sf_T  # 32
+                mpciterations = 80 / sf_T  # 32
             elif ns == 6:
                 mpciterations = 32 / sf_T
 
+    elif no == 5:
+        if N == 8:
+            if ns == 4:
+                mpciterations = 80 / sf_T  # 32
+
+    elif no == 7:
+        if N == 8:
+            if ns == 4:
+                mpciterations = 80 / sf_T  # 32
 
 elif abs(V0 - 15*mph2fps) <= 10**(-3):
 
@@ -198,7 +207,6 @@ if ns == 4:
     # Ipopt settings
     nlpMaxIter = 20
 
-
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
     N0 = startPoint[1]  # ft (East, lat)
@@ -210,18 +218,26 @@ if ns == 4:
     lb_ChidotVal = -30 * np.pi / 180 # rad/s2
     ub_ChidotVal = 30 * np.pi / 180 # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
-    useLatAccelCons = 0
+    useLatAccelCons = 1
     lb_V = 0.8 * V0 # not used for ncons_option = 2
     ub_V = 1.2 * V0 # not used for ncons_option = 2
     delChi_max = 30 * np.pi / 180
 
     # Tracking Tuning and Data
+    # W_P = 0.0
+    # W_V = 10.0
+    # W_Vdot = 50
+    # W_Chidot = 1
+    # W_gDist = 1e-3
+    # W_gChi = 1e-2*100
+
     W_P = 0.0
-    W_V = 10.0
-    W_Vdot = 1*10
+    W_V = 100.0
+    W_Vdot = 50
     W_Chidot = 1
-    W_gDist = 1e-3
-    W_gChi = 1e-2*100
+    W_gDist = 0.01
+    W_gChi = 1
+
 
     V_cmd = V0  # fps
 
@@ -290,11 +306,20 @@ if no == 0:
 
 elif no == 1:
 
+    # obstacleE = np.array([7.0]) * scaleFactorE # ft, center
+    # obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, center
+    # obstacleChi = np.array([0.0])  # rad
+    # obstacleLength = np.array([4.0]) * scaleFactorN # ft
+    # obstacleWidth = np.array([6.0]) * scaleFactorE # ft
+
+
     obstacleE = np.array([7.0]) * scaleFactorE # ft, center
-    obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, center
+    obstacleN = np.array([63]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
-    obstacleLength = np.array([4.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([6.0]) * scaleFactorE # ft
+    obstacleLength = np.array([20]) * scaleFactorN # ft
+    obstacleWidth = np.array([40]) * scaleFactorE # ft
+
+
 
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
@@ -310,6 +335,31 @@ elif no == 2:
     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+
+# elif no == 5:
+#     obstacleE = np.array([]) * scaleFactorE # ft, left-bottom
+#     obstacleN = np.array([31.0, 54.0, 63.0, 75.0, 100.0]) * scaleFactorN # ft, left-bottom
+#     obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+#     obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
+#     obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
+#
+#     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+#     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+#     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+
+elif no == 7:
+    obstacleE = np.array([8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE # ft, left-bottom
+    obstacleN = np.array([25.0, 40.0, 55.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN # ft, left-bottom
+    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+    obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
+    obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
+
+    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
 
 # ------------------------------------------------------------
 
