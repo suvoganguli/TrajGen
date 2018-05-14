@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/CPUtime_N08_Tp4_ns4_no2_NoPopup.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/Chi-Chidot_N08_Tp4_ns4_no2_NoPopup.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/E-N_N08_Tp4_ns4_no2_NoPopup.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/LatAccel-dy_N08_Tp4_ns4_no2_NoPopup.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/V-Vdot_N08_Tp4_ns4_no2_NoPopup.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/V-terminal_N08_Tp4_ns4_no2_NoPopup.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/logFile_N08_Tp4_ns4_no2_NoPopup.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/pathDict_no2_NoPopup.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/pathDict_no2_NoPopup_b.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/path_N08_Tp4_ns4_no2_NoPopup_After.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/path_N08_Tp4_ns4_no2_NoPopup_Before.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-05-14/settings_N08_Tp4_ns4_no2_NoPopup.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/To Do" afterPath="$PROJECT_DIR$/To Do" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFile.txt" afterPath="$PROJECT_DIR$/logFile.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCost.txt" afterPath="$PROJECT_DIR$/logFileCost.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plotSavedData.py" afterPath="$PROJECT_DIR$/plotSavedData.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/printPlots.py" afterPath="$PROJECT_DIR$/printPlots.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problemData.py" afterPath="$PROJECT_DIR$/problemData.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.txt" afterPath="$PROJECT_DIR$/settings.txt" />
-    </list>
+    <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
