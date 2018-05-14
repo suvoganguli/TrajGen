@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from utils import *
 
-def createPlots(mode, pathObjArray = None, dirNames = None, fileNames=None):
+def createPlots(mode, pathObjArray = None, obstacle = None, dirNames = None, fileNames=None):
     # mode = 0 : get input from user
     # mode = 1 : use hardcoded files
 
@@ -48,7 +48,7 @@ def createPlots(mode, pathObjArray = None, dirNames = None, fileNames=None):
             os.chdir(dirNames[k])
 
             fileName = fileNames[k]
-            cpuMeanTime[k] = printPlots.plotSavedData(fileName, pathObjArray, delim=" ", header=False)
+            cpuMeanTime[k] = printPlots.plotSavedData(fileName, pathObjArray, obstacle, delim=" ", header=False)
             noVec[k] = np.array(fileName[22]).astype(np.int)
             NVec[k] = np.array(fileName[9:11]).astype(np.int)
             TVec[k] = np.array(fileName[14]).astype(np.float)/10
@@ -164,9 +164,9 @@ elif mode == 1:
         #              'logFile_N04_Tp4_ns4_no2.txt'
         #              ]
 
-        dirNames = ['run_2018-05-10_two_obstacles']   # V_cmd = 5 mph
+        dirNames = ['run_2018-05-14']   # V_cmd = 5 mph
 
-        fileNames = ['logFile_N08_Tp4_ns4_no2_Popup.txt'
+        fileNames = ['logFile_N08_Tp4_ns4_no2_NoPopup.txt'
                      ]
 
 
@@ -175,18 +175,21 @@ elif mode == 1:
         V_cmd = np.zeros(n)
 
         for k in range(n):
-            file_tmp = dirNames[k] + '/' + 'settings_N08_Tp4_ns4_no2_Popup.txt' # used for varying V0 (V0=Vcmd)
+            file_tmp = dirNames[k] + '/' + 'settings_N08_Tp4_ns4_no2_NoPopup.txt' # used for varying V0 (V0=Vcmd)
             fileSettings.append(file_tmp)
 
             f = file(fileSettings[k], 'r')
             cols, indexToName = getColumns(f, delim=" ", header=False)
             V_cmd[k] = np.array(cols[12]).astype(np.float)
 
-    filePkl = dirNames[0] + '/' + 'pathDict_no2_Popup.pkl'  # used for path as a function of no
-    pathObjArray = loadpkl(filePkl)
+    filePkl = dirNames[0] + '/' + 'pathDict_no2_NoPopup.pkl'  # used for path as a function of no
+
+    fileObject = open(filePkl, 'r')
+    pathObjArray, obstacleDict = loadpkl(filePkl)
     pathObjArray[0]['V_cmd'] = V_cmd  # V_cmd is stored for information only
 
-    createPlots(mode, pathObjArray, dirNames, fileNames)
+    obstacle = obstacleClassInstance_from_Dict(obstacleDict)
+    createPlots(mode, pathObjArray, obstacle, dirNames, fileNames)
 
     dummy = raw_input('Press Enter to Continue: ')
 

@@ -49,9 +49,9 @@ class nlpProb(object):
 
         cost = np.sum(costvec)
 
-        if x[0,1] > 75:
-            None
 
+        # write data once for analysis later using a global variable. other mentioned can be developed to not use the
+        # global variable - but this was the least intrusive way of adding the functionality
         if globalVars.writeToFileCost == True:
             for k in range(3*N):
                 fHandleCost.write('%.2f ' %(costvec[k]) )

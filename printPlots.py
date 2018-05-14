@@ -617,7 +617,7 @@ def savePlots(dirname,figno):
     os.chdir(oldpwd)
 
 
-def plotSavedData(inFile, pathObjArray, delim, header=False):
+def plotSavedData(inFile, pathObjArray, obstacle, delim, header=False):
 
     f = file(inFile, 'r')
     T = np.array(inFile[14]).astype(np.int)
@@ -639,7 +639,7 @@ def plotSavedData(inFile, pathObjArray, delim, header=False):
         u[1] = np.array(cols[5]).astype(np.float)
 
         path = None
-        obstacle = None
+        #obstacle = None
 
         latAccel = np.array(cols[6]).astype(np.float)
         delChi = np.array(cols[7]).astype(np.float)
@@ -666,7 +666,7 @@ def plotSavedData(inFile, pathObjArray, delim, header=False):
         u[1] = np.array(cols[7]).astype(np.float)
 
         path = None
-        obstacle = None
+        #obstacle = None
 
         latAccel = np.array(cols[8]).astype(np.float)
         delChi = np.array(cols[9]).astype(np.float)

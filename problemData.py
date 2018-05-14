@@ -51,7 +51,8 @@ ns = 4
 no = 2
 V0 = 10*mph2fps
 
-lb_distGoal = 25 # ft
+lb_distGoal = 35 # ft
+lb_reachedGoal = 10 # ft
 
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
@@ -145,7 +146,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 36/sf_T  # 20 = wider dy with V terminal constraint, stops
         if N == 8:
             if ns == 4:
-                mpciterations = 45 / sf_T  # 32
+                mpciterations = 3 / sf_T  # 32
             elif ns == 6:
                 mpciterations = 32 / sf_T
 
@@ -217,10 +218,10 @@ if ns == 4:
     # Tracking Tuning and Data
     W_P = 0.0
     W_V = 10.0
-    W_Vdot = 1.0
+    W_Vdot = 1*10
     W_Chidot = 1
     W_gDist = 1e-3
-    W_gChi = 1e-2
+    W_gChi = 1e-2*100
 
     V_cmd = V0  # fps
 
@@ -442,12 +443,14 @@ rundate = datetime.datetime.now().strftime("%Y-%m-%d")
 rundir = './run_' + rundate + '/'
 distutils.dir_util.mkpath(rundir)
 
+suffix_Popup_NoPopup = '_NoPopup'
+
 if N < 10:
     suffix = '_N0' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 else:
     suffix = '_N' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 
-suffix = suffix + '_Popup'
+suffix = suffix + suffix_Popup_NoPopup
 
 dst_file = rundir + 'settings' + suffix + '.txt'
 shutil.copyfile('settings.txt', dst_file)

@@ -340,10 +340,14 @@ def getColumns(inFile, delim=" ", header=True):     # delim="\t"
 
     return cols, indexToName
 
+# def savepkl(obj, file_pkl):
+#     with open(file_pkl, 'wb') as f:
+#         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+#         #pickle.dump(obj, f, pickle.0)
+
 def savepkl(obj, file_pkl):
     with open(file_pkl, 'wb') as f:
-        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
-        #pickle.dump(obj, f, pickle.0)
+        pickle.dump(obj, f)
 
 def loadpkl(file_pkl):
     with open(file_pkl, 'rb') as f:
@@ -398,13 +402,37 @@ def addCurrentPointToPath(path, startPoint, Chi):
     return path
 
 
-# def scalePath(path, sf_E, sf_N):
-#     path.pathData.E = path.pathData.E * sf_E
-#     path.pathData.N = path.pathData.N * sf_N
-#     path.pathData.PathCenterEndPointsE = path.pathData.PathCenterEndPointsE * sf_E
-#     path.pathData.PathCenterEndPointsN = path.pathData.PathCenterEndPointsN * sf_N
-#     path.pathData.PathLeftEndPointsE = path.pathData.PathLeftEndPointsE * sf_E
-#     path.pathData.PathLeftEndPointsN = path.pathData.PathLeftEndPointsN * sf_N
-#     path.pathData.PathRightEndPointsE = path.pathData.PathRightEndPointsE * sf_E
-#     path.pathData.PathRightEndPointsN = path.pathData.PathRightEndPointsN * sf_N
-#     path.pathData.PathStartPoint
+def obstacleDict_from_ClassInstance(obstacleClassInstance):
+    obstacle = {
+        'Present' : obstacleClassInstance.Present,
+        'N': obstacleClassInstance.N,
+        'E': obstacleClassInstance.E,
+        'Chi': obstacleClassInstance.Chi,
+        'N_array': obstacleClassInstance.N_array,
+        'E_array': obstacleClassInstance.E_array,
+        'w': obstacleClassInstance.w,
+        'l': obstacleClassInstance.l,
+        'sw': obstacleClassInstance.sw,
+        'sl': obstacleClassInstance.sl,
+        'sr': obstacleClassInstance.sr,
+    }
+    return obstacle
+
+def obstacleClassInstance_from_Dict(obstacleDist):
+
+    import obstacleData as od
+
+    obstaclePresent = obstacleDist['Present']
+    obstacleE       = obstacleDist['E']
+    obstacleN       = obstacleDist['N']
+    obstacleChi     = obstacleDist['Chi']
+    obstacleWidth   = obstacleDist['w']
+    obstacleLength  = obstacleDist['l']
+    obstacleSafeWidth  = obstacleDist['sw']
+    obstacleSafeLength = obstacleDist['sl']
+    obstacleSafeRadius = obstacleDist['sr']
+
+    obstacleClass = od.obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength,
+                             obstacleSafeWidth, obstacleSafeLength, obstacleSafeRadius)
+    obstacle = obstacleClass()
+    return obstacle

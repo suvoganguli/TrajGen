@@ -1,3 +1,0 @@
-
-def initialize():
-    writeToFile = False

@@ -7,7 +7,7 @@ import printPlots
 import time, datetime
 import shutil, distutils.dir_util
 import os, os.path
-import globalVars, setGlobalVars
+import globalVars
 
 # -------------------------------------------------------------------
 # Main.py lets the user run different test cases for Model
@@ -24,9 +24,6 @@ import globalVars, setGlobalVars
 # -------------------------------------------------------------------
 
 print('increase velocity weight to get smoother plots')
-
-# Set gloval vars
-setGlobalVars.initialize()
 
 # Path data
 pathClass = pathInfo('default', startPoint, endPoint)
@@ -86,6 +83,7 @@ posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
 # Specify Booleans
 saveData = True
 plotData = True
+trimVals = False
 
 # Create array of paths
 pathObj = makePathObj(pdata, path, obstacle)
@@ -137,6 +135,7 @@ while mpciter < mpciterations:
 
     # stop vehicle when close to the goal
     x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), N, T, t0, x0)
+    current_point = x_mpciter[0, 0:2]
     terminal_point = x_mpciter[-1, 0:2]
 
     # slow down V_cmd near goal
@@ -153,8 +152,25 @@ while mpciter < mpciterations:
 
     mpciter = mpciter + 1
 
-    if mpciter >= 10:
-        None
+    if (distance(current_point, endPoint) < lb_reachedGoal):
+        trimVals = True
+        mpciterations = mpciter - 1
+        break
+
+
+
+if trimVals is True:
+    mpciterations = mpciter
+    tElapsed = tElapsed[0:mpciterations-1]
+    VTerminal = VTerminal[0:mpciterations-1]
+    latAccel = latAccel[0:mpciterations-1]
+    delChi = delChi[0:mpciterations-1]
+
+    t = t[0:mpciterations-1, :]
+    x = x[0:mpciterations-1, :]
+    u = u[0:mpciterations-1, :]
+
+
 
 # close log file
 if writeToFile == True:
@@ -163,6 +179,7 @@ if writeToFile == True:
 if debug == True:
     fHandleCost.close()
 
+# start preparing for generating plots
 rundate = datetime.datetime.now().strftime("%Y-%m-%d")
 rundir = './run_' + rundate + '/'
 if N < 10:
@@ -170,8 +187,10 @@ if N < 10:
 else:
     suffix = '_N' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 
-suffix = suffix + '_Popup'
 
+suffix = suffix + suffix_Popup_NoPopup # suffix_Popup_NoPopup = '_NoPopup' set in problemData.py
+
+# start preparation for saving plots if required
 if saveData == True:
 
     distutils.dir_util.mkpath(rundir)
@@ -184,8 +203,12 @@ if saveData == True:
     plt.pause(0.01)
     fig.savefig(dst_fig)
 
-    file_pkl = rundir + 'pathDict_no' + str(no) + '_Popup' + '.pkl'
-    savepkl(pathObjArray, file_pkl)
+    obstacleDict = obstacleDict_from_ClassInstance(obstacle)
+    file_pkl = rundir + 'pathDict_no' + str(no) + suffix_Popup_NoPopup + '.pkl'
+    savepkl((pathObjArray, obstacleDict), file_pkl)
+
+    file_pkl2 = rundir + 'pathDict_no' + str(no) + suffix_Popup_NoPopup + '_b.pkl'
+    savepkl(obstacle, file_pkl2)
 
     print('saved data and figure')
 
