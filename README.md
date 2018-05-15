@@ -16,6 +16,8 @@ Updatd - 12 May, 2018
 
 _______________________________________________________________________________________________
 
+*The following approach does not use the Laplacian planner as an initializer
+
 ### circular_safezone: 
 - Works well - creates circular safezones around obstacles. 
 - May lead to conversatism for rectangular shapes.
