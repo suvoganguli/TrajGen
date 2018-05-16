@@ -48,7 +48,7 @@ sf_T = 1
 N = 8
 T = 0.4*sf_T
 ns = 4
-no = 5
+no = 1
 V0 = 10*mph2fps
 
 lb_distGoal = 35 # ft
@@ -125,10 +125,10 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 60/sf_T  # 36
         if N == 6:
             if ns == 4:
-                mpciterations = 80/sf_T  # 34
+                mpciterations = 60/sf_T  # 34
         if N == 8:
             if ns == 4:
-                mpciterations = 80/sf_T  # 32
+                mpciterations = 60/sf_T  # 32
             elif ns == 6:
                 mpciterations = 32/sf_T
 
@@ -205,7 +205,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 20
+    nlpMaxIter = 2000
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -218,25 +218,17 @@ if ns == 4:
     lb_ChidotVal = -30 * np.pi / 180 # rad/s2
     ub_ChidotVal = 30 * np.pi / 180 # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
-    useLatAccelCons = 1
+    useLatAccelCons = 0
     lb_V = 0.8 * V0 # not used for ncons_option = 2
     ub_V = 1.2 * V0 # not used for ncons_option = 2
-    delChi_max = 30 * np.pi / 180
-
-    # Tracking Tuning and Data
-    # W_P = 0.0
-    # W_V = 10.0
-    # W_Vdot = 50
-    # W_Chidot = 1
-    # W_gDist = 1e-3
-    # W_gChi = 1e-2*100
+    delChi_max = 360 * np.pi / 180
 
     W_P = 0.0
-    W_V = 100.0
-    W_Vdot = 50
-    W_Chidot = 1
-    W_gDist = 0.01
-    W_gChi = 1
+    W_V = 10.0
+    W_Vdot = 10.0*0
+    W_Chidot = 1*0
+    W_gDist = 1 # 0.01
+    W_gChi = 1.0*0  # 1
 
 
     V_cmd = V0  # fps
@@ -314,10 +306,10 @@ elif no == 1:
 
 
     obstacleE = np.array([7.0]) * scaleFactorE # ft, center
-    obstacleN = np.array([63]) * scaleFactorN # ft, center
+    obstacleN = np.array([63-25]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
-    obstacleLength = np.array([20]) * scaleFactorN # ft
-    obstacleWidth = np.array([40]) * scaleFactorE # ft
+    obstacleLength = np.array([10]) * scaleFactorN # ft
+    obstacleWidth = np.array([10]) * scaleFactorE # ft
 
 
 
