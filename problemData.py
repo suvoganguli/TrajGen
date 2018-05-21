@@ -30,7 +30,7 @@ grid = gridClass()
 
 # Start and End Points
 startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-endPoint = np.array([(7+0.1) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+endPoint = np.array([(7+0.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
 # Correction for new path generation with popup obstacle
 dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
@@ -51,8 +51,15 @@ ns = 4
 no = 1
 V0 = 10*mph2fps
 
-lb_distGoal = 35 # ft
-lb_reachedGoal = 10 # ft
+lb_distGoal = 10 # ft
+#lb_reachedGoal = 20-1 # ft
+
+decel = V0**2 / (2 * lb_distGoal) # fps2
+# t_stop = V0 / decel # sec
+# dist_stop = V0 * t_stop - 0.5 * decel * t_stop**2
+# print('Decel [fps2] = ' + str(decel))
+# print('T-stop [sec] = ' + str(t_stop))
+# print('Dist-stop [ft] = ' + str(dist_stop))
 
 if abs(V0 - 5*mph2fps) <= 10**(-3):
     if no == 0:
@@ -119,6 +126,16 @@ if abs(V0 - 5*mph2fps) <= 10**(-3):
 
 elif abs(V0 - 10*mph2fps) <= 10**(-3):
 
+    if no == 0:
+        if N == 4:
+            mpciterations = 35/sf_T # 35
+        elif N == 6:
+            mpciterations = 33/sf_T # 33
+        elif N == 8:
+            mpciterations = 31/sf_T # 31
+        elif N == 10:
+            mpciterations = 29/sf_T  # 29
+
     if no == 1:
         if N == 4:
             if ns == 4:
@@ -128,7 +145,7 @@ elif abs(V0 - 10*mph2fps) <= 10**(-3):
                 mpciterations = 60/sf_T  # 34
         if N == 8:
             if ns == 4:
-                mpciterations = 60/sf_T  # 32
+                mpciterations = 45/sf_T  # 32
             elif ns == 6:
                 mpciterations = 32/sf_T
 
@@ -185,6 +202,7 @@ N = int(N)
 mpciterations = int(mpciterations)
 
 
+
 # Number of states
 # ns = 2:
 #   x0 = E, x1 = N
@@ -213,29 +231,30 @@ if ns == 4:
     Chi0 = 0 * np.pi / 180  # rad
     x0 = [E0, N0, V0, Chi0]  # E, N, V, Chi, Vdot, Chidot
 
-    lb_VdotVal = -2  # fps3
+    lb_VdotVal = -6  # fps3
     ub_VdotVal = 2 # fps3
     lb_ChidotVal = -30 * np.pi / 180 # rad/s2
     ub_ChidotVal = 30 * np.pi / 180 # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
     useLatAccelCons = 0
-    lb_V = 0.8 * V0 # not used for ncons_option = 2
-    ub_V = 1.2 * V0 # not used for ncons_option = 2
-    delChi_max = 360 * np.pi / 180
+
+    delta_V = 2 * mph2fps  # fps
+    lb_VTerm = V0 - delta_V # not used for ncons_option = 2
+    ub_VTerm = V0 + delta_V # not used for ncons_option = 2
+
+    delChi_max = 30 * np.pi / 180
 
     W_P = 0.0
-    W_V = 10.0
-    W_Vdot = 10.0*0
-    W_Chidot = 1*0
-    W_gDist = 1 # 0.01
-    W_gChi = 1.0*0  # 1
-
+    W_V = 1.0
+    W_Vdot = 0.0
+    W_Chidot = 0.0
+    W_gDist = 0.01 # 0.01
+    W_gChi = 1.0  # 1
 
     V_cmd = V0  # fps
 
     # Terminal constraint
     delta_yRoad = 0.1*5  # ft # is this used?
-    delta_V = 2 * mph2fps # fps
 
     # Path parameters
     pathWidth = 5.0 # ft
@@ -289,29 +308,25 @@ obstacleLengthMargin = 2.5 * scaleFactorN # ft
 obstacleWidthMargin = 2.5 * scaleFactorE# ft
 
 if no == 0:
-    #runOnce = False
+
+    obstaclePresent = False
     obstacleE = np.array([]) * scaleFactorE # ft, left-bottom
     obstacleN = np.array([]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([])  # rad
     obstacleLength = np.array([]) * scaleFactorN # ft
     obstacleWidth = np.array([]) * scaleFactorE # ft
 
+    obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
+    obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
+    obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
+
 elif no == 1:
-
-    # obstacleE = np.array([7.0]) * scaleFactorE # ft, center
-    # obstacleN = np.array([63.0 - 30.0]) * scaleFactorN # ft, center
-    # obstacleChi = np.array([0.0])  # rad
-    # obstacleLength = np.array([4.0]) * scaleFactorN # ft
-    # obstacleWidth = np.array([6.0]) * scaleFactorE # ft
-
 
     obstacleE = np.array([7.0]) * scaleFactorE # ft, center
     obstacleN = np.array([63-25]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([10]) * scaleFactorN # ft
     obstacleWidth = np.array([10]) * scaleFactorE # ft
-
-
 
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
@@ -466,7 +481,7 @@ if ns == 4:
         lb_VdotVal, ub_VdotVal,
         lb_ChidotVal, ub_ChidotVal,
         delChi_max, lataccel_maxVal,
-        lb_V, ub_V, V_cmd
+        lb_VTerm, ub_VTerm, V_cmd
         ))
 elif ns == 6:
 
@@ -475,7 +490,7 @@ elif ns == 6:
         lb_VddotVal, ub_VddotVal,
         lb_ChiddotVal, ub_ChiddotVal,
         delChi_max, lataccel_maxVal,
-        lb_V, ub_V, V_cmd
+        lb_VTerm, ub_VTerm, V_cmd
         ))
 
 f_problemData.close()

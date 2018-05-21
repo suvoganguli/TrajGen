@@ -50,6 +50,9 @@ mpciter = 0
 # Other parameters
 t_slowDown = []
 t_slowDown_detected = False
+Dist_stop = 0.0
+T_stop = 0.0
+fVbnd = False
 
 # Print to File
 writeToFile = True
@@ -83,7 +86,7 @@ posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
 # Specify Booleans
 saveData = True
 plotData = True
-trimVals = False
+trimVals = True
 
 # Create array of paths
 pathObj = makePathObj(pdata, path, obstacle)
@@ -99,7 +102,7 @@ while mpciter < mpciterations:
     tStart = time.time()
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                              obstacle, posIdx, ncons_option, V_cmd,
-                                             fHandleCost)
+                                             lb_VTerm, fHandleCost)
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
@@ -138,38 +141,48 @@ while mpciter < mpciterations:
     current_point = x_mpciter[0, 0:2]
     terminal_point = x_mpciter[-1, 0:2]
 
-    # slow down V_cmd near goal
-    if (distance(terminal_point, endPoint) < lb_distGoal):
-        V_cmd = 0.9 * V_cmd
+
+    if VTerminal[mpciter] < 0:
+        None
+
 
     # find detection time
     if (distance(terminal_point, endPoint) < lb_distGoal) and (t_slowDown_detected == False):
         t_slowDown = tmeasure
         t_slowDown_detected = True
 
+    # slow down V_cmd near goal
+    if t_slowDown_detected == True:
+        # Dist_stop += V_cmd * T
+        # T_stop += T
+        # Dist_currentpoint = np.sqrt( x_mpciter[0,0]**2 + x_mpciter[0,1]**2 )
+        # print('N = {0:.1f}, Dist-stop = {1:.1f}, T-stop = {2:0.1f}'.format(Dist_currentpoint, Dist_stop, T_stop))
+
+        V_cmd = V_cmd - decel * T
+        lb_VTerm = 0 # fps
+        deltaDistance = np.sqrt( x[mpciter,0]**2 + x[mpciter,1]**2 ) - \
+                        np.sqrt( x[mpciter-1,0]**2 + x[mpciter-1,1]**2)
+
+        if deltaDistance <= 0.5:
+            print('Reached Goal')
+            break
+
     # reset global variable to write cost breakdown in nlp.py
     globalVars.writeToFileCost = True
 
     mpciter = mpciter + 1
 
-    if (distance(current_point, endPoint) < lb_reachedGoal):
-        trimVals = True
-        mpciterations = mpciter - 1
-        break
-
-
 
 if trimVals is True:
     mpciterations = mpciter
-    tElapsed = tElapsed[0:mpciterations-1]
-    VTerminal = VTerminal[0:mpciterations-1]
-    latAccel = latAccel[0:mpciterations-1]
-    delChi = delChi[0:mpciterations-1]
+    tElapsed = tElapsed[0:mpciterations]
+    VTerminal = VTerminal[0:mpciterations]
+    latAccel = latAccel[0:mpciterations]
+    delChi = delChi[0:mpciterations]
 
-    t = t[0:mpciterations-1, :]
-    x = x[0:mpciterations-1, :]
-    u = u[0:mpciterations-1, :]
-
+    t = t[0:mpciterations, :]
+    x = x[0:mpciterations, :]
+    u = u[0:mpciterations, :]
 
 
 # close log file

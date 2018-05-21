@@ -365,7 +365,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
         plt.plot(t1, lb_Vterm * np.ones(t1.shape), linestyle='--', color='r')
         plt.plot(t1, ub_Vterm * np.ones(t1.shape), linestyle='--', color='r')
         plt.plot(t2, 0 * np.ones(t2.shape), linestyle='--', color='r')
-        plt.plot(t2, pdata.ub_V * np.ones(t2.shape), linestyle='--', color='r')
+        plt.plot(t2, ub_Vterm * np.ones(t2.shape), linestyle='--', color='r')
 
     plt.ylabel('V-terminal [fps]')
     plt.xlabel('time [sec]')

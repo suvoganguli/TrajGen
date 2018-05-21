@@ -147,12 +147,11 @@ def goalCost(x, t0):
     dy = (endPoint[1] - x[1])
     dx = (endPoint[0] - x[0])
 
-    delChi = (np.pi/2 - np.arctan2( dy,dx)) * 180 / np.pi
+    Chi_goal = (np.pi/2 - np.arctan2(dy,dx)) * 180 / np.pi
+    Chi = x[3] * 180/np.pi
+    delChi = Chi_goal - Chi
 
     cost_goalDelChi = W_gChi * np.abs(delChi)**2
-
-    if np.abs(delChi) > 170:
-        None
 
     return np.array([cost_goalDist]), np.array([cost_goalDelChi])
 
@@ -235,7 +234,7 @@ def terminalCons(u, x, t0, path, obstacle, posIdx=None):
     dy = (endPoint[1] - x[1])
     dx = (endPoint[0] - x[0])
 
-    ChiGoal = np.arctan2(dx, dy)
+    ChiGoal = (np.pi/2 - np.arctan2(dy,dx)) * 180 / np.pi
     Chi = x[3]
 
     delChi = np.array([ChiGoal - Chi])

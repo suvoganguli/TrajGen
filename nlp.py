@@ -6,7 +6,7 @@ import globalVars
 class nlpProb(object):
 
     def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
-                 ns_option, V_cmd, fHandleCost = None):
+                 ns_option, V_cmd, lb_VTerm, fHandleCost = None):
         self.N = N
         self.T = T
         self.t0 = t0
@@ -18,6 +18,7 @@ class nlpProb(object):
         self.posIdx = posIdx
         self.ns_option = ns_option
         self.V_cmd = V_cmd
+        self.lb_VTerm = lb_VTerm
         self.fHandleCost = fHandleCost
         pass
 
@@ -140,7 +141,7 @@ class nlpProb(object):
 
                 consR = np.concatenate([consR1, consR2])
 
-                # terminal constraint  (dy, dV, delChi)
+                # terminal constraint  (dy, V, delChi)
                 consT1, consT2, consT3 = prob.terminalCons(u, x[N - 1], t0, path, obstacle, posIdx)
                 consT = consT3
 
@@ -166,7 +167,7 @@ class nlpProb(object):
 
                 consR = np.concatenate([consR1, consR2])
 
-                # terminal constraint (dy, dV, delChi)
+                # terminal constraint (dy, V, delChi)
                 consT1, consT2, consT3 = prob.terminalCons(u, x[N-1], t0, path, obstacle, posIdx)  # ydist, VEnd
                 consT = np.concatenate([consT2, consT3])
 
@@ -303,15 +304,7 @@ class nlpProb(object):
 
         terminal_point = x[-1,0:2]
 
-        if distance(terminal_point, endPoint) < lb_distGoal:
-            V_cmd_lo = 0
-            V_cmd_hi = V_cmd + delta_V
-        else:
-            V_cmd_lo = V_cmd - delta_V
-            V_cmd_hi = V_cmd + delta_V
-
-        # V_cmd_lo = V_cmd - delta_V
-        # V_cmd_hi = V_cmd + delta_V
+        lb_VTerm = self.lb_VTerm
 
         if ns_option == 1:
 
@@ -320,8 +313,9 @@ class nlpProb(object):
             cu_tmp2 = np.concatenate([cu_tmp1, [ub_V]])
 
             # Terminal Constraint - V
-            cl_tmp3 = np.concatenate([cl_tmp2, [V_cmd_lo]])
-            cu_tmp3 = np.concatenate([cu_tmp2, [V_cmd_hi]])
+            tmp = 0
+            cl_tmp3 = np.concatenate([cl_tmp2, [tmp]]) # need to modify
+            cu_tmp3 = np.concatenate([cu_tmp2, [tmp]])
 
             # Terminal Constraint - delChi
             cl = np.concatenate([cl_tmp3, [-delChi_max]])
@@ -336,8 +330,8 @@ class nlpProb(object):
             cl_tmp2 = cl_tmp1
             cu_tmp2 = cu_tmp1
 
-            cl_tmp3 = np.concatenate([cl_tmp2, [V_cmd_lo]])
-            cu_tmp3 = np.concatenate([cu_tmp2, [V_cmd_hi]])
+            cl_tmp3 = np.concatenate([cl_tmp2, [lb_VTerm]])
+            cu_tmp3 = np.concatenate([cu_tmp2, [ub_VTerm]])
 
             # Terminal Constraint - delChi
             cl = np.concatenate([cl_tmp3, [-delChi_max]])
@@ -371,7 +365,7 @@ class nlpProb(object):
             m=len(cl),
             problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
                                 obstacle, posIdx, ns_option, V_cmd,
-                                fHandleCost),
+                                lb_VTerm, fHandleCost),
             lb=lb,
             ub=ub,
             cl=cl,

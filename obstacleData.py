@@ -22,6 +22,9 @@ def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWid
             E_corners = np.zeros([n,4])
             N_corners = np.zeros([n,4])
 
+            ERot_array = []
+            NRot_array = []
+
             for k in range(n):
 
                 xBL = obstacleE[k] - obstacleSafeWidth[k] / 2
