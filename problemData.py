@@ -30,7 +30,7 @@ grid = gridClass()
 
 # Start and End Points
 startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-endPoint = np.array([(7+0.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+endPoint = np.array([(7+1.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
 # Correction for new path generation with popup obstacle
 dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
