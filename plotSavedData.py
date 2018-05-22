@@ -97,7 +97,7 @@ elif mode == 1:
     # 1 - run_2018-03-06 (comprehensive runs for different N, ns and no)
     # 2 - run_2018-03-14 (tradeoff charts for various T)
     # 3 - run_2018-03-14 vs run_2018-03-15 (V = 5 mph vs 10 mph)
-    case = 3
+    case = 4
 
     if case == 1:
 
@@ -170,20 +170,35 @@ elif mode == 1:
         fileNames = ['logFile_N08_Tp4_ns4_no2_NoPopup.txt',
                      'logFile_N08_Tp4_ns4_no2_NoPopup.txt']
 
+    elif case == 4:
+
+        # dirNames = ['run_2018-03-14',   # V_cmd = 5 mph
+        #             'run_2018-03-15']   # V_cmd = 10 mph
+        #
+        # fileNames = ['logFile_N04_Tp4_ns4_no2.txt',
+        #              'logFile_N04_Tp4_ns4_no2.txt'
+        #              ]
+
+        dirNames = ['run_2018-05-22_maxiter20',
+                    'run_2018-05-22_maxiter200']  # V_cmd = 10 mph
+
+        fileNames = ['logFile_N08_Tp4_ns4_no1_NoPopup.txt',
+                     'logFile_N08_Tp4_ns4_no1_NoPopup.txt']
+
 
         n = len(dirNames)
         fileSettings = []
         V_cmd = np.zeros(n)
 
         for k in range(n):
-            file_tmp = dirNames[k] + '/' + 'settings_N08_Tp4_ns4_no2_NoPopup.txt' # used for varying V0 (V0=Vcmd)
+            file_tmp = dirNames[k] + '/' + 'settings_N08_Tp4_ns4_no1_NoPopup.txt' # used for varying V0 (V0=Vcmd)
             fileSettings.append(file_tmp)
 
             f = file(fileSettings[k], 'r')
             cols, indexToName = getColumns(f, delim=" ", header=False)
             V_cmd[k] = np.array(cols[12]).astype(np.float)
 
-    filePkl = dirNames[0] + '/' + 'pathDict_no2_NoPopup.pkl'  # used for path as a function of no
+    filePkl = dirNames[0] + '/' + 'pathDict_no1_NoPopup.pkl'  # used for path as a function of no
 
     fileObject = open(filePkl, 'r')
     pathObjArray, obstacleDict = loadpkl(filePkl)

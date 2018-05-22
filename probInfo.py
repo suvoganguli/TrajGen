@@ -235,7 +235,7 @@ def terminalCons(u, x, t0, path, obstacle, posIdx=None):
     dx = (endPoint[0] - x[0])
 
     ChiGoal = (np.pi/2 - np.arctan2(dy,dx)) * 180 / np.pi
-    Chi = x[3]
+    Chi = x[3] * 180/np.pi
 
     delChi = np.array([ChiGoal - Chi])
 

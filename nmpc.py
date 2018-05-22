@@ -8,7 +8,7 @@ def measureInitialValue(tmeasure, xmeasure):
 
 def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                obstacle, posIdx, ns_option, V_cmd,
-                               lb_VTerm, fHandleCost):
+                               lb_VTerm, lb_VdotVal, fHandleCost):
 
     import nlp
 
@@ -18,7 +18,7 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
     # CLOSED LOOP
     prob = nlp.nlpProb(N, T, t0, x0, ncons, nu, path,
                        obstacle, posIdx, ns_option, V_cmd,
-                       lb_VTerm, fHandleCost)
+                       lb_VTerm, lb_VdotVal, fHandleCost)
     probSetup = prob.setup(u0)
     u, info = probSetup.solve(u0.flatten(1))
 

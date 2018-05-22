@@ -2,6 +2,7 @@ import numpy as np
 from utils import *
 import datetime
 import shutil, distutils.dir_util
+from problemMaxIterData import *
 
 # Units
 mph2fps = 4.4/3
@@ -30,7 +31,7 @@ grid = gridClass()
 
 # Start and End Points
 startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-endPoint = np.array([(7+1.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+endPoint = np.array([(7+0.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
 # Correction for new path generation with popup obstacle
 dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
@@ -48,10 +49,16 @@ sf_T = 1
 N = 8
 T = 0.4*sf_T
 ns = 4
-no = 1
+no = 2  # 0, 1, 2, 5, 7
 V0 = 10*mph2fps
 
+# mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
+mpciterations = 100
+
+decelType = 'Fast'  # Slow or Fast
+
 lb_distGoal = 10 # ft
+safeDistance = V0*N*T*1.1 # ft
 #lb_reachedGoal = 20-1 # ft
 
 decel = V0**2 / (2 * lb_distGoal) # fps2
@@ -60,147 +67,6 @@ decel = V0**2 / (2 * lb_distGoal) # fps2
 # print('Decel [fps2] = ' + str(decel))
 # print('T-stop [sec] = ' + str(t_stop))
 # print('Dist-stop [ft] = ' + str(dist_stop))
-
-if abs(V0 - 5*mph2fps) <= 10**(-3):
-    if no == 0:
-        if N == 4:
-            mpciterations = 35/sf_T # 35
-        elif N == 6:
-            mpciterations = 33/sf_T # 33
-        elif N == 8:
-            mpciterations = 31/sf_T # 31
-        elif N == 10:
-            mpciterations = 29/sf_T  # 29
-
-
-    elif no == 1:
-        if N == 4:
-            if ns == 4:
-                mpciterations = 36/sf_T  # 36
-            elif ns == 6:
-                mpciterations = 18/sf_T # 18
-        elif N == 6:
-            if ns == 4:
-                mpciterations = 34/sf_T # 34
-            elif ns == 6:
-                mpciterations = 34/sf_T  # 38 - check mpciterations
-        elif N == 8:
-            if ns == 4:
-                mpciterations = 32/sf_T  # 32
-            elif ns == 6:
-                mpciterations = 36/sf_T  #24 - check mpciterations
-        elif N == 10:
-            if ns == 4:
-                mpciterations = 30/sf_T  # ?
-            elif ns == 6:
-                mpciterations = 30/sf_T  # ?
-
-    elif no == 2:
-        if N == 4:
-            if ns == 4:
-                mpciterations = 41/sf_T  # 41
-            elif ns == 6:
-                mpciterations = 14/sf_T  # 14 = wider dy with V terminal constraint, unstable
-        elif N == 6:
-            if ns == 4:
-                mpciterations = 38/sf_T  # 38
-            elif ns == 6:
-                mpciterations = 36/sf_T  # 20 = wider dy with V terminal constraint, stops
-        elif N == 8:
-            if ns == 4:
-                mpciterations = 36/sf_T  # 36
-            elif ns == 6:
-                mpciterations = 34/sf_T  # 24 = wider dy with V terminal constraint,
-                                    # unstable at 2nd turn "No solution found in runningCons". Why?
-        elif N == 10:
-            if ns == 4:
-                mpciterations = 14/sf_T  # 30 (for total run)
-            elif ns == 6:
-                mpciterations = 12/sf_T  # 30 (for total run)
-
-        elif N == 9:
-            if ns == 4:
-                mpciterations = 28/sf_T  # 30 (for total run)
-            elif ns == 6:
-                mpciterations = 10/sf_T  # 30 (for total run)
-
-elif abs(V0 - 10*mph2fps) <= 10**(-3):
-
-    if no == 0:
-        if N == 4:
-            mpciterations = 35/sf_T # 35
-        elif N == 6:
-            mpciterations = 33/sf_T # 33
-        elif N == 8:
-            mpciterations = 31/sf_T # 31
-        elif N == 10:
-            mpciterations = 29/sf_T  # 29
-
-    if no == 1:
-        if N == 4:
-            if ns == 4:
-                mpciterations = 60/sf_T  # 36
-        if N == 6:
-            if ns == 4:
-                mpciterations = 60/sf_T  # 34
-        if N == 8:
-            if ns == 4:
-                mpciterations = 45/sf_T  # 32
-            elif ns == 6:
-                mpciterations = 32/sf_T
-
-
-    elif no == 2:
-        if N == 4:
-            if ns == 4:
-                mpciterations = 18/sf_T  # 18
-            elif ns == 6:
-                mpciterations = 14/sf_T  # 14 = wider dy with V terminal constraint, unstable
-        if N == 6:
-            if ns == 4:
-                mpciterations = 38/sf_T  # 38
-            elif ns == 6:
-                mpciterations = 36/sf_T  # 20 = wider dy with V terminal constraint, stops
-        if N == 8:
-            if ns == 4:
-                mpciterations = 80 / sf_T  # 32
-            elif ns == 6:
-                mpciterations = 32 / sf_T
-
-    elif no == 5:
-        if N == 8:
-            if ns == 4:
-                mpciterations = 80 / sf_T  # 32
-
-    elif no == 7:
-        if N == 8:
-            if ns == 4:
-                mpciterations = 80 / sf_T  # 32
-
-elif abs(V0 - 15*mph2fps) <= 10**(-3):
-
-    if no == 2:
-        if N == 4:
-            if ns == 4:
-                mpciterations = 12/sf_T  # 41
-            elif ns == 6:
-                mpciterations = 14/sf_T  # 14 = wider dy with V terminal constraint, unstable
-        elif N == 6:
-            if ns == 4:
-                mpciterations = 38/sf_T  # 38
-            elif ns == 6:
-                mpciterations = 36/sf_T  # 20 = wider dy with V terminal constraint, stops
-
-elif abs(V0 - 30*mph2fps) <= 10**(-3):
-
-    if no == 1:
-        if N == 4:
-            if ns == 4:
-                mpciterations = 36/sf_T  # 36
-
-N = int(N)
-mpciterations = int(mpciterations)
-
 
 
 # Number of states
@@ -218,12 +84,12 @@ mpciterations = int(mpciterations)
 posIdx0 = {'number': 0}
 
 # ----------------------------------------------------------
-
+# Weighting functions and constraints for MPC problem
 
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 2000
+    nlpMaxIter = 20
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -231,8 +97,8 @@ if ns == 4:
     Chi0 = 0 * np.pi / 180  # rad
     x0 = [E0, N0, V0, Chi0]  # E, N, V, Chi, Vdot, Chidot
 
-    lb_VdotVal = -6  # fps3
-    ub_VdotVal = 2 # fps3
+    lb_VdotVal = -2  # fps2
+    ub_VdotVal = 2 # fps2
     lb_ChidotVal = -30 * np.pi / 180 # rad/s2
     ub_ChidotVal = 30 * np.pi / 180 # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
@@ -246,15 +112,21 @@ if ns == 4:
 
     W_P = 0.0
     W_V = 1.0
-    W_Vdot = 0.0
-    W_Chidot = 0.0
+    W_Vdot = 0.05
+    W_Chidot = 0.05
     W_gDist = 0.01 # 0.01
-    W_gChi = 1.0  # 1
+    W_gChi = 1  # 1
+
+
+    # Braking parameters
+
+    lb_VdotValSlowDown = -6 # fps2
+    lb_VTermSlowDown = 0 # fps
 
     V_cmd = V0  # fps
 
     # Terminal constraint
-    delta_yRoad = 0.1*5  # ft # is this used?
+    delta_yRoad = 0.5  # ft # is this used?
 
     # Path parameters
     pathWidth = 5.0 # ft
@@ -323,21 +195,21 @@ if no == 0:
 elif no == 1:
 
     obstacleE = np.array([7.0]) * scaleFactorE # ft, center
-    obstacleN = np.array([63-25]) * scaleFactorN # ft, center
+    obstacleN = np.array([63-15]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
-    obstacleLength = np.array([10]) * scaleFactorN # ft
-    obstacleWidth = np.array([10]) * scaleFactorE # ft
+    obstacleLength = np.array([4.0]) * scaleFactorN # ft
+    obstacleWidth = np.array([4.0]) * scaleFactorE # ft
 
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
     obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
 
 elif no == 2:
-    obstacleE = np.array([6.0, 22.0]) * scaleFactorE # ft, left-bottom
+    obstacleE = np.array([6.0, 15.0]) * scaleFactorE # ft, left-bottom
     obstacleN = np.array([31.0, 63.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0*2]) * scaleFactorN # ft
-    obstacleWidth = np.array([6.0, 6.0*2]) * scaleFactorE # ft
+    obstacleLength = np.array([4.0, 4.0]) * scaleFactorN # ft
+    obstacleWidth = np.array([4.0, 4.0]) * scaleFactorE # ft
 
     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
@@ -464,7 +336,6 @@ else:
 
 if obstaclePresent:
     nObstacle = len(obstacleN)
-    ncons = ncons + nObstacle*N
 else:
     nObstacle = 0
 

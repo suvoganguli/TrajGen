@@ -102,7 +102,7 @@ while mpciter < mpciterations:
     tStart = time.time()
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                              obstacle, posIdx, ncons_option, V_cmd,
-                                             lb_VTerm, fHandleCost)
+                                             lb_VTerm, lb_VdotVal, fHandleCost)
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
@@ -141,31 +141,36 @@ while mpciter < mpciterations:
     current_point = x_mpciter[0, 0:2]
     terminal_point = x_mpciter[-1, 0:2]
 
+    if decelType == 'Slow':
 
-    if VTerminal[mpciter] < 0:
-        None
+        # find detection time
+        if (distance(terminal_point, endPoint) < lb_distGoal) and (t_slowDown_detected == False):
+            t_slowDown = tmeasure
+            t_slowDown_detected = True
 
+        # slow down V_cmd near goal
+        if t_slowDown_detected == True:
+            # Dist_stop += V_cmd * T
+            # T_stop += T
+            # Dist_currentpoint = np.sqrt( x_mpciter[0,0]**2 + x_mpciter[0,1]**2 )
+            # print('N = {0:.1f}, Dist-stop = {1:.1f}, T-stop = {2:0.1f}'.format(Dist_currentpoint, Dist_stop, T_stop))
 
-    # find detection time
-    if (distance(terminal_point, endPoint) < lb_distGoal) and (t_slowDown_detected == False):
-        t_slowDown = tmeasure
-        t_slowDown_detected = True
+            V_cmd = V_cmd - decel * T
+            lb_VTerm = lb_VTermSlowDown # fps
+            lb_VdotVal = lb_VdotValSlowDown # fps2
+            deltaDistance = np.sqrt( x[mpciter,0]**2 + x[mpciter,1]**2 ) - \
+                            np.sqrt( x[mpciter-1,0]**2 + x[mpciter-1,1]**2)
 
-    # slow down V_cmd near goal
-    if t_slowDown_detected == True:
-        # Dist_stop += V_cmd * T
-        # T_stop += T
-        # Dist_currentpoint = np.sqrt( x_mpciter[0,0]**2 + x_mpciter[0,1]**2 )
-        # print('N = {0:.1f}, Dist-stop = {1:.1f}, T-stop = {2:0.1f}'.format(Dist_currentpoint, Dist_stop, T_stop))
+            if deltaDistance <= 0.5:
+                print('Reached Goal')
+                break
 
-        V_cmd = V_cmd - decel * T
-        lb_VTerm = 0 # fps
-        deltaDistance = np.sqrt( x[mpciter,0]**2 + x[mpciter,1]**2 ) - \
-                        np.sqrt( x[mpciter-1,0]**2 + x[mpciter-1,1]**2)
-
-        if deltaDistance <= 0.5:
+    elif decelType == 'Fast':
+        if distance(terminal_point, endPoint) < lb_distGoal:
             print('Reached Goal')
             break
+
+
 
     # reset global variable to write cost breakdown in nlp.py
     globalVars.writeToFileCost = True

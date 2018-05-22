@@ -6,12 +6,13 @@ import globalVars
 class nlpProb(object):
 
     def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
-                 ns_option, V_cmd, lb_VTerm, fHandleCost = None):
+                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, fHandleCost = None):
         self.N = N
         self.T = T
         self.t0 = t0
         self.x0 = x0
         self.ncons = ncons  # number of constraints
+        self.ncons_vary = np.copy(ncons)
         self.nu = nu # number of controls
         self.path = path
         self.obstacle = obstacle
@@ -19,7 +20,27 @@ class nlpProb(object):
         self.ns_option = ns_option
         self.V_cmd = V_cmd
         self.lb_VTerm = lb_VTerm
+        self.lb_VdotVal = lb_VdotVal
         self.fHandleCost = fHandleCost
+        self.addObstacleConstraints = False
+        self.obstacleNumber = np.array([], dtype=int)
+
+        nObstacle = len(obstacle.N)
+        if nObstacle > 0:
+            for j in range(nObstacle):
+
+                p1 = x0[0:2]
+                p2 = np.array([obstacle.E[j], obstacle.N[j]])
+                distToObstacle = distance(p1, p2)
+
+                #print('{0:.1f}, {1:.1f}'.format(distToObstacle, safeDistance))
+
+                if distToObstacle < safeDistance:
+                    self.addObstacleConstraints = True
+                    self.obstacleNumber = np.concatenate([self.obstacleNumber, np.array([j])])
+                    self.ncons_vary = np.copy(self.ncons) + N
+                    None
+
         pass
 
 
@@ -97,17 +118,7 @@ class nlpProb(object):
 
         x = prob.computeOpenloopSolution(u, N, T, t0, x0)
 
-        # running constraints
-        # consR1_R = np.zeros(N)
-        # consR1_L = np.zeros(N)
-        #
-        # for k in range(N):
-        #     consR1_R[k], consR1_L[k] = prob.runningCons(u, x[k], t0, path, obstacle, posIdx)
-        #
-        # consR1 = np.concatenate([consR1_R, consR1_L])
-
         consR1 = np.array([], dtype=float)
-        consObstacleAll = np.array([], dtype=float)
 
         if ns == 6:
 
@@ -187,44 +198,27 @@ class nlpProb(object):
         cons = np.concatenate([consR,consT])
 
         # total constraints with obstacles
-        nObstacle = len(obstacle.N)
+        if self.addObstacleConstraints == True:
 
-        if nObstacle > 0:
-
+            nObstacle = len(self.obstacleNumber)
             for j in range(nObstacle):
-
                 for k in range(N):
-                    # vehicle (point mass) location
                     position = x[k][0:2]
-
-                    # n_shape = obstacle.E_array.shape # only one object
-                    # if len(n_shape) == 1:
-                    #     inside = insideBox2(position[0], position[1], obstacle.E_array, obstacle.N_array)
-                    # else:
-                    #     inside = insideBox2(position[0], position[1], obstacle.E_array[j], obstacle.N_array[j])
-                    # if inside == False:
-                    #     consObstacle = [1]
-                    # else:
-                    #     consObstacle = [-1]
-
-                    consObstacle = np.sqrt([(obstacle.E[j]-position[0])**2 +
-                                            (obstacle.N[j]-position[1])**2])
-
-                    consObstacleAll = np.concatenate([consObstacleAll, consObstacle])
-                    # consObstacle > 0, if vehicle (point object) is outside rectangle)
-                    cons = np.concatenate([cons, consObstacle])
+                    obstacleDistance = np.sqrt([(obstacle.E[j] - position[0]) ** 2 +
+                                        (obstacle.N[j] - position[1]) ** 2])
+                    cons = np.concatenate([cons, obstacleDistance])
 
         return cons
 
 
     def jacobian(self, u):
         N = self.N
-        ncons = self.ncons
+        ncons_vary = self.ncons_vary
         nu = self.nu
-        jac = np.zeros([ncons,nu*N])
+        jac = np.zeros([ncons_vary,nu*N])
         eps = 1e-2
 
-        for j in range(ncons):
+        for j in range(ncons_vary):
 
             for k in range(nu*N):
                 uplus = np.copy(u)
@@ -254,6 +248,8 @@ class nlpProb(object):
         posIdx = self.posIdx
         ns_option = self.ns_option
         V_cmd = self.V_cmd
+        lb_VTerm = self.lb_VTerm
+        lb_VdotVal = self.lb_VdotVal
         fHandleCost = self.fHandleCost
 
         LARGE_NO = 1e12
@@ -283,28 +279,14 @@ class nlpProb(object):
 
         lataccel_max = lataccel_maxVal
 
-        # Running Constraints
-        #dyRoadL = delta_yRoad
-        #dyRoadR = delta_yRoad
-
-        # Running Constraint
-        #cl_running = np.concatenate([-1*np.ones(N), 0*np.ones(N)])
-        #cu_running = np.concatenate([ 0*np.ones(N), 1*np.ones(N)])
-        #cl_running = np.concatenate([-100*np.ones(N), 0*np.ones(N)])
-        #cu_running = np.concatenate([ 0*np.ones(N), 100*np.ones(N)])
-
         cl_running = np.array([], dtype=float)
         cu_running = np.array([], dtype=float)
 
         cl_tmp1 = np.concatenate([cl_running, [-lataccel_max]])
         cu_tmp1 = np.concatenate([cu_running, [+lataccel_max]])
 
-        u_approx = u0.flatten(1)
-        x = prob.computeOpenloopSolution(u_approx, N, T, t0, x0)
-
-        terminal_point = x[-1,0:2]
-
-        lb_VTerm = self.lb_VTerm
+        #u_approx = u0.flatten(1)
+        #x = prob.computeOpenloopSolution(u_approx, N, T, t0, x0)
 
         if ns_option == 1:
 
@@ -324,9 +306,6 @@ class nlpProb(object):
 
         elif ns_option == 2:
 
-            # Terminal Constraint - dy
-            #cl_tmp2 = np.concatenate([cl_tmp1, [-dyRoadL]])
-            #cu_tmp2 = np.concatenate([cu_tmp1, [dyRoadR]])
             cl_tmp2 = cl_tmp1
             cu_tmp2 = cu_tmp1
 
@@ -339,38 +318,35 @@ class nlpProb(object):
 
         elif ns_option == 3:
 
-            # Terminal Constraint
-            #cl = np.concatenate([cl_tmp1, [-dyRoadL]])
-            #cu = np.concatenate([cu_tmp1, [dyRoadR]])
-
             cl = np.concatenate([cl_tmp1, [-delChi_max]])
             cu = np.concatenate([cu_tmp1, [+delChi_max]])
 
+        # total constraints with obstacles
 
-        if obstacle.Present == True:
+        if self.addObstacleConstraints == True:
 
-            nObstacle = len(obstacle.N)
+            nObstacle = len(self.obstacleNumber)
             for j in range(nObstacle):
                 for k in range(N):
-                    #cl = np.concatenate([cl, [0]])
-                    #cu = np.concatenate([cu, [LARGE_NO]])
                     cl = np.concatenate([cl, [obstacle.sr[j]]])
                     cu = np.concatenate([cu, [LARGE_NO]])
+                    None
 
-        if ncons != len(cl) and ncons != len(cu):
-           print('Error: resolve number of constraints')
+        #if ncons != len(cl) and ncons != len(cu):
+        #   print('Error: resolve number of constraints')
 
         nlp = ipopt.problem(
             n=nu*N,
             m=len(cl),
             problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
                                 obstacle, posIdx, ns_option, V_cmd,
-                                lb_VTerm, fHandleCost),
+                                lb_VTerm, lb_VdotVal, fHandleCost),
             lb=lb,
             ub=ub,
             cl=cl,
             cu=cu
         )
+        #print(len(cl))
         nlp.addOption('print_level', nlpPrintLevel)
         nlp.addOption('max_iter', nlpMaxIter)
         #nlp.addOption('dual_inf_tol',10.0)  # defaut = 1
