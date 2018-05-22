@@ -16,11 +16,14 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
     # u_new = np.ones([N,1])
 
     # CLOSED LOOP
+
     prob = nlp.nlpProb(N, T, t0, x0, ncons, nu, path,
                        obstacle, posIdx, ns_option, V_cmd,
                        lb_VTerm, lb_VdotVal, fHandleCost)
     probSetup = prob.setup(u0)
+
     u, info = probSetup.solve(u0.flatten(1))
+
 
     # debug
     #tmpCost = prob.objective(u)
