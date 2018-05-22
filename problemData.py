@@ -18,7 +18,7 @@ scaleFactorN = 1
 scaleFactorh = 1
 
 widthSpace = 60 # ft
-lengthSpace = 250  # ft
+lengthSpace = 275  # ft
 
 widthSpace = int(widthSpace * scaleFactorE) # ft
 lengthSpace = int(lengthSpace * scaleFactorN)  # ft
@@ -32,7 +32,7 @@ lengthSpace = int(lengthSpace * scaleFactorN)  # ft
 # endPoint = np.array([(7+0.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
 startPoint = np.array([0 * scaleFactorE, 10 * scaleFactorN])  # E (ft), N (ft)
-endPoint   = np.array([0 * scaleFactorE, 230 * scaleFactorN])  # E (ft), N (ft)
+endPoint   = np.array([0 * scaleFactorE, 270 * scaleFactorN])  # E (ft), N (ft)
 
 # Correction for new path generation with popup obstacle
 dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
@@ -90,7 +90,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 20
+    nlpMaxIter = 50
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -195,22 +195,22 @@ if no == 0:
 
 elif no == 1:
 
-    obstacleE = np.array([0.0]) * scaleFactorE # ft, center
-    obstacleN = np.array([80]) * scaleFactorN # ft, center
+    obstacleE = np.array([-2.0]) * scaleFactorE # ft, center
+    obstacleN = np.array([100]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
-    obstacleLength = np.array([10.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([10.0]) * scaleFactorE # ft
+    obstacleLength = np.array([15.0]) * scaleFactorN # ft
+    obstacleWidth = np.array([15.0]) * scaleFactorE # ft
 
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
     obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
 
 elif no == 2:
-    obstacleE = np.array([-2.0, 15.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([80.0, 130.0]) * scaleFactorN # ft, left-bottom
+    obstacleE = np.array([-2.0, 12.0]) * scaleFactorE # ft, left-bottom
+    obstacleN = np.array([100.0, 130.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0, 0.0])  # rad
-    obstacleLength = np.array([10.0, 10.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([10.0, 10.0]) * scaleFactorE # ft
+    obstacleLength = np.array([15.0, 15.0]) * scaleFactorN # ft
+    obstacleWidth = np.array([15.0, 15.0]) * scaleFactorE # ft
 
     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
