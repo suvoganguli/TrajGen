@@ -3,21 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/CPUtime_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/CPUtime_N08_Tp5_ns4_no1_NoPopup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/Chi-Chidot_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/Chi-Chidot_N08_Tp5_ns4_no1_NoPopup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/E-N_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/E-N_N08_Tp5_ns4_no1_NoPopup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/LatAccel-dy_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/LatAccel-dy_N08_Tp5_ns4_no1_NoPopup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/V-Vdot_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/V-Vdot_N08_Tp5_ns4_no1_NoPopup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/V-terminal_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/V-terminal_N08_Tp5_ns4_no1_NoPopup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_After.png" afterPath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_After.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_Before.png" afterPath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_Before.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFile.txt" afterPath="$PROJECT_DIR$/logFile.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCost.txt" afterPath="$PROJECT_DIR$/logFileCost.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/printPlots.py" afterPath="$PROJECT_DIR$/printPlots.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problemData.py" afterPath="$PROJECT_DIR$/problemData.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/logFile_N08_Tp5_ns4_no1_NoPopup.txt" afterPath="$PROJECT_DIR$/run_2018-05-23/logFile_N08_Tp5_ns4_no1_NoPopup.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup.pkl" afterPath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup.pkl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup_b.pkl" afterPath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup_b.pkl" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,8 +22,8 @@
       <file leaf-file-name="problemData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/problemData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
+            <state relative-caret-position="481">
+              <caret line="207" column="26" lean-forward="false" selection-start-line="207" selection-start-column="26" selection-end-line="207" selection-end-column="26" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -43,8 +34,20 @@
       <file leaf-file-name="printPlots.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/printPlots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="357" column="28" lean-forward="false" selection-start-line="357" selection-start-column="28" selection-end-line="357" selection-end-column="28" />
+            <state relative-caret-position="223">
+              <caret line="358" column="20" lean-forward="false" selection-start-line="358" selection-start-column="20" selection-end-line="358" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="97" column="24" lean-forward="false" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -80,6 +83,8 @@
       <find>ObstacleE</find>
       <find>pathObjArray</find>
       <find>idx_V</find>
+      <find>CPU</find>
+      <find>12</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,9 +102,9 @@
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/plotSavedData.py" />
         <option value="$PROJECT_DIR$/To Do" />
-        <option value="$PROJECT_DIR$/Main.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_13.py" />
         <option value="$PROJECT_DIR$/probInfo.py" />
+        <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/printPlots.py" />
         <option value="$PROJECT_DIR$/problemData.py" />
       </list>
@@ -319,7 +324,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/printPlots.py</url>
-          <line>687</line>
+          <line>685</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -329,18 +334,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/printPlots.py</url>
-          <line>513</line>
+          <line>511</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Main.py</url>
-          <line>154</line>
-          <option name="timeStamp" value="52" />
+          <url>file://$PROJECT_DIR$/problemData.py</url>
+          <line>238</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/problemData.py</url>
-          <line>232</line>
-          <option name="timeStamp" value="58" />
+          <url>file://$PROJECT_DIR$/printPlots.py</url>
+          <line>102</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -350,7 +355,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="60" />
+      <option name="time" value="61" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -700,16 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="53" column="15" lean-forward="false" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
@@ -718,10 +713,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="97" column="24" lean-forward="false" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/printPlots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="357" column="28" lean-forward="false" selection-start-line="357" selection-start-column="28" selection-end-line="357" selection-end-column="28" />
+        <state relative-caret-position="223">
+          <caret line="358" column="20" lean-forward="false" selection-start-line="358" selection-start-column="20" selection-end-line="358" selection-end-column="20" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -730,8 +735,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/problemData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
+        <state relative-caret-position="481">
+          <caret line="207" column="26" lean-forward="false" selection-start-line="207" selection-start-column="26" selection-end-line="207" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

@@ -198,11 +198,17 @@ elif no == 1:
     obstacleE = np.array([7.0 - 0.5]) * scaleFactorE # ft, center
     obstacleN = np.array([65.0]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
+
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
     obstacleWidth = np.array([6.0]) * scaleFactorE # ft
-
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
+
+    # obstacleLength = np.array([4.0]) * scaleFactorN # ft
+    # obstacleWidth = np.array([3.5]) * scaleFactorE # ft
+    # obstacleSafeLength = obstacleLength + 5
+    # obstacleSafeWidth = obstacleWidth + 5
+
     obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
 
 elif no == 2:

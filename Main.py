@@ -95,11 +95,13 @@ pathObjArray = [pathObj]
 # Main loop
 while mpciter < mpciterations:
 
+    # start time keeping
+    tStart = time.time()
+
     #  get new initial value
     t0, x0 = measureInitialValue(tmeasure, xmeasure)
 
     # solve optimal control problem
-    tStart = time.time()
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                              obstacle, posIdx, ncons_option, V_cmd,
                                              lb_VTerm, lb_VdotVal, fHandleCost)

@@ -61,8 +61,6 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
             plt.plot(x3, y3, 'r', x4, y4, 'r')
 
     plt.grid(True)
-    plt.ylim([0, 240])
-    plt.xlim([-10, 40])
 
     if True: # obstacle is present:
 
@@ -97,8 +95,8 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
     nEN = len(East)
     plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
     plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
-    #plt.xlim([0, 16])
-    #plt.ylim([0, 128])
+    #plt.ylim([0, 240])
+    #plt.xlim([-10, 40])
     plt.axis('equal')
 
     #plt.draw()
@@ -358,8 +356,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     #plt.xlabel('Iteration')
     plt.xlabel('t [sec]')
     plt.grid(True)
-    #plt.xlim([0, 35])
-    #plt.ylim([0, 3])
+    plt.xlim([0,12])
+    plt.ylim([0,10])
 
 
     # figure 8
