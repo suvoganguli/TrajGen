@@ -61,6 +61,8 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
             plt.plot(x3, y3, 'r', x4, y4, 'r')
 
     plt.grid(True)
+    plt.ylim([0, 240])
+    plt.xlim([-10, 40])
 
     if True: # obstacle is present:
 
@@ -350,10 +352,14 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     plt.figure(7)
     figno[6] = plt.gcf().number
 
-    plt.plot(iterations, tElapsed)
+    #plt.plot(iterations, tElapsed)
+    plt.plot(t, tElapsed)
     plt.ylabel('CPU Time [sec]')
-    plt.xlabel('Iteration')
+    #plt.xlabel('Iteration')
+    plt.xlabel('t [sec]')
     plt.grid(True)
+    #plt.xlim([0, 35])
+    #plt.ylim([0, 3])
 
 
     # figure 8

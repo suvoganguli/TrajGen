@@ -3,9 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/CPUtime_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/CPUtime_N08_Tp5_ns4_no1_NoPopup.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/Chi-Chidot_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/Chi-Chidot_N08_Tp5_ns4_no1_NoPopup.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/E-N_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/E-N_N08_Tp5_ns4_no1_NoPopup.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/LatAccel-dy_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/LatAccel-dy_N08_Tp5_ns4_no1_NoPopup.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/V-Vdot_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/V-Vdot_N08_Tp5_ns4_no1_NoPopup.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/V-terminal_N08_Tp5_ns4_no1_NoPopup.png" afterPath="$PROJECT_DIR$/run_2018-05-23/V-terminal_N08_Tp5_ns4_no1_NoPopup.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_After.png" afterPath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_After.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_Before.png" afterPath="$PROJECT_DIR$/run_2018-05-23/path_N08_Tp5_ns4_no1_NoPopup_Before.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFile.txt" afterPath="$PROJECT_DIR$/logFile.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCost.txt" afterPath="$PROJECT_DIR$/logFileCost.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/printPlots.py" afterPath="$PROJECT_DIR$/printPlots.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problemData.py" afterPath="$PROJECT_DIR$/problemData.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/logFile_N08_Tp5_ns4_no1_NoPopup.txt" afterPath="$PROJECT_DIR$/run_2018-05-23/logFile_N08_Tp5_ns4_no1_NoPopup.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup.pkl" afterPath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup.pkl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup_b.pkl" afterPath="$PROJECT_DIR$/run_2018-05-23/pathDict_no1_NoPopup_b.pkl" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +31,33 @@
       <file leaf-file-name="problemData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/problemData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="78" column="26" lean-forward="true" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
+            <state relative-caret-position="247">
+              <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="printPlots.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/printPlots.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="357" column="28" lean-forward="false" selection-start-line="357" selection-start-column="28" selection-end-line="357" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="207" column="9" lean-forward="false" selection-start-line="206" selection-start-column="0" selection-end-line="213" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,11 +96,11 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_12.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/plotSavedData.py" />
-        <option value="$PROJECT_DIR$/printPlots.py" />
         <option value="$PROJECT_DIR$/To Do" />
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_13.py" />
         <option value="$PROJECT_DIR$/probInfo.py" />
+        <option value="$PROJECT_DIR$/printPlots.py" />
         <option value="$PROJECT_DIR$/problemData.py" />
       </list>
     </option>
@@ -92,24 +126,24 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="goal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="goal" type="462c0819:PsiDirectoryNode" />
+              <item name="nmpc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nmpc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../laplacian" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
   </component>
   <component name="RecentsManager">
@@ -249,19 +283,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="65" y="24" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16819407" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17191818" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.400818" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30777097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3068063" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -285,7 +319,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/printPlots.py</url>
-          <line>681</line>
+          <line>687</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -295,7 +329,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/printPlots.py</url>
-          <line>507</line>
+          <line>513</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -316,7 +350,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="59" />
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -609,13 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="337" column="0" lean-forward="false" selection-start-line="337" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nmpc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -642,16 +669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/printPlots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="91" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -693,10 +710,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="207" column="9" lean-forward="false" selection-start-line="206" selection-start-column="0" selection-end-line="213" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/printPlots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="357" column="28" lean-forward="false" selection-start-line="357" selection-start-column="28" selection-end-line="357" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/problemData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="78" column="26" lean-forward="true" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
+        <state relative-caret-position="247">
+          <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

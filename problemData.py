@@ -90,7 +90,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 50
+    nlpMaxIter = 60
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -195,8 +195,8 @@ if no == 0:
 
 elif no == 1:
 
-    obstacleE = np.array([4.0]) * scaleFactorE # ft, center
-    obstacleN = np.array([63.0]) * scaleFactorN # ft, center
+    obstacleE = np.array([7.0 - 0.5]) * scaleFactorE # ft, center
+    obstacleN = np.array([65.0]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
     obstacleLength = np.array([4.0]) * scaleFactorN # ft
     obstacleWidth = np.array([6.0]) * scaleFactorE # ft
