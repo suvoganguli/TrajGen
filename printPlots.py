@@ -369,7 +369,10 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
         ub_Vterm = pdata.ub_VTerm
         plt.plot(t1, lb_Vterm * np.ones(t1.shape), linestyle='--', color='r')
         plt.plot(t1, ub_Vterm * np.ones(t1.shape), linestyle='--', color='r')
-        plt.plot(t2, 0 * np.ones(t2.shape), linestyle='--', color='r')
+        if pdata.decelType == 'Slow':
+            plt.plot(t2, 0 * np.ones(t2.shape), linestyle='--', color='r')
+        else:
+            plt.plot(t1, lb_Vterm * np.ones(t1.shape), linestyle='--', color='r')
         plt.plot(t2, ub_Vterm * np.ones(t2.shape), linestyle='--', color='r')
 
     plt.ylabel('V-terminal [fps]')

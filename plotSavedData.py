@@ -97,7 +97,7 @@ elif mode == 1:
     # 1 - run_2018-03-06 (comprehensive runs for different N, ns and no)
     # 2 - run_2018-03-14 (tradeoff charts for various T)
     # 3 - run_2018-03-14 vs run_2018-03-15 (V = 5 mph vs 10 mph)
-    case = 4
+    case = 5
 
     if case == 1:
 
@@ -133,6 +133,9 @@ elif mode == 1:
         cols, indexToName = getColumns(f, delim=" ", header=False)
         V_cmd = cols[12] # V_cmd is stored for information only
 
+        str1 = []
+        str2 = []
+
     if case == 2:
 
         dirNames = ['run_2018-03-14',
@@ -155,6 +158,9 @@ elif mode == 1:
         cols, indexToName = getColumns(f, delim=" ", header=False)
         V_cmd = cols[12] # V_cmd is stored for information only
 
+        str1 = []
+        str2 = []
+
     elif case == 3:
 
         # dirNames = ['run_2018-03-14',   # V_cmd = 5 mph
@@ -169,6 +175,9 @@ elif mode == 1:
 
         fileNames = ['logFile_N08_Tp4_ns4_no2_NoPopup.txt',
                      'logFile_N08_Tp4_ns4_no2_NoPopup.txt']
+
+        str1 = []
+        str2 = []
 
     elif case == 4:
 
@@ -185,20 +194,34 @@ elif mode == 1:
         fileNames = ['logFile_N08_Tp4_ns4_no1_NoPopup.txt',
                      'logFile_N08_Tp4_ns4_no1_NoPopup.txt']
 
+        str1 = 'settings_N08_Tp4_ns4_no1_NoPopup.txt'
+        str2 = 'pathDict_no1_NoPopup.pkl'
+
+    elif case == 5:
+
+        dirNames = ['run_2018-05-24_lin',
+                    'run_2018-05-24_nonlin']  # V_cmd = 10 mph
+
+        fileNames = ['logFile_N08_Tp5_ns4_no1_NoPopup.txt',
+                     'logFile_N08_Tp5_ns4_no1_NoPopup.txt']
+
+        str1 = 'settings_N08_Tp5_ns4_no1_NoPopup.txt'
+        str2 = 'pathDict_no1_NoPopup.pkl'
+
 
         n = len(dirNames)
         fileSettings = []
         V_cmd = np.zeros(n)
 
         for k in range(n):
-            file_tmp = dirNames[k] + '/' + 'settings_N08_Tp4_ns4_no1_NoPopup.txt' # used for varying V0 (V0=Vcmd)
+            file_tmp = dirNames[k] + '/' + str1 # used for varying V0 (V0=Vcmd)
             fileSettings.append(file_tmp)
 
             f = file(fileSettings[k], 'r')
             cols, indexToName = getColumns(f, delim=" ", header=False)
             V_cmd[k] = np.array(cols[12]).astype(np.float)
 
-    filePkl = dirNames[0] + '/' + 'pathDict_no1_NoPopup.pkl'  # used for path as a function of no
+    filePkl = dirNames[0] + '/' + str2  # used for path as a function of no
 
     fileObject = open(filePkl, 'r')
     pathObjArray, obstacleDict = loadpkl(filePkl)

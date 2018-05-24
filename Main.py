@@ -179,6 +179,9 @@ while mpciter < mpciterations:
 
     mpciter = mpciter + 1
 
+    if mpciter > 20:
+        None
+
 
 if trimVals is True:
     mpciterations = mpciter

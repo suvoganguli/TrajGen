@@ -59,8 +59,7 @@ mpciterations = 100
 decelType = 'Fast'  # Slow or Fast
 
 lb_distGoal = 10 # ft
-safeDistance = V0*N*T*1.2 # ft
-#lb_reachedGoal = 20-1 # ft
+lb_reachedGoal = 20-1 # ft
 
 decel = V0**2 / (2 * lb_distGoal) # fps2
 # t_stop = V0 / decel # sec
@@ -90,7 +89,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 60
+    nlpMaxIter = 50
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -109,15 +108,22 @@ if ns == 4:
     lb_VTerm = V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
-    delChi_max = 30 * np.pi / 180
+    delChi_max = 60 * np.pi / 180
+
+    # 2018-05-24
+    # W_P = 0.0
+    # W_V = 1.0
+    # W_Vdot = 2.0
+    # W_Chidot = 0.5
+    # W_gDist = 0.01 # 0.01
+    # W_gChi = 1  # 1
 
     W_P = 0.0
     W_V = 1.0
     W_Vdot = 2.0
-    W_Chidot = 0.5
+    W_Chidot = 1e-3
     W_gDist = 0.01 # 0.01
     W_gChi = 1  # 1
-
 
     # Braking parameters
 
@@ -199,21 +205,24 @@ elif no == 1:
     obstacleN = np.array([65.0]) * scaleFactorN # ft, center
     obstacleChi = np.array([0.0])  # rad
 
-    obstacleLength = np.array([4.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([6.0]) * scaleFactorE # ft
+    # small obstacle
+    # obstacleLength = np.array([4.0]) * scaleFactorN # ft
+    # obstacleWidth = np.array([6.0]) * scaleFactorE # ft
+    # obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
+    # obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
+
+    # large object
+    obstacleLength = np.array([8.0]) * scaleFactorN # ft
+    obstacleWidth = np.array([20.0]) * scaleFactorE # ft
     obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
 
-    # obstacleLength = np.array([4.0]) * scaleFactorN # ft
-    # obstacleWidth = np.array([3.5]) * scaleFactorE # ft
-    # obstacleSafeLength = obstacleLength + 5
-    # obstacleSafeWidth = obstacleWidth + 5
 
     obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
 
 elif no == 2:
     obstacleE = np.array([-2.0, 12.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([100.0, 130.0]) * scaleFactorN # ft, left-bottom
+    obstacleN = np.array([50.0, 65.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0, 0.0])  # rad
     obstacleLength = np.array([15.0, 15.0]) * scaleFactorN # ft
     obstacleWidth = np.array([15.0, 15.0]) * scaleFactorE # ft
@@ -224,11 +233,11 @@ elif no == 2:
 
 
 elif no == 5:
-    obstacleE = np.array([6.0, 18.0, 25.0, 20.0, 20.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([31.0, 54.0, 63.0, 75.0, 100.0]) * scaleFactorN # ft, left-bottom
+    obstacleE = np.array([6.0, 8.0, 18.0, 20.0, 20.0]) * scaleFactorE # ft, left-bottom
+    obstacleN = np.array([31.0, 46.0, 58.0, 75.0, 100.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
+    obstacleLength = np.array([4.0, 8.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
+    obstacleWidth  = np.array([4.0, 8.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
 
     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
@@ -247,6 +256,7 @@ elif no == 7:
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
 
+safeDistance = V0*N*T + max(obstacleSafeRadius)
 # ------------------------------------------------------------
 
 print('Add obstacle rotation')
