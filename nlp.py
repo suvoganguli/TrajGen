@@ -201,10 +201,7 @@ class nlpProb(object):
             # total constraints with obstacles
             if self.addObstacleConstraints == True:
 
-                nObstacle = len(self.obstacleNumber)
-                if nObstacle > 1:
-                    None
-                for j in range(nObstacle):
+                for j in self.obstacleNumber:
                     for k in range(N):
                         position = x[k][0:2]
                         obstacleDistance = np.sqrt([(obstacle.E[j] - position[0]) ** 2 +
@@ -331,8 +328,8 @@ class nlpProb(object):
 
             if self.addObstacleConstraints == True:
 
-                nObstacle = len(self.obstacleNumber)
-                for j in range(nObstacle):
+                #print(self.obstacleNumber)
+                for j in self.obstacleNumber:
                     for k in range(N):
                         cl = np.concatenate([cl, [obstacle.sr[j]]])
                         cu = np.concatenate([cu, [LARGE_NO]])

@@ -108,11 +108,11 @@ while mpciter < mpciterations:
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
-    VTerminal[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0, obstacle, pathType)
+    latAccel[mpciter], VTerminal[mpciter], delChi[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0, obstacle, pathType)
 
     # solution information
-    latAccel[mpciter], delChi[mpciter] = printPlots.nmpcPrint(mpciter, info, N, x0, u_new, writeToFile,
-                                                               fHandle, tElapsed[mpciter], VTerminal[mpciter])
+    printPlots.nmpcPrint(mpciter, info, N, x0, u_new, writeToFile, fHandle, tElapsed[mpciter],
+                        latAccel[mpciter], VTerminal[mpciter], delChi[mpciter])
 
     # store closed loop data
     t[mpciter] = tmeasure

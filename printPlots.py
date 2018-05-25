@@ -106,7 +106,28 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
         #   del ax1.lines[7:12]
         #dummy = raw_input('Press Enter to continue: ')
 
-    return V_terminal
+    Chi_N = x_mpciter[-1,3] * 180/np.pi
+
+    p1 = x_mpciter[-1,0:2]
+    p2 = pdata.endPoint
+    dx = p2[0] - p1[0]  # dE
+    dy = p2[1] - p1[1]  # dN
+    Chi_goal = 90 - np.arctan2(dy,dx) * 180/np.pi
+
+    print(Chi_goal, Chi_N, Chi_goal - Chi_N)
+    delChi = Chi_goal - Chi_N
+
+    if pdata.ns == 4:
+        latAccel = x_mpciter[0,2] * u_new[0,1]     # V * Chidot
+    elif pdata.ns == 6:
+        latAccel = x_mpciter[0,2] * x_mpciter[0,5]     # V * Chidot
+    else:
+        latAccel = []
+
+    if abs(East[0]) > 15:
+        None
+
+    return latAccel/32.2, V_terminal, delChi
 
 
 def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFile,pathObjArray,t_slowDown):
@@ -492,32 +513,24 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
     return figno
 
-def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
+def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, latAccel, VTerminal, delChi):
 
     status = info['status']
     cost = info['obj_val']
     g = info['g']
-    # idx_lataccel = 2*N
-    # # if pdata.ns == 6:
-    # #     #idx_trackingerror = 2*N + 2 # (nlp.py, option 1)
-    # #     idx_trackingerror = 2*N + 1 # (nlp.py, option 2,3)
-    # # elif pdata.ns == 4:
-    # #     idx_trackingerror = 2*N + 1
 
+    # idx_lataccel = 0
+    # idx_Vterm = 1
+    # idx_delChi = 2
+    # idx_obstacle = 3 to end
 
-    #if mpciter >= 8:
-    #    None
+    g1 = latAccel # g
+    g2 = delChi
 
-    idx_lataccel = 0
-    idx_Vterm = 1
-    idx_delChi = 2
-    #idx_obstacle = 3 to end
-
-    g1 = g[idx_lataccel]/32.2 # g
-    g2 = g[idx_delChi] * 180/np.pi # ft
     text_g1 = "ay [g]"
-    #text_g2 = "dy [ft]"
     text_g2 = "delChi [deg]"
+
+    #print('{0:.3f}, {0:.3f}'.format(g[0], x[2]*u_new[0,1]))
 
     status_msg = info['status_msg']
     u = info['x']
@@ -607,8 +620,7 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, VTerminal):
                                                  7, x[2], 7, x[3]*180/np.pi, 7, VTerminal,
                                                  8, g1, 10, g2, 16, status_msg_short,
                                                 10, cpuTime))
-
-    return g1, g2
+    pass
 
 def savePlots(dirname,figno):
     try:

@@ -50,7 +50,7 @@ sf_T = 1
 N = 8
 T = 0.5*sf_T
 ns = 4
-no = 1  # 0, 1, 2, 5, 7
+no = 5  # 0, 1, 2, 5, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
@@ -89,7 +89,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 50
+    nlpMaxIter = 500
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
