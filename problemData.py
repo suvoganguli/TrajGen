@@ -54,14 +54,14 @@ no = 7  # 0, 1, 2, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 55
+mpciterations = 100
 
 decelType = 'Fast'  # Slow or Fast
 
-lb_distGoal = 10 # ft
+lb_nearGoal = 10 # ft
 lb_reachedGoal = 20-1 # ft
 
-decel = V0**2 / (2 * lb_distGoal) # fps2
+decel = V0**2 / (2 * lb_nearGoal) # fps2
 # t_stop = V0 / decel # sec
 # dist_stop = V0 * t_stop - 0.5 * decel * t_stop**2
 # print('Decel [fps2] = ' + str(decel))

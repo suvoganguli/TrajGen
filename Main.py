@@ -147,7 +147,7 @@ while mpciter < mpciterations:
     if decelType == 'Slow':
 
         # find detection time
-        if (distance(terminal_point, endPoint) < lb_distGoal) and (t_slowDown_detected == False):
+        if (distance(terminal_point, endPoint) < lb_nearGoal) and (t_slowDown_detected == False):
             t_slowDown = tmeasure
             t_slowDown_detected = True
 
@@ -164,13 +164,13 @@ while mpciter < mpciterations:
             deltaDistance = np.sqrt( x[mpciter,0]**2 + x[mpciter,1]**2 ) - \
                             np.sqrt( x[mpciter-1,0]**2 + x[mpciter-1,1]**2)
 
-            if deltaDistance <= 0.5:
-                print('Reached Goal')
+            if deltaDistance <= lb_reachedGoal:
+                print('Reached goal')
                 break
 
     elif decelType == 'Fast':
-        if distance(terminal_point, endPoint) < lb_distGoal:
-            print('Reached Goal')
+        if distance(terminal_point, endPoint) < lb_nearGoal:
+            print('Reached near goal')
             break
 
 
