@@ -66,6 +66,7 @@ class nlpProb(object):
             costvec[k+2*N] = costout[2] # Chidot or Chiddot
 
         cost_goalDist, cost_goalDelChi = prob.goalCost(x0, t0)
+        #cost_goalDist, cost_goalDelChi = prob.goalCost(x[-1,:], t0)
         costvec[3*N] = cost_goalDist # goal dist
         costvec[3*N+1] = cost_goalDelChi # goal delta chi
 

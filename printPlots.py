@@ -12,7 +12,7 @@ from utils import *
 # *X, *Y = E [ft], N [ft], theta [rad] (theta is w.r.t +E axis)
 
 
-def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
+def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
 
     u_mpciter = u_new.flatten(1)
     x_mpciter = probInfo.computeOpenloopSolution(u_mpciter, pdata.N, pdata.T, pdata.t0, x0)
@@ -112,10 +112,16 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
     p2 = pdata.endPoint
     dx = p2[0] - p1[0]  # dE
     dy = p2[1] - p1[1]  # dN
-    Chi_goal = 90 - np.arctan2(dy,dx) * 180/np.pi
+    Chi_goal = np.arctan2(dx,dy) * 180/np.pi  # w.r.t. +ve y axis
 
-    print(Chi_goal, Chi_N, Chi_goal - Chi_N)
     delChi = Chi_goal - Chi_N
+
+    # print(Chi_goal, Chi_N, Chi_goal - Chi_N)
+    # plt.figure(100)
+    # plt.plot(mpciter * pdata.T, Chi_goal, 'bo', pdata.T * mpciter, Chi_N, 'ro')
+    # plt.xlabel('t [sec]')
+    # plt.ylabel('Chigoal, Chi_N [deg]')
+    # plt.grid('on')
 
     if pdata.ns == 4:
         latAccel = x_mpciter[0,2] * u_new[0,1]     # V * Chidot
@@ -124,7 +130,7 @@ def nmpcPlotSol(u_new,path,x0,obstacle,pathType):
     else:
         latAccel = []
 
-    if abs(East[0]) > 15:
+    if abs(East[-1]) < 5:
         None
 
     return latAccel/32.2, V_terminal, delChi
@@ -377,8 +383,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
     #plt.xlabel('Iteration')
     plt.xlabel('t [sec]')
     plt.grid(True)
-    plt.xlim([0,12])
-    plt.ylim([0,10])
+    #plt.xlim([0,12])
+    #plt.ylim([0,10])
 
 
     # figure 8
@@ -486,8 +492,9 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
 
     # Actual Path
-    plt.plot(x[:,0], x[:,1], color='b')
-    plt.plot(x[:,0], x[:,1], marker='o', markersize=4, color='b')
+    #plt.plot(x[:,0], x[:,1], color='b')
+    #plt.plot(x[:,0], x[:,1], marker='o', markersize=4, color='b')
+    plt.plot(x[:, 0], x[:, 1])
     #plt.xlim([0, 16])
     #plt.ylim([0, 128])
     plt.ylabel('N [ft]')
@@ -526,6 +533,7 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, latAccel, VTe
 
     g1 = latAccel # g
     g2 = delChi
+    #g2 = g[2]
 
     text_g1 = "ay [g]"
     text_g2 = "delChi [deg]"

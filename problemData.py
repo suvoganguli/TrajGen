@@ -50,11 +50,11 @@ sf_T = 1
 N = 8
 T = 0.5*sf_T
 ns = 4
-no = 5  # 0, 1, 2, 5, 7
+no = 7  # 0, 1, 2, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 100
+mpciterations = 55
 
 decelType = 'Fast'  # Slow or Fast
 
@@ -108,7 +108,7 @@ if ns == 4:
     lb_VTerm = V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
-    delChi_max = 60 * np.pi / 180
+    delChi_max = 90 * np.pi / 180
 
     # 2018-05-24
     # W_P = 0.0
@@ -118,10 +118,10 @@ if ns == 4:
     # W_gDist = 0.01 # 0.01
     # W_gChi = 1  # 1
 
-    W_P = 0.0
-    W_V = 1.0
-    W_Vdot = 2.0
-    W_Chidot = 1e-3
+    W_P = 0.0 # 0.0
+    W_V = 1.0 # 1.0
+    W_Vdot = 2.0 # 2.0
+    W_Chidot = 1e-3 # 1e-3
     W_gDist = 0.01 # 0.01
     W_gChi = 1  # 1
 
@@ -243,10 +243,21 @@ elif no == 5:
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
+elif no == 6:
+    obstacleE = np.array([8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE + 5 # ft, left-bottom
+    obstacleN = np.array([50.0, 60.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN - 15 # ft, left-bottom
+    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+    obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
+    obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
+
+    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
 
 elif no == 7:
-    obstacleE = np.array([8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([25.0, 40.0, 55.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN # ft, left-bottom
+    obstacleE = np.array([8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE + 5 # ft, left-bottom
+    obstacleN = np.array([40.0, 50.0, 60.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN # ft, left-bottom
     obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
     obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
     obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft

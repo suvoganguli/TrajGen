@@ -178,10 +178,11 @@ def goalCost(x, t0):
     goalDist = np.sqrt((endPoint[0] - x[0]) ** 2 + (endPoint[1] - x[1]) ** 2)
     cost_goalDist = W_gDist * goalDist**2
 
-    dy = (endPoint[1] - x[1])
-    dx = (endPoint[0] - x[0])
+    dE = (endPoint[1] - x[1])
+    dN = (endPoint[0] - x[0])
 
-    Chi_goal = (np.pi/2 - np.arctan2(dy,dx)) * 180 / np.pi
+    # converting heading to deg for proper scaling
+    Chi_goal = np.arctan2(dN, dE) * 180 / np.pi   # w.r.t +ve N axis
     Chi = x[3] * 180/np.pi
     delChi = Chi_goal - Chi
 
@@ -265,11 +266,11 @@ def terminalCons(u, x, t0, path, obstacle, posIdx=None):
     empty = np.array([], dtype=float) # yDist
     VEnd = np.array([x[2]]) # VEnd
 
-    dy = (endPoint[1] - x[1])
-    dx = (endPoint[0] - x[0])
+    dN = (endPoint[1] - x[1])
+    dE = (endPoint[0] - x[0])
 
-    ChiGoal = (np.pi/2 - np.arctan2(dy,dx)) * 180 / np.pi
-    Chi = x[3] * 180/np.pi
+    ChiGoal = np.arctan2(dE, dN) # w.r.t. +ve N axis
+    Chi = x[3]
 
     delChi = np.array([ChiGoal - Chi])
 

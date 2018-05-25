@@ -44,7 +44,7 @@ def createPlots(mode, pathObjArray = None, obstacle = None, dirNames = None, fil
         TVec = np.zeros(n)
 
         for k in range(n):
-            print(k)
+            #print(k)
             os.chdir(dirNames[k])
 
             fileName = fileNames[k]
@@ -97,7 +97,7 @@ elif mode == 1:
     # 1 - run_2018-03-06 (comprehensive runs for different N, ns and no)
     # 2 - run_2018-03-14 (tradeoff charts for various T)
     # 3 - run_2018-03-14 vs run_2018-03-15 (V = 5 mph vs 10 mph)
-    case = 5
+    case = 6
 
     if case == 1:
 
@@ -207,6 +207,17 @@ elif mode == 1:
 
         str1 = 'settings_N08_Tp5_ns4_no1_NoPopup.txt'
         str2 = 'pathDict_no1_NoPopup.pkl'
+
+    elif case == 6:
+
+        dirNames = ['run_2018-05-25_no7_delChi-45deg',
+                    'run_2018-05-25_no7_delChi-90deg']  # V_cmd = 10 mph
+
+        fileNames = ['logFile_N08_Tp5_ns4_no7_NoPopup.txt',
+                     'logFile_N08_Tp5_ns4_no7_NoPopup.txt']
+
+        str1 = 'settings_N08_Tp5_ns4_no7_NoPopup.txt'
+        str2 = 'pathDict_no7_NoPopup.pkl'
 
 
         n = len(dirNames)

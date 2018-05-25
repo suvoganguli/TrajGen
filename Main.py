@@ -108,7 +108,8 @@ while mpciter < mpciterations:
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
-    latAccel[mpciter], VTerminal[mpciter], delChi[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0, obstacle, pathType)
+    latAccel[mpciter], VTerminal[mpciter], delChi[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0,
+                                                                                    obstacle, pathType, mpciter)
 
     # solution information
     printPlots.nmpcPrint(mpciter, info, N, x0, u_new, writeToFile, fHandle, tElapsed[mpciter],
@@ -179,7 +180,7 @@ while mpciter < mpciterations:
 
     mpciter = mpciter + 1
 
-    if mpciter > 20:
+    if mpciter > 25:
         None
 
 
