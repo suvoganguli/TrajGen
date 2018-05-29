@@ -79,6 +79,7 @@ tElapsed = np.zeros(mpciterations)
 VTerminal = np.zeros(mpciterations)
 latAccel = np.zeros(mpciterations)
 delChi = np.zeros(mpciterations)
+breakLoop = False
 
 # Speficy initial position index
 posIdx = getPosIdx(x0[0], x0[1], path, posIdx0)
@@ -129,59 +130,30 @@ while mpciter < mpciterations:
     # apply control
     tmeasure, xmeasure = applyControl(T, t0, x0, u_new)
 
-    # change V_cmd to 0 if close to goal
-    #distGoal = distance(x0[0:2],endPoint)
-
     # prepare restart
     u0 = shiftHorizon(N, u_new)
 
     posIdx = getPosIdx(xmeasure[0], xmeasure[1], path, posIdx)
 
-    #print(tmeasure, distGoal)
+    # reset global variable to write cost breakdown in nlp.py
+    globalVars.writeToFileCost = True
 
-    # stop vehicle when close to the goal
     x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), N, T, t0, x0)
     current_point = x_mpciter[0, 0:2]
     terminal_point = x_mpciter[-1, 0:2]
 
-    if decelType == 'Slow':
+    # stop vehicle if required
+    breakLoop, V_cmd, t_slowDown, t_slowDown_detected, lb_VTerm, lb_VdotVal = \
+        vehicleStop(T, x, mpciter, decelType, terminal_point, endPoint,
+                lb_reachedGoal, lb_reachedNearGoal, zeroDistanceChange,
+                t_slowDown_detected, tmeasure, V_cmd, lb_VTermSlowDown, lb_VdotValSlowDown, decel,
+                t_slowDown, lb_VTerm, lb_VdotVal)
 
-        # find detection time
-        if (distance(terminal_point, endPoint) < lb_nearGoal) and (t_slowDown_detected == False):
-            t_slowDown = tmeasure
-            t_slowDown_detected = True
+    if breakLoop == True:
+        break
 
-        # slow down V_cmd near goal
-        if t_slowDown_detected == True:
-            # Dist_stop += V_cmd * T
-            # T_stop += T
-            # Dist_currentpoint = np.sqrt( x_mpciter[0,0]**2 + x_mpciter[0,1]**2 )
-            # print('N = {0:.1f}, Dist-stop = {1:.1f}, T-stop = {2:0.1f}'.format(Dist_currentpoint, Dist_stop, T_stop))
-
-            V_cmd = V_cmd - decel * T
-            lb_VTerm = lb_VTermSlowDown # fps
-            lb_VdotVal = lb_VdotValSlowDown # fps2
-            deltaDistance = np.sqrt( x[mpciter,0]**2 + x[mpciter,1]**2 ) - \
-                            np.sqrt( x[mpciter-1,0]**2 + x[mpciter-1,1]**2)
-
-            if deltaDistance <= lb_reachedGoal:
-                print('Reached goal')
-                break
-
-    elif decelType == 'Fast':
-        if distance(terminal_point, endPoint) < lb_nearGoal:
-            print('Reached near goal')
-            break
-
-
-
-    # reset global variable to write cost breakdown in nlp.py
-    globalVars.writeToFileCost = True
-
+    # next iteration
     mpciter = mpciter + 1
-
-    if mpciter > 25:
-        None
 
 
 if trimVals is True:

@@ -436,3 +436,51 @@ def obstacleClassInstance_from_Dict(obstacleDist):
                              obstacleSafeWidth, obstacleSafeLength, obstacleSafeRadius)
     obstacle = obstacleClass()
     return obstacle
+
+def vehicleStop(T, x, mpciter, decelType, terminal_point, endPoint,
+                lb_reachedGoal, lb_reachedNearGoal, zeroDistanceChange,
+                t_slowDown_detected, tmeasure, V_cmd, lb_VTermSlowDown, lb_VdotValSlowDown, decel,
+                t_slowDown, lb_VTerm, lb_VdotVal):
+    # ----------------------------------------------------------------------------
+    # Vehicle stopping
+
+    breakLoop = False
+
+    if decelType == 'Slow':
+
+        # find detection time
+        if (distance(terminal_point, endPoint) < lb_reachedNearGoal) and (t_slowDown_detected == False):
+            t_slowDown = tmeasure
+            t_slowDown_detected = True
+
+        # slow down V_cmd near goal
+        if t_slowDown_detected == True:
+
+            V_cmd = V_cmd - decel * T
+
+            lb_VTerm = lb_VTermSlowDown  # fps
+            lb_VdotVal = lb_VdotValSlowDown  # fps2
+
+            if (distance(terminal_point, endPoint) < lb_reachedGoal):
+                print('Reached Goal')
+                breakLoop = True
+
+            if mpciter > 0:
+
+                print(distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]))
+
+                if distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]) < zeroDistanceChange:
+                    print('Stopped (distance)')
+                    breakLoop = True
+
+                if x[mpciter, 2] * x[mpciter - 1, 2] < 0:  # change in direction of terminal point
+                    print('Stopped (V direction)')
+                    breakLoop = True
+
+
+    elif decelType == 'Fast':
+        if distance(terminal_point, endPoint) < lb_reachedNearGoal:
+            print('Reached near goal')
+            breakLoop = True
+
+    return breakLoop, V_cmd, t_slowDown, t_slowDown_detected, lb_VTerm, lb_VdotVal

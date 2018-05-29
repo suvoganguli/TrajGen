@@ -50,23 +50,19 @@ sf_T = 1
 N = 8
 T = 0.5*sf_T
 ns = 4
-no = 7  # 0, 1, 2, 5, 6, 7
+no = 1  # 0, 1, 2, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
 mpciterations = 100
 
-decelType = 'Fast'  # Slow or Fast
+decelType = 'Slow'  # Slow or Fast
 
-lb_nearGoal = 10 # ft
-lb_reachedGoal = 20-1 # ft
+lb_reachedNearGoal = 20 #max([V0*N*T, 40]) # ft
+lb_reachedGoal = 1 # ft
+zeroDistanceChange = 1 # ft
 
-decel = V0**2 / (2 * lb_nearGoal) # fps2
-# t_stop = V0 / decel # sec
-# dist_stop = V0 * t_stop - 0.5 * decel * t_stop**2
-# print('Decel [fps2] = ' + str(decel))
-# print('T-stop [sec] = ' + str(t_stop))
-# print('Dist-stop [ft] = ' + str(dist_stop))
+decel = V0**2 / (2 * lb_reachedNearGoal) # fps2
 
 
 # Number of states
@@ -108,7 +104,7 @@ if ns == 4:
     lb_VTerm = V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
-    delChi_max = 90 * np.pi / 180
+    delChi_max = 45 * np.pi / 180
 
     # 2018-05-24
     # W_P = 0.0
@@ -119,15 +115,15 @@ if ns == 4:
     # W_gChi = 1  # 1
 
     W_P = 0.0 # 0.0
-    W_V = 1.0 # 1.0
-    W_Vdot = 2.0 # 2.0
+    W_V = 2.0 # 1.0
+    W_Vdot = 0.5 # 2.0
     W_Chidot = 1e-3 # 1e-3
     W_gDist = 0.01 # 0.01
     W_gChi = 1  # 1
 
     # Braking parameters
 
-    lb_VdotValSlowDown = -6 # fps2
+    lb_VdotValSlowDown = -4 # fps2
     lb_VTermSlowDown = 0 # fps
 
     V_cmd = V0  # fps
@@ -266,8 +262,10 @@ elif no == 7:
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
-
-safeDistance = V0*N*T + max(obstacleSafeRadius)
+if len(obstacleSafeRadius) > 0:
+    safeDistance = V0*N*T + max(obstacleSafeRadius)
+else:
+    safeDistance = V0*N*T
 # ------------------------------------------------------------
 
 print('Add obstacle rotation')
