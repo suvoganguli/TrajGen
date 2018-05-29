@@ -102,6 +102,9 @@ while mpciter < mpciterations:
     #  get new initial value
     t0, x0 = measureInitialValue(tmeasure, xmeasure)
 
+    # search for obstacle
+    detected = detectObstacle(x0, detectionWindowParam, obstacle)
+
     # solve optimal control problem
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                              obstacle, posIdx, ncons_option, V_cmd,
@@ -151,6 +154,9 @@ while mpciter < mpciterations:
 
     if breakLoop == True:
         break
+
+    if mpciter > 12:
+        None
 
     # next iteration
     mpciter = mpciter + 1

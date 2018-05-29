@@ -5,6 +5,7 @@ import matplotlib.figure as fig
 import matplotlib.animation as animation
 import matplotlib.patches as patches
 import problemData as pdata
+import obstacleData as odata
 import os
 from utils import *
 
@@ -22,8 +23,7 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
     V_terminal = x_mpciter[-1,2]
 
     # figure 1
-    plt.figure(1,figsize=(5, 7), dpi=100)
-
+    plt.figure(1, figsize=(5, 7), dpi=100)
     plt.ylabel('N [ft]')
     plt.xlabel('E [ft]')
     #plt.axis('equal')
@@ -34,6 +34,7 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
     plt.plot(path.pathData.PathStartPoint[0], path.pathData.PathStartPoint[1], marker='o', markersize=8, color='r')
     plt.plot(path.pathData.PathEndPoint[0], path.pathData.PathEndPoint[1], marker='o', markersize=8, color='g')
 
+    # draw all lines
     if False:
         plt.plot(path.pathData.PathRightEndPointsE, path.pathData.PathRightEndPointsN,'m+')
         plt.plot(path.pathData.PathLeftEndPointsE, path.pathData.PathLeftEndPointsN,'m+')
@@ -62,7 +63,8 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
 
     plt.grid(True)
 
-    if True: # obstacle is present:
+    # draw obstacles
+    if True:
 
         nObs = obstacle.E.size
 
@@ -91,6 +93,19 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
                 ax = plt.gca()
                 ax.add_patch(ellipse_safezone)
                 ax.add_patch(polygon_obstacle)
+
+    # draw detection window
+
+    if True:
+        p1Win, p2Win, p3Win, p4Win = odata.window(x0, pdata.detectionWindowParam)
+
+        L1 = plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')
+        L2 = plt.plot([p2Win[0], p3Win[0]], [p2Win[1], p3Win[1]], 'c')
+        L3 = plt.plot([p3Win[0], p4Win[0]], [p3Win[1], p4Win[1]], 'c')
+        L4 = plt.plot([p4Win[0], p1Win[0]], [p4Win[1], p1Win[1]], 'c')
+
+    if mpciter == 8:
+        None
 
     nEN = len(East)
     plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
@@ -444,6 +459,7 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
         plt.plot(PathStartPoint[0], PathStartPoint[1], marker='o', markersize=8, color='r')
         plt.plot(PathEndPoint[0], PathEndPoint[1], marker='o', markersize=8, color='g')
 
+        # draw all lines
         if False:
             plt.plot(PathRightEndPointsE, PathRightEndPointsN,'m+')
             plt.plot(PathLeftEndPointsE, PathLeftEndPointsN,'m+')
@@ -460,8 +476,9 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
             y2 = PathCenterEndPointsN - PathDeltaYRoad*np.cos(PathThetaEndpoints)
             plt.plot(x1, y1, 'r', x2, y2, 'r')
 
-        plt.grid(False)
+        #plt.grid(False)
 
+        # draw obstacles
         if True: # obstacle.Present == True:
 
             nObs = len(ObstacleE)
@@ -488,7 +505,6 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
                     ax = plt.gca()
                     ax.add_patch(ellipse_safezone)
                     ax.add_patch(polygon_obstacle)
-
 
 
     # Actual Path

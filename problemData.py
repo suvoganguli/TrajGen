@@ -266,6 +266,11 @@ if len(obstacleSafeRadius) > 0:
     safeDistance = V0*N*T + max(obstacleSafeRadius)
 else:
     safeDistance = V0*N*T
+
+
+# Detection Window
+detectionWindowParam = {'L': safeDistance, 'W': max(obstacleWidth)*1.10}
+
 # ------------------------------------------------------------
 
 print('Add obstacle rotation')
