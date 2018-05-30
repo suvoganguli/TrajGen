@@ -50,7 +50,7 @@ sf_T = 1
 N = 8
 T = 0.5*sf_T
 ns = 4
-no = 1  # 0, 1, 2, 5, 6, 7
+no = 5  # 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
@@ -104,7 +104,9 @@ if ns == 4:
     lb_VTerm = V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
-    delChi_max = 45 * np.pi / 180
+    delChi_max_InView = 90 * np.pi / 180
+    delChi_max_NotInView = 30 * np.pi / 180
+    delChi_max = delChi_max_NotInView
 
     # 2018-05-24
     # W_P = 0.0
@@ -138,7 +140,7 @@ if ns == 4:
 elif ns == 6:
 
     # Ipopt settings
-    nlpMaxIter = 100
+    nlpMaxIter = 500
     #mpciterations = 5
 
     # Kinematic Constraints
@@ -155,7 +157,8 @@ elif ns == 6:
     useLatAccelCons = 1
     lb_V = 0.8*V0 # not used for ncons_option = 2
     ub_V = 1.2*V0 # not used for ncons_option = 2
-    delChi_max = 10 * np.pi / 180
+    delChi_max_InView = 90 * np.pi / 180
+    delChi_max_NotInView = 30 * np.pi / 180
 
     # Tracking Tuning and Data
     W_P = 0.0     #1.0
@@ -226,6 +229,18 @@ elif no == 2:
     obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+elif no == 4:
+    obstacleE = np.array([6.0, 8.0, 18.0, 20.0]) * scaleFactorE # ft, left-bottom
+    obstacleN = np.array([31.0, 46.0, 58.0, 75.0]) * scaleFactorN # ft, left-bottom
+    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+    obstacleLength = np.array([4.0, 8.0, 4.0, 4.0]) * scaleFactorN # ft
+    obstacleWidth  = np.array([4.0, 8.0, 4.0, 4.0]) * scaleFactorE # ft
+
+    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
 
 
 elif no == 5:
@@ -382,7 +397,7 @@ if ns == 4:
         N, T, ns, no,
         lb_VdotVal, ub_VdotVal,
         lb_ChidotVal, ub_ChidotVal,
-        delChi_max, lataccel_maxVal,
+        delChi_max_InView, lataccel_maxVal,
         lb_VTerm, ub_VTerm, V_cmd
         ))
 elif ns == 6:
@@ -391,7 +406,7 @@ elif ns == 6:
         N, T, ns, no,
         lb_VddotVal, ub_VddotVal,
         lb_ChiddotVal, ub_ChiddotVal,
-        delChi_max, lataccel_maxVal,
+        delChi_max_InView, lataccel_maxVal,
         lb_VTerm, ub_VTerm, V_cmd
         ))
 

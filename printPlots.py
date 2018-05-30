@@ -95,8 +95,7 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
                 ax.add_patch(polygon_obstacle)
 
     # draw detection window
-
-    if True:
+    if True and mpciter > 3:
         p1Win, p2Win, p3Win, p4Win = odata.window(x0, pdata.detectionWindowParam)
 
         L1 = plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')

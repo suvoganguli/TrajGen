@@ -148,6 +148,22 @@ def detectObstacle(x0, detectionWindowParam, obstacle):
         if detected is True:
             print('Obstacle {0:d} detected'.format(k))
 
+            if k == 2:
+                import matplotlib.pyplot as plt
+
+                plt.figure(30)
+                plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')
+                plt.plot([p2Win[0], p3Win[0]], [p2Win[1], p3Win[1]], 'c')
+                plt.plot([p3Win[0], p4Win[0]], [p3Win[1], p4Win[1]], 'c')
+                plt.plot([p4Win[0], p1Win[0]], [p4Win[1], p1Win[1]], 'c')
+
+                plt.plot(p1Obs[0], p1Obs[1], 'ro')
+                plt.plot(p2Obs[0], p2Obs[1], 'ro')
+                plt.plot(p3Obs[0], p3Obs[1], 'ro')
+                plt.plot(p4Obs[0], p4Obs[1], 'ro')
+
+
+                None
 
     return detected
 

@@ -93,6 +93,7 @@ trimVals = True
 pathObj = makePathObj(pdata, path, obstacle)
 pathObjArray = [pathObj]
 
+
 # Main loop
 while mpciter < mpciterations:
 
@@ -104,6 +105,11 @@ while mpciter < mpciterations:
 
     # search for obstacle
     detected = detectObstacle(x0, detectionWindowParam, obstacle)
+
+    if detected is True:
+        delChi_max = delChi_max_InView
+    else:
+        delChi_max = delChi_max_NotInView
 
     # solve optimal control problem
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
@@ -155,7 +161,7 @@ while mpciter < mpciterations:
     if breakLoop == True:
         break
 
-    if mpciter > 12:
+    if mpciter > 3:
         None
 
     # next iteration
