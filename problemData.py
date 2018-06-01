@@ -106,7 +106,7 @@ if ns == 4:
 
     delChi_max_InView = 90 * np.pi / 180
     delChi_max_NotInView = 30 * np.pi / 180
-    delChi_max = delChi_max_NotInView
+    delChi_max = 0 # need to initialize delCh_max
 
     # 2018-05-24
     # W_P = 0.0

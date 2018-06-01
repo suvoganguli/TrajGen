@@ -50,6 +50,8 @@ mpciter = 0
 # Other parameters
 t_slowDown = []
 t_slowDown_detected = False
+delChi_maxvec_obstacleInView = np.array([], dtype=float)
+delChi_maxvec_obstacleNotInView = np.array([], dtype=float)
 Dist_stop = 0.0
 T_stop = 0.0
 fVbnd = False
@@ -104,17 +106,28 @@ while mpciter < mpciterations:
     t0, x0 = measureInitialValue(tmeasure, xmeasure)
 
     # search for obstacle
-    detected = detectObstacle(x0, detectionWindowParam, obstacle)
+    detected, obstacleID = detectObstacle(x0, detectionWindowParam, obstacle)
 
-    if detected is True:
+    if detected == True:
         delChi_max = delChi_max_InView
+        delChi_maxvec_obstacleInView = \
+            np.concatenate([delChi_maxvec_obstacleInView, np.array([delChi_max_InView])])
+        delChi_maxvec_obstacleNotInView = \
+            np.concatenate([delChi_maxvec_obstacleNotInView, np.array([0])])
+
+        print('Obstacle(s) detected at mpciter = ' + str(mpciter))
     else:
         delChi_max = delChi_max_NotInView
+        delChi_maxvec_obstacleNotInView = \
+            np.concatenate([delChi_maxvec_obstacleNotInView, np.array([delChi_max_NotInView])])
+        delChi_maxvec_obstacleInView = \
+            np.concatenate([delChi_maxvec_obstacleInView, np.array([0])])
+        print('No obstacle detected at mpciter = ' + str(mpciter))
 
     # solve optimal control problem
     u_new, info = solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                              obstacle, posIdx, ncons_option, V_cmd,
-                                             lb_VTerm, lb_VdotVal, fHandleCost)
+                                             lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost)
     tElapsed[mpciter] = (time.time() - tStart)
 
     # mpc  future path plot
@@ -161,7 +174,7 @@ while mpciter < mpciterations:
     if breakLoop == True:
         break
 
-    if mpciter > 3:
+    if mpciter > 30:
         None
 
     # next iteration
@@ -226,7 +239,8 @@ oldpwd = os.getcwd()
 os.chdir(rundir)
 settingsFile = 'settings' + suffix + '.txt'
 figno = printPlots.nmpcPlot(t, x, u, path, obstacle, tElapsed, VTerminal, latAccel,
-                            delChi, settingsFile, pathObjArray, t_slowDown)
+                            delChi, settingsFile, pathObjArray, t_slowDown,
+                            delChi_maxvec_obstacleInView, delChi_maxvec_obstacleNotInView)
 os.chdir(oldpwd)
 
 if saveData == True:

@@ -27,15 +27,15 @@ def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWid
 
             for k in range(n):
 
-                xBL = obstacleE[k] - obstacleSafeWidth[k] / 2
-                xBR = obstacleE[k] + obstacleSafeWidth[k] / 2
-                xTR = obstacleE[k] + obstacleSafeWidth[k] / 2
-                xTL = obstacleE[k] - obstacleSafeWidth[k] / 2
+                xBL = obstacleE[k] - obstacleWidth[k] / 2
+                xBR = obstacleE[k] + obstacleWidth[k] / 2
+                xTR = obstacleE[k] + obstacleWidth[k] / 2
+                xTL = obstacleE[k] - obstacleWidth[k] / 2
 
-                yBL = obstacleN[k] - obstacleSafeLength[k] / 2
-                yBR = obstacleN[k] - obstacleSafeLength[k] / 2
-                yTR = obstacleN[k] + obstacleSafeLength[k] / 2
-                yTL = obstacleN[k] + obstacleSafeLength[k] / 2
+                yBL = obstacleN[k] - obstacleLength[k] / 2
+                yBR = obstacleN[k] - obstacleLength[k] / 2
+                yTR = obstacleN[k] + obstacleLength[k] / 2
+                yTL = obstacleN[k] + obstacleLength[k] / 2
 
                 E_array = np.array([xBL, xBR, xTR, xTL])
                 N_array = np.array([yBL, yBR, yTR, yTL])
@@ -46,16 +46,6 @@ def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWid
 
                 E_corners[k] = ERot_array
                 N_corners[k] = NRot_array
-
-            # self.xBL = ERot_array[0]
-            # self.xBR = ERot_array[1]
-            # self.xTR = ERot_array[2]
-            # self.xBL = ERot_array[3]
-            #
-            # self.yBL = NRot_array[0]
-            # self.yBR = NRot_array[1]
-            # self.yTR = NRot_array[2]
-            # self.yBL = NRot_array[3]
 
             self.E_corners = E_corners
             self.N_corners = N_corners
@@ -127,8 +117,9 @@ def detectObstacle(x0, detectionWindowParam, obstacle):
     # window
     bbPath = mplPath.Path(np.array([p1Win, p2Win, p3Win, p4Win]))
 
-    detected = False
     nObs = obstacle.E.size
+    detected = np.zeros(nObs, dtype=bool)
+    obstacleID = np.array([], dtype=int)
 
     for k in range(nObs):
 
@@ -143,29 +134,31 @@ def detectObstacle(x0, detectionWindowParam, obstacle):
         det2 = bbPath.contains_point(p2Obs)
         det3 = bbPath.contains_point(p3Obs)
         det4 = bbPath.contains_point(p4Obs)
-        detected = det1 or det2 or det3 or det4
+        detected[k] = det1 or det2 or det3 or det4
 
-        if detected is True:
+        if detected[k] == True:
+            obstacleID = np.concatenate([obstacleID, np.array([k])])
             print('Obstacle {0:d} detected'.format(k))
 
-            if k == 2:
-                import matplotlib.pyplot as plt
+            # if k >= 0:
+            #     import matplotlib.pyplot as plt
+            #     #
+            #     # plt.figure(30)
+            #     # plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')
+            #     # plt.plot([p2Win[0], p3Win[0]], [p2Win[1], p3Win[1]], 'c')
+            #     # plt.plot([p3Win[0], p4Win[0]], [p3Win[1], p4Win[1]], 'c')
+            #     # plt.plot([p4Win[0], p1Win[0]], [p4Win[1], p1Win[1]], 'c')
+            #     #
+            #     # plt.plot(p1Obs[0], p1Obs[1], 'ro')
+            #     # plt.plot(p2Obs[0], p2Obs[1], 'ro')
+            #     # plt.plot(p3Obs[0], p3Obs[1], 'ro')
+            #     # plt.plot(p4Obs[0], p4Obs[1], 'ro')
+            #     #
+            #     # plt.axis('equal')
+            #     # plt.grid('on')
+            #     # None
 
-                plt.figure(30)
-                plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')
-                plt.plot([p2Win[0], p3Win[0]], [p2Win[1], p3Win[1]], 'c')
-                plt.plot([p3Win[0], p4Win[0]], [p3Win[1], p4Win[1]], 'c')
-                plt.plot([p4Win[0], p1Win[0]], [p4Win[1], p1Win[1]], 'c')
-
-                plt.plot(p1Obs[0], p1Obs[1], 'ro')
-                plt.plot(p2Obs[0], p2Obs[1], 'ro')
-                plt.plot(p3Obs[0], p3Obs[1], 'ro')
-                plt.plot(p4Obs[0], p4Obs[1], 'ro')
-
-
-                None
-
-    return detected
+    return np.any(detected), obstacleID
 
 
 def getObstacleData(obstacle, obstacleIdx):

@@ -95,8 +95,14 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
                 ax.add_patch(polygon_obstacle)
 
     # draw detection window
-    if True and mpciter > 3:
+    if False and mpciter >= 0:
+
         p1Win, p2Win, p3Win, p4Win = odata.window(x0, pdata.detectionWindowParam)
+
+        p1Obs = [obstacle.E_corners[0], obstacle.N_corners[0]]
+        p2Obs = [obstacle.E_corners[1], obstacle.N_corners[1]]
+        p3Obs = [obstacle.E_corners[2], obstacle.N_corners[2]]
+        p4Obs = [obstacle.E_corners[3], obstacle.N_corners[3]]
 
         L1 = plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')
         L2 = plt.plot([p2Win[0], p3Win[0]], [p2Win[1], p3Win[1]], 'c')
@@ -107,6 +113,7 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
         None
 
     nEN = len(East)
+
     plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
     plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
     #plt.ylim([0, 240])
@@ -150,7 +157,8 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
     return latAccel/32.2, V_terminal, delChi
 
 
-def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFile,pathObjArray,t_slowDown):
+def nmpcPlot(t, x, u, path, obstacle, tElapsed, V_terminal, latAccel, delChi, settingsFile,
+             pathObjArray, t_slowDown, delChi_maxvec_obstacleInView, delChi_maxvec_obstacleNotInView):
 
     f_pData = file(settingsFile, 'r')
     cols, indexToName = getColumns(f_pData, delim=" ", header=False)
@@ -276,10 +284,26 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
         plt.ylabel('Lat Accel [g]')
         plt.grid(True)
 
+
         plt.subplot(212)
+        #plt.plot(t, pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        #plt.plot(t, -pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        #plt.plot(t, delChi_maxvec_obstacleInView[:-1] * 180/np.pi, linestyle='--', color='r')
+        #plt.plot(t, -delChi_maxvec_obstacleInView[:-1] * 180 / np.pi, linestyle='--', color='r')
+        #plt.plot(t, delChi_maxvec_obstacleNotInView[:-1] * 180 / np.pi, linestyle='--', color='r')
+        #plt.plot(t, -delChi_maxvec_obstacleNotInView[:-1] * 180 / np.pi, linestyle='--', color='r')
+        #plt.plot(t, 0*t, color='w')
+
+
+        for k in range(len(t)):
+            if delChi_maxvec_obstacleInView[k] != 0:
+                plt.plot(t[k], delChi_maxvec_obstacleInView[k] * 180/np.pi,'r_')
+                plt.plot(t[k], -delChi_maxvec_obstacleInView[k] * 180 / np.pi, 'r_')
+            if delChi_maxvec_obstacleNotInView[k] != 0:
+                plt.plot(t[k], delChi_maxvec_obstacleNotInView[k] * 180/np.pi, 'r_')
+                plt.plot(t[k], -delChi_maxvec_obstacleNotInView[k] * 180 / np.pi, 'r_')
+
         plt.plot(t, delChi)
-        plt.plot(t, pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
-        plt.plot(t, -pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
         plt.ylabel('delChi [deg]')
         plt.xlabel('t [sec]')
         plt.grid(True)
@@ -379,8 +403,8 @@ def nmpcPlot(t,x,u,path,obstacle,tElapsed,V_terminal,latAccel,delChi,settingsFil
 
         plt.subplot(212)
         plt.plot(t, delChi)
-        plt.plot(t, pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
-        plt.plot(t, -pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t1, pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
+        plt.plot(t1, -pdata.delChi_max * np.ones(t.shape) * 180/np.pi, linestyle='--', color='r')
         plt.ylabel('delChi [deg]')
         plt.xlabel('t [sec]')
         plt.grid(True)

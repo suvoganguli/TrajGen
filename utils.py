@@ -467,7 +467,7 @@ def vehicleStop(T, x, mpciter, decelType, terminal_point, endPoint,
 
             if mpciter > 0:
 
-                print(distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]))
+                #print(distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]))
 
                 if distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]) < zeroDistanceChange:
                     print('Stopped (distance)')

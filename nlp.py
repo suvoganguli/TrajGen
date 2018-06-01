@@ -6,7 +6,7 @@ import globalVars
 class nlpProb(object):
 
     def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
-                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, fHandleCost = None):
+                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost = None):
         try:
             self.N = N
             self.T = T
@@ -25,6 +25,8 @@ class nlpProb(object):
             self.fHandleCost = fHandleCost
             self.addObstacleConstraints = False
             self.obstacleNumber = np.array([], dtype=int)
+            self.delChi_max = delChi_max
+            self.obstacleID = obstacleID
 
             nObstacle = len(obstacle.N)
             if nObstacle > 0:
@@ -42,7 +44,7 @@ class nlpProb(object):
                         self.ncons_vary += N
             pass
         except:
-            print('Error in setup')
+            print('Error in init')
 
     def objective(self, u):
         N = self.N
@@ -255,6 +257,8 @@ class nlpProb(object):
             lb_VTerm = self.lb_VTerm
             lb_VdotVal = self.lb_VdotVal
             fHandleCost = self.fHandleCost
+            delChi_max = self.delChi_max
+            obstacleID = self.obstacleID
 
             LARGE_NO = 1e12
 
@@ -340,7 +344,7 @@ class nlpProb(object):
                 m=len(cl),
                 problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
                                     obstacle, posIdx, ns_option, V_cmd,
-                                    lb_VTerm, lb_VdotVal, fHandleCost),
+                                    lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost),
                 lb=lb,
                 ub=ub,
                 cl=cl,
