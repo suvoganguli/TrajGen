@@ -470,11 +470,11 @@ def vehicleStop(T, x, mpciter, decelType, terminal_point, endPoint,
                 #print(distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]))
 
                 if distance(x[mpciter, 0:2], x[mpciter - 1, 0:2]) < zeroDistanceChange:
-                    print('Stopped (distance)')
+                    print('Stopped (distance moved close to zero)')
                     breakLoop = True
 
                 if x[mpciter, 2] * x[mpciter - 1, 2] < 0:  # change in direction of terminal point
-                    print('Stopped (V direction)')
+                    print('Stopped (V direction change)')
                     breakLoop = True
 
 

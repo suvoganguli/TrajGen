@@ -104,7 +104,7 @@ if ns == 4:
     lb_VTerm = V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
-    delChi_max_InView = 90 * np.pi / 180
+    delChi_max_InView = 45 * np.pi / 180
     delChi_max_NotInView = 30 * np.pi / 180
     delChi_max = 0 # need to initialize delCh_max
 

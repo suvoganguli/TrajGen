@@ -42,6 +42,23 @@ class nlpProb(object):
                         self.addObstacleConstraints = True
                         self.obstacleNumber = np.concatenate([self.obstacleNumber, np.array([j])])
                         self.ncons_vary += N
+
+            # nObstacle = len(obstacleID)
+            # if nObstacle > 0:
+            #     for j in range(nObstacle):
+            #
+            #         id = obstacleID[j]
+            #         p1 = x0[0:2]
+            #         p2 = np.array([obstacle.E[id], obstacle.N[id]])
+            #         distToObstacle = distance(p1, p2)
+            #
+            #         # print('{0:.1f}, {1:.1f}'.format(distToObstacle, safeDistance))
+            #
+            #         if distToObstacle < safeDistance:
+            #             self.addObstacleConstraints = True
+            #             self.obstacleNumber = np.concatenate([self.obstacleNumber, np.array([id]) ])
+            #             self.ncons_vary += N
+
             pass
         except:
             print('Error in init')
