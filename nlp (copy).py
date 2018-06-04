@@ -6,7 +6,7 @@ import globalVars
 class nlpProb(object):
 
     def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
-                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost = None):
+                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, fHandleCost = None):
         try:
             self.N = N
             self.T = T
@@ -25,47 +25,24 @@ class nlpProb(object):
             self.fHandleCost = fHandleCost
             self.addObstacleConstraints = False
             self.obstacleNumber = np.array([], dtype=int)
-            self.delChi_max = delChi_max
-            self.obstacleID = obstacleID
 
-            useOnlyObstaclesInView = True
+            nObstacle = len(obstacle.N)
+            if nObstacle > 0:
+                for j in range(nObstacle):
 
-            if useOnlyObstaclesInView:
-                nObstacle = len(obstacle.N)
-                if nObstacle > 0:
-                    for j in range(nObstacle):
-    
-                        p1 = x0[0:2]
-                        p2 = np.array([obstacle.E[j], obstacle.N[j]])
-                        distToObstacle = distance(p1, p2)
-    
-                        #print('{0:.1f}, {1:.1f}'.format(distToObstacle, safeDistance))
-    
-                        if distToObstacle < safeDistance:
-                            self.addObstacleConstraints = True
-                            self.obstacleNumber = np.concatenate([self.obstacleNumber, np.array([j])])
-                            self.ncons_vary += N
+                    p1 = x0[0:2]
+                    p2 = np.array([obstacle.E[j], obstacle.N[j]])
+                    distToObstacle = distance(p1, p2)
 
-            else:
-                nObstacle = len(obstacleID)
-                if nObstacle > 0:
-                    for j in range(nObstacle):
-    
-                        id = obstacleID[j]
-                        p1 = x0[0:2]
-                        p2 = np.array([obstacle.E[id], obstacle.N[id]])
-                        distToObstacle = distance(p1, p2)
-    
-                        # print('{0:.1f}, {1:.1f}'.format(distToObstacle, safeDistance))
-    
-                        if distToObstacle < safeDistance:
-                            self.addObstacleConstraints = True
-                            self.obstacleNumber = np.concatenate([self.obstacleNumber, np.array([id]) ])
-                            self.ncons_vary += N
+                    #print('{0:.1f}, {1:.1f}'.format(distToObstacle, safeDistance))
 
+                    if distToObstacle < safeDistance:
+                        self.addObstacleConstraints = True
+                        self.obstacleNumber = np.concatenate([self.obstacleNumber, np.array([j])])
+                        self.ncons_vary += N
             pass
         except:
-            print('Error in init')
+            print('Error in setup')
 
     def objective(self, u):
         N = self.N
@@ -278,8 +255,6 @@ class nlpProb(object):
             lb_VTerm = self.lb_VTerm
             lb_VdotVal = self.lb_VdotVal
             fHandleCost = self.fHandleCost
-            delChi_max = self.delChi_max
-            obstacleID = self.obstacleID
 
             LARGE_NO = 1e12
 
@@ -365,7 +340,7 @@ class nlpProb(object):
                 m=len(cl),
                 problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
                                     obstacle, posIdx, ns_option, V_cmd,
-                                    lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost),
+                                    lb_VTerm, lb_VdotVal, fHandleCost),
                 lb=lb,
                 ub=ub,
                 cl=cl,
