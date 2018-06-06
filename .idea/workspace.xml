@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFile.txt" afterPath="$PROJECT_DIR$/logFile.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCost.txt" afterPath="$PROJECT_DIR$/logFileCost.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/CPUtime_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/Chi-Chidot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/E-N_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/LatAccel-dy_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/V-Vdot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/V-terminal_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/logFile_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/pathDict_no7_NoPopup.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/pathDict_no7_NoPopup_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/path_N08_Tp5_ns4_no7_NoPopup_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/path_N08_Tp5_ns4_no7_NoPopup_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/settings_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problemData.py" afterPath="$PROJECT_DIR$/problemData.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.txt" afterPath="$PROJECT_DIR$/settings.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,8 +69,8 @@
       <file leaf-file-name="problemData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/problemData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="103" column="32" lean-forward="false" selection-start-line="103" selection-start-column="32" selection-end-line="103" selection-end-column="32" />
+            <state relative-caret-position="360">
+              <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -810,8 +818,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/problemData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="103" column="32" lean-forward="false" selection-start-line="103" selection-start-column="32" selection-end-line="103" selection-end-column="32" />
+        <state relative-caret-position="360">
+          <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

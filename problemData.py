@@ -54,7 +54,7 @@ no = 7  # 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 33
+mpciterations = 100
 
 decelType = 'Slow'  # Slow or Fast
 
@@ -101,7 +101,7 @@ if ns == 4:
     useLatAccelCons = 1
 
     delta_V = 2 * mph2fps  # fps
-    lb_VTerm = -(V0 + delta_V)*0 # V0 - delta_V # not used for ncons_option = 2
+    lb_VTerm = -(V0 + delta_V) # V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
     delChi_max_InView = 90 * np.pi / 180
