@@ -1,6 +1,6 @@
 from utils import *
 import matplotlib.path as mplPath
-
+import os, shutil
 def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength,
                              obstacleSafeWidth, obstacleSafeLength, obstacleSafeRadius):
 
@@ -54,30 +54,30 @@ def obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWid
 
     return obstacle
 
-def createObstacleData(nE, nN, nU, gridsize, obstacle):
-
-    obstacleOnGrid = np.zeros([nE, nN, nU])
-    n = len(obstacle.E)
-
-    for i in range(n):
-        EGrid = np.floor( obstacle.E[i] / gridsize )
-        NGrid = np.floor( obstacle.N[i] / gridsize )
-        wGrid = np.ceil( obstacle.w[i] / gridsize )
-        lGrid = np.ceil( obstacle.l[i] / gridsize )
-
-        EGrid = np.int(EGrid)
-        NGrid = np.int(NGrid)
-        wGrid = np.int(wGrid)
-        lGrid = np.int(lGrid)
-
-        for j in range(wGrid):
-            for k in range(lGrid):
-                obstacleOnGrid[EGrid + j, NGrid + k,:] = 1
-
-    # floor is an obstaclce
-    obstacleOnGrid[:,:,0] = 1
-
-    return obstacleOnGrid
+# def createObstacleData(nE, nN, nU, gridsize, obstacle):
+#
+#     obstacleOnGrid = np.zeros([nE, nN, nU])
+#     n = len(obstacle.E)
+#
+#     for i in range(n):
+#         EGrid = np.floor( obstacle.E[i] / gridsize )
+#         NGrid = np.floor( obstacle.N[i] / gridsize )
+#         wGrid = np.ceil( obstacle.w[i] / gridsize )
+#         lGrid = np.ceil( obstacle.l[i] / gridsize )
+#
+#         EGrid = np.int(EGrid)
+#         NGrid = np.int(NGrid)
+#         wGrid = np.int(wGrid)
+#         lGrid = np.int(lGrid)
+#
+#         for j in range(wGrid):
+#             for k in range(lGrid):
+#                 obstacleOnGrid[EGrid + j, NGrid + k,:] = 1
+#
+#     # floor is an obstaclce
+#     obstacleOnGrid[:,:,0] = 1
+#
+#     return obstacleOnGrid
 
 def window(x0, detectionWindowParam):
 
@@ -138,7 +138,7 @@ def detectObstacle(x0, detectionWindowParam, obstacle):
 
         if detected[k] == True:
             obstacleID = np.concatenate([obstacleID, np.array([k])])
-            print('Obstacle {0:d} detected'.format(k))
+            #print('Obstacle {0:d} detected'.format(k))
 
             # if k >= 0:
             #     import matplotlib.pyplot as plt
@@ -216,3 +216,157 @@ def getCurrentObstacle(obstacle):
             pass
 
     return obstacleCurrentData
+
+def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, horzDistance,
+                        rundate, rundir):
+
+    # Obstacle Data
+
+    obstaclePresent = True
+    obstacleLengthMargin = 2.5 * scaleFactorN  # ft
+    obstacleWidthMargin = 2.5 * scaleFactorE  # ft
+
+    if no == 0:
+
+        obstaclePresent = False
+        obstacleE = np.array([]) * scaleFactorE  # ft, left-bottom
+        obstacleN = np.array([]) * scaleFactorN  # ft, left-bottom
+        obstacleChi = np.array([])  # rad
+        obstacleLength = np.array([]) * scaleFactorN  # ft
+        obstacleWidth = np.array([]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt((obstacleSafeWidth / 2) ** 2 + (obstacleSafeLength / 2) ** 2)
+
+    elif no == 1:
+
+        obstacleE = np.array([7.0 - 0.5]) * scaleFactorE  # ft, center
+        obstacleN = np.array([65.0]) * scaleFactorN  # ft, center
+        obstacleChi = np.array([0.0])  # rad
+
+        # small obstacle
+        # obstacleLength = np.array([4.0]) * scaleFactorN # ft
+        # obstacleWidth = np.array([6.0]) * scaleFactorE # ft
+        # obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
+        # obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
+
+        # large object
+        obstacleLength = np.array([8.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([20.0]) * scaleFactorE  # ft
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+
+        obstacleSafeRadius = np.sqrt((obstacleSafeWidth / 2) ** 2 + (obstacleSafeLength / 2) ** 2)
+
+    elif no == 2:
+        obstacleE = np.array([-2.0, 12.0]) * scaleFactorE  # ft, left-bottom
+        obstacleN = np.array([50.0, 65.0]) * scaleFactorN  # ft, left-bottom
+        obstacleChi = np.array([0.0, 0.0])  # rad
+        obstacleLength = np.array([15.0, 15.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([15.0, 15.0]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+    elif no == 4:
+        obstacleE = np.array([6.0, 8.0, 18.0, 20.0]) * scaleFactorE  # ft, left-bottom
+        obstacleN = np.array([31.0, 46.0, 58.0, 75.0]) * scaleFactorN  # ft, left-bottom
+        obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        obstacleLength = np.array([4.0, 8.0, 4.0, 4.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([4.0, 8.0, 4.0, 4.0]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+
+    elif no == 5:
+        obstacleE = np.array([6.0, 8.0, 18.0, 20.0, 20.0]) * scaleFactorE  # ft, left-bottom
+        obstacleN = np.array([31.0, 46.0, 58.0, 75.0, 100.0]) * scaleFactorN  # ft, left-bottom
+        obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        obstacleLength = np.array([4.0, 8.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([4.0, 8.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+    elif no == 6:
+        obstacleE = np.array([8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE + 5  # ft, left-bottom
+        obstacleN = np.array([50.0, 60.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN - 15  # ft, left-bottom
+        obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+
+    elif no == 7:
+        obstacleE = np.array([8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0]) * scaleFactorE + 5  # ft, left-bottom
+        obstacleN = np.array([50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0]) * scaleFactorN  # ft, left-bottom
+        obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+
+    elif no == 10:  # run 15 iterations
+        obstacleE = np.array(
+            [8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0, -13.0, -13.0]) * scaleFactorE + 5  # ft, left-bottom
+        obstacleN = np.array(
+            [40.0, 50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0, 50.0, 40.0]) * scaleFactorN  # ft, left-bottom
+        obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
+        obstacleWidth = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+    elif no == -1:
+        nRand = 10
+        obstacleE = np.random.uniform(0, widthSpace, nRand)
+        delta_N = 50  # use so that obstacles are away from start and end points
+        obstacleN = np.random.uniform(0 + delta_N, lengthSpace - delta_N, nRand)
+        obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        obstacleLength = 4 * np.ones(nRand) * scaleFactorN  # ft
+        obstacleWidth = 4 * np.ones(nRand) * scaleFactorE  # ft
+
+        obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+        obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+        obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
+
+    if len(obstacleSafeRadius) > 0:
+        safeDistance = horzDistance + max(obstacleSafeRadius)
+    else:
+        safeDistance = horzDistance
+
+    # Detection Window
+    detectionWindowParam = {'L': safeDistance, 'W': max(obstacleWidth) * 2}
+
+    if obstaclePresent:
+        nObstacle = len(obstacleN)
+    else:
+        nObstacle = 0
+
+    # save random obstacle data
+    if no == -1:
+        fileName_problemData2 = 'obstaclePositions_' + rundate + '.txt'
+        f_problemData2 = open(fileName_problemData2, 'a')
+        for k in range(nRand):
+            f_problemData2.write("%.1f %.1f\n" % (obstacleE[k], obstacleN[k]))
+        f_problemData2.write("\n")
+        f_problemData2.close()
+        # shutil.move(fileName_problemData2, rundir)
+        shutil.move(os.path.join('.', fileName_problemData2),
+                    os.path.join(rundir, fileName_problemData2))  # move overwrit
+
+    return obstaclePresent, nObstacle, obstacleE, obstacleN, obstacleChi, obstacleLength, obstacleWidth, \
+            obstacleSafeLength, obstacleSafeWidth, obstacleSafeRadius, safeDistance, detectionWindowParam

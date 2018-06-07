@@ -6,7 +6,7 @@ import globalVars
 class nlpProb(object):
 
     def __init__(self, N, T, t0, x0, ncons, nu, path, obstacle, posIdx,
-                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost = None):
+                 ns_option, V_cmd, lb_VTerm, lb_VdotVal, delChi_max, obstacleID, safeDistance, fHandleCost = None):
         try:
             self.N = N
             self.T = T
@@ -27,6 +27,7 @@ class nlpProb(object):
             self.obstacleNumber = np.array([], dtype=int)
             self.delChi_max = delChi_max
             self.obstacleID = obstacleID
+            self.safeDistance = safeDistance
 
             useOnlyObstaclesInView = True
 
@@ -280,6 +281,7 @@ class nlpProb(object):
             fHandleCost = self.fHandleCost
             delChi_max = self.delChi_max
             obstacleID = self.obstacleID
+            safeDistance = self.safeDistance
 
             LARGE_NO = 1e12
 
@@ -365,7 +367,7 @@ class nlpProb(object):
                 m=len(cl),
                 problem_obj=nlpProb(N, T, t0, x0, ncons, nu, path,
                                     obstacle, posIdx, ns_option, V_cmd,
-                                    lb_VTerm, lb_VdotVal, delChi_max, obstacleID, fHandleCost),
+                                    lb_VTerm, lb_VdotVal, delChi_max, obstacleID, safeDistance, fHandleCost),
                 lb=lb,
                 ub=ub,
                 cl=cl,

@@ -240,7 +240,6 @@ def getEllipse(W, L):
 
     return a, b
 
-
 def distance(p1,p2):
     x1 = p1[0]
     y1 = p1[1]

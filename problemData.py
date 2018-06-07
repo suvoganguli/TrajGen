@@ -2,6 +2,7 @@ from utils import *
 import datetime
 import shutil, distutils.dir_util
 from problemMaxIterData import *
+import os, shutil
 
 # Units
 mph2fps = 4.4/3
@@ -67,6 +68,7 @@ zeroDistanceChange = 1 # ft
 
 decel = V0**2 / (2 * lb_reachedNearGoal) # fps2
 
+horzDistance = V0*N*T
 
 # Number of states
 # ns = 2:
@@ -182,136 +184,6 @@ elif ns == 6:
 
 # ------------------------------------------------------------
 
-# Obstacle Data
-
-obstaclePresent = True
-obstacleLengthMargin = 2.5 * scaleFactorN # ft
-obstacleWidthMargin = 2.5 * scaleFactorE# ft
-
-if no == 0:
-
-    obstaclePresent = False
-    obstacleE = np.array([]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([])  # rad
-    obstacleLength = np.array([]) * scaleFactorN # ft
-    obstacleWidth = np.array([]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
-
-elif no == 1:
-
-    obstacleE = np.array([7.0 - 0.5]) * scaleFactorE # ft, center
-    obstacleN = np.array([65.0]) * scaleFactorN # ft, center
-    obstacleChi = np.array([0.0])  # rad
-
-    # small obstacle
-    # obstacleLength = np.array([4.0]) * scaleFactorN # ft
-    # obstacleWidth = np.array([6.0]) * scaleFactorE # ft
-    # obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
-    # obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
-
-    # large object
-    obstacleLength = np.array([8.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([20.0]) * scaleFactorE # ft
-    obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
-
-
-    obstacleSafeRadius = np.sqrt((obstacleSafeWidth/2)**2 + (obstacleSafeLength/2)**2)
-
-elif no == 2:
-    obstacleE = np.array([-2.0, 12.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([50.0, 65.0]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0])  # rad
-    obstacleLength = np.array([15.0, 15.0]) * scaleFactorN # ft
-    obstacleWidth = np.array([15.0, 15.0]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-elif no == 4:
-    obstacleE = np.array([6.0, 8.0, 18.0, 20.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([31.0, 46.0, 58.0, 75.0]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 8.0, 4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth  = np.array([4.0, 8.0, 4.0, 4.0]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-
-elif no == 5:
-    obstacleE = np.array([6.0, 8.0, 18.0, 20.0, 20.0]) * scaleFactorE # ft, left-bottom
-    obstacleN = np.array([31.0, 46.0, 58.0, 75.0, 100.0]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 8.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth  = np.array([4.0, 8.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-elif no == 6:
-    obstacleE = np.array([8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE + 5 # ft, left-bottom
-    obstacleN = np.array([50.0, 60.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN - 15 # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-
-elif no == 7:
-    obstacleE = np.array([8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0]) * scaleFactorE + 5 # ft, left-bottom
-    obstacleN = np.array([50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-
-elif no == 10:   # run 15 iterations
-    obstacleE = np.array([8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0, -13.0, -13.0]) * scaleFactorE + 5 # ft, left-bottom
-    obstacleN = np.array([40.0, 50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0, 50.0, 40.0]) * scaleFactorN # ft, left-bottom
-    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN # ft
-    obstacleWidth  = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-elif no == -1:
-    num = 10
-    obstacleE = np.random.uniform(0,widthSpace,num)
-    delta_N = 50 # use so that obstacles are away from start and end points
-    obstacleN = np.random.uniform(0+delta_N,lengthSpace-delta_N,num)
-    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
-    obstacleLength = 4*np.ones(num) * scaleFactorN # ft
-    obstacleWidth  = 4*np.ones(num) * scaleFactorE # ft
-
-    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
-    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
-
-if len(obstacleSafeRadius) > 0:
-    safeDistance = V0*N*T + max(obstacleSafeRadius)
-else:
-    safeDistance = V0*N*T
-
-
-# Detection Window
-detectionWindowParam = {'L': safeDistance, 'W': max(obstacleWidth)*2}
 
 # ------------------------------------------------------------
 
@@ -407,10 +279,6 @@ elif ns == 6:
 else:
     print("Error in ns")
 
-if obstaclePresent:
-    nObstacle = len(obstacleN)
-else:
-    nObstacle = 0
 
 # -------------------------------------------------------
 # Save settings in file
@@ -439,21 +307,14 @@ elif ns == 6:
 
 f_problemData.close()
 
-rundate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
-
-rundir = './run_' + rundate + '/'
-distutils.dir_util.mkpath(rundir)
-
-suffix_Popup_NoPopup = '_NoPopup'
+#suffix_Popup_NoPopup = '_NoPopup'
 
 if N < 10:
     suffix = '_N0' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 else:
     suffix = '_N' + str(N) + '_Tp' + str(int(10 * T)) + '_ns' + str(ns) + '_no' + str(no)
 
-suffix = suffix + suffix_Popup_NoPopup
+#suffix = suffix + suffix_Popup_NoPopup
 
-dst_file = rundir + 'settings' + suffix + '.txt'
-shutil.copyfile('settings.txt', dst_file)
-
-
+dst_file = 'settings' + suffix + '.txt'
+shutil.move('settings.txt', dst_file)

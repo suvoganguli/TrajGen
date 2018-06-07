@@ -1,16 +1,18 @@
-def Main():
-    import pathMain
-    import nmpc
-    import obstacleData
-    import numpy as np
+import pathMain
+import nmpc
+import obstacleData
+import numpy as np
+import matplotlib.pyplot as plt
 
-    import problemData as pdata
-    import probInfo
-    import printPlots
-    import time
-    import shutil, distutils.dir_util
-    import os.path
-    import globalVars
+import problemData as pdata
+import probInfo
+import printPlots
+import time, datetime
+import shutil, distutils.dir_util
+import os.path
+import globalVars
+
+def Main():
 
     # -------------------------------------------------------------------
     # Main.py lets the user run different test cases for Model
@@ -26,26 +28,38 @@ def Main():
     # 01/25/2018
     # -------------------------------------------------------------------
 
+    # For saving data and figures
+    rundate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    rundir = './run_' + rundate + '/'
+    distutils.dir_util.mkpath(rundir)
+
     # Path data
-    pathClass = pathMain.pathInfo('default', pathMain.startPoint, pathMain.endPoint)
+    pathClass = pathMain.pathInfo('default', pdata.startPoint, pdata.endPoint)
     path = pathClass()
     pathType = 'default'
 
-    # Obstacle data (static)
-    obstacleClass = obstacleData.obstacleInfo(pathMain.obstaclePresent, pathMain.obstacleE, pathMain.obstacleN, pathMain.obstacleChi, pathMain.obstacleWidth, pathMain.obstacleLength,
-                                              pathMain.obstacleSafeWidth, pathMain.obstacleSafeLength, pathMain.obstacleSafeRadius)
+    # Obstacle data
+    obstaclePresent, nObstacle, obstacleE, obstacleN, obstacleChi, obstacleLength, obstacleWidth, \
+    obstacleSafeLength, obstacleSafeWidth, obstacleSafeRadius, safeDistance, detectionWindowParam = \
+        obstacleData.createObstacleData(pdata.no, pdata.scaleFactorE, pdata.scaleFactorN,
+                                        pdata.widthSpace, pdata.lengthSpace, pdata.horzDistance,
+                                        rundate, rundir)
+
+    obstacleClass = obstacleData.obstacleInfo(obstaclePresent, obstacleE, obstacleN, obstacleChi, obstacleWidth, obstacleLength,
+                                              obstacleSafeWidth, obstacleSafeLength, obstacleSafeRadius)
     obstacle = obstacleClass()
 
+
     # Storage data
-    t = np.zeros([pathMain.mpciterations, 1])
-    x = np.zeros([pathMain.mpciterations, pathMain.nx])
-    u = np.zeros([pathMain.mpciterations, pathMain.nu])
+    t = np.zeros([pdata.mpciterations, 1])
+    x = np.zeros([pdata.mpciterations, pdata.nx])
+    u = np.zeros([pdata.mpciterations, pdata.nu])
 
     # Iteration data
-    pathMain.x0[3] = np.pi / 2 - path.pathData.Theta[0]  # align vehicle heading with road heading
-    tmeasure = pathMain.t0
-    xmeasure = pathMain.x0
-    u_new = np.zeros([1, pathMain.nu])
+    pdata.x0[3] = np.pi / 2 - path.pathData.Theta[0]  # align vehicle heading with road heading
+    tmeasure = pdata.t0
+    xmeasure = pdata.x0
+    u_new = np.zeros([1, pdata.nu])
     mpciter = 0
 
     # Other parameters
@@ -78,14 +92,14 @@ def Main():
         fileNameCost = ''
 
     # Initialize storage arrays
-    tElapsed = np.zeros(pathMain.mpciterations)
-    VTerminal = np.zeros(pathMain.mpciterations)
-    latAccel = np.zeros(pathMain.mpciterations)
-    delChi = np.zeros(pathMain.mpciterations)
-    breakLoop = False
+    tElapsed = np.zeros(pdata.mpciterations)
+    VTerminal = np.zeros(pdata.mpciterations)
+    latAccel = np.zeros(pdata.mpciterations)
+    delChi = np.zeros(pdata.mpciterations)
+    breakLoop1 = False
 
     # Speficy initial position index
-    posIdx = obstacleData.getPosIdx(pathMain.x0[0], pathMain.x0[1], path, pathMain.posIdx0)
+    posIdx = obstacleData.getPosIdx(pdata.x0[0], pdata.x0[1], path, pdata.posIdx0)
 
     # Specify Booleans
     saveData = True
@@ -96,9 +110,8 @@ def Main():
     pathObj = obstacleData.makePathObj(pdata, path, obstacle)
     pathObjArray = [pathObj]
 
-
     # Main loop
-    while mpciter < pathMain.mpciterations:
+    while mpciter < pdata.mpciterations:
 
         # start time keeping
         tStart = time.time()
@@ -107,43 +120,47 @@ def Main():
         t0, x0 = nmpc.measureInitialValue(tmeasure, xmeasure)
 
         # search for obstacle
-        detected, obstacleID = obstacleData.detectObstacle(x0, pathMain.detectionWindowParam, obstacle)
+        detected, obstacleID = obstacleData.detectObstacle(x0, detectionWindowParam, obstacle)
 
         if detected == True:
-            delChi_max = pathMain.delChi_max_InView
+            delChi_max = pdata.delChi_max_InView
             delChi_maxvec_obstacleInView = \
-                obstacleData.np.concatenate([delChi_maxvec_obstacleInView, obstacleData.np.array([pathMain.delChi_max_InView])])
+                obstacleData.np.concatenate([delChi_maxvec_obstacleInView, obstacleData.np.array([pdata.delChi_max_InView])])
             delChi_maxvec_obstacleNotInView = \
                 obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, obstacleData.np.array([0])])
 
-            print('Obstacle(s) detected at mpciter = ' + str(mpciter))
+            #print('Obstacle(s) detected at mpciter = ' + str(mpciter))
         else:
-            delChi_max = pathMain.delChi_max_NotInView
+            delChi_max = pdata.delChi_max_NotInView
             delChi_maxvec_obstacleNotInView = \
-                obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, obstacleData.np.array([pathMain.delChi_max_NotInView])])
+                obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, obstacleData.np.array([pdata.delChi_max_NotInView])])
             delChi_maxvec_obstacleInView = \
                 obstacleData.np.concatenate([delChi_maxvec_obstacleInView, obstacleData.np.array([0])])
-            print('No obstacle detected at mpciter = ' + str(mpciter))
+            #print('No obstacle detected at mpciter = ' + str(mpciter))
 
         # solve optimal control problem
-        u_new, info = nmpc.solveOptimalControlProblem(pathMain.N, t0, x0, pathMain.u0, pathMain.T, pathMain.ncons, pathMain.nu, path,
-                                                      obstacle, posIdx, pathMain.ncons_option, pathMain.V_cmd,
-                                                      pathMain.lb_VTerm, pathMain.lb_VdotVal, delChi_max, obstacleID, fHandleCost)
+        u_new, info = nmpc.solveOptimalControlProblem(pdata.N, t0, x0, pdata.u0, pdata.T, pdata.ncons, pdata.nu, path,
+                                                      obstacle, posIdx, pdata.ncons_option, pdata.V_cmd,
+                                                      pdata.lb_VTerm, pdata.lb_VdotVal, delChi_max, obstacleID, safeDistance, fHandleCost)
         tElapsed[mpciter] = (time.time() - tStart)
+
+        # stop iteration if solution is not "solved" for "acceptable"
+        if (info['status'] != 0) or (info['status'] != 1):
+            breakLoop1 = True
 
         # mpc  future path plot
         latAccel[mpciter], VTerminal[mpciter], delChi[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0,
                                                                                         obstacle, pathType, mpciter)
 
         # solution information
-        printPlots.nmpcPrint(mpciter, info, pathMain.N, x0, u_new, writeToFile, fHandle, tElapsed[mpciter],
+        printPlots.nmpcPrint(mpciter, info, pdata.N, x0, u_new, writeToFile, fHandle, tElapsed[mpciter],
                              latAccel[mpciter], VTerminal[mpciter], delChi[mpciter])
 
         # store closed loop data
         t[mpciter] = tmeasure
-        for k in range(pathMain.nx):
+        for k in range(pdata.nx):
             x[mpciter, k] = xmeasure[k]
-        for j in range(pathMain.nu):
+        for j in range(pdata.nu):
             u[mpciter, j] = u_new[0,j]
 
         # change flag (global variable) to write cost breakdown in nlp.py
@@ -151,32 +168,30 @@ def Main():
             writeToFileCost = True
 
         # apply control
-        tmeasure, xmeasure = nmpc.applyControl(pathMain.T, t0, x0, u_new)
+        tmeasure, xmeasure = nmpc.applyControl(pdata.T, t0, x0, u_new)
 
         # prepare restart
-        u0 = nmpc.shiftHorizon(pathMain.N, u_new)
+        u0 = nmpc.shiftHorizon(pdata.N, u_new)
 
         posIdx = obstacleData.getPosIdx(xmeasure[0], xmeasure[1], path, posIdx)
 
         # reset global variable to write cost breakdown in nlp.py
         globalVars.writeToFileCost = True
 
-        x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), pathMain.N, pathMain.T, t0, x0)
+        x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), pdata.N, pdata.T, t0, x0)
         current_point = x_mpciter[0, 0:2]
         terminal_point = x_mpciter[-1, 0:2]
 
         # stop vehicle if required
-        breakLoop, V_cmd, t_slowDown, t_slowDown_detected, lb_VTerm, lb_VdotVal = \
-            obstacleData.vehicleStop(pathMain.T, x, mpciter, pathMain.decelType, terminal_point, pathMain.endPoint,
-                                     pathMain.lb_reachedGoal, pathMain.lb_reachedNearGoal, pathMain.zeroDistanceChange,
-                                     t_slowDown_detected, tmeasure, pathMain.V_cmd, pathMain.lb_VTermSlowDown, pathMain.lb_VdotValSlowDown, pathMain.decel,
-                                     t_slowDown, pathMain.lb_VTerm, pathMain.lb_VdotVal)
+        breakLoop2, V_cmd, t_slowDown, t_slowDown_detected, lb_VTerm, lb_VdotVal = \
+            obstacleData.vehicleStop(pdata.T, x, mpciter, pdata.decelType, terminal_point, pdata.endPoint,
+                                     pdata.lb_reachedGoal, pdata.lb_reachedNearGoal, pdata.zeroDistanceChange,
+                                     t_slowDown_detected, tmeasure, pdata.V_cmd, pdata.lb_VTermSlowDown, pdata.lb_VdotValSlowDown, pdata.decel,
+                                     t_slowDown, pdata.lb_VTerm, pdata.lb_VdotVal)
 
-        if breakLoop == True:
+        # break loop is solution not obtained or vehicle stops
+        if (breakLoop1 == True) and (breakLoop2 == True):
             break
-
-        if mpciter > 30:
-            None
 
         # next iteration
         mpciter = mpciter + 1
@@ -204,32 +219,32 @@ def Main():
     # start preparing for generating plots
     #rundate = datetime.datetime.now().strftime("%Y-%m-%d")
     #rundir = './run_' + rundate + '/'
-    if pathMain.N < 10:
-        suffix = '_N0' + str(pathMain.N) + '_Tp' + str(int(10 * pathMain.T)) + '_ns' + str(pathMain.ns) + '_no' + str(pathMain.no)
+    if pdata.N < 10:
+        suffix = '_N0' + str(pdata.N) + '_Tp' + str(int(10 * pdata.T)) + '_ns' + str(pdata.ns) + '_no' + str(pdata.no)
     else:
-        suffix = '_N' + str(pathMain.N) + '_Tp' + str(int(10 * pathMain.T)) + '_ns' + str(pathMain.ns) + '_no' + str(pathMain.no)
+        suffix = '_N' + str(pdata.N) + '_Tp' + str(int(10 * pdata.T)) + '_ns' + str(pdata.ns) + '_no' + str(pdata.no)
 
 
-    suffix = suffix + pathMain.suffix_Popup_NoPopup # suffix_Popup_NoPopup = '_NoPopup' set in problemData.py
+    #suffix = suffix + pdata.suffix_Popup_NoPopup # suffix_Popup_NoPopup = '_NoPopup' set in problemData.py
 
     # start preparation for saving plots if required
     if saveData == True:
 
-        distutils.dir_util.mkpath(pdata.rundir)
-        dst_file = pdata.rundir + 'logFile' + suffix + '.txt'
+        distutils.dir_util.mkpath(rundir)
+        dst_file = rundir + 'logFile' + suffix + '.txt'
         shutil.copyfile('logFile.txt', dst_file)
 
         # figure 1: path
-        dst_fig = pdata.rundir + 'path' + suffix + '_Before.png'
-        fig = pathMain.plt.figure(1)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'path' + suffix + '_Before.png'
+        fig = plt.figure(1)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
         obstacleDict = obstacleData.obstacleDict_from_ClassInstance(obstacle)
-        file_pkl = pdata.rundir + 'pathDict_no' + str(pathMain.no) + pathMain.suffix_Popup_NoPopup + '.pkl'
+        file_pkl = rundir + 'pathDict_no' + str(pdata.no) + '.pkl'
         obstacleData.savepkl((pathObjArray, obstacleDict), file_pkl)
 
-        file_pkl2 = pdata.rundir + 'pathDict_no' + str(pathMain.no) + pathMain.suffix_Popup_NoPopup + '_b.pkl'
+        file_pkl2 = rundir + 'pathDict_no' + str(pdata.no) + '_b.pkl'
         obstacleData.savepkl(obstacle, file_pkl2)
 
         print('saved data and figure')
@@ -237,7 +252,7 @@ def Main():
 
     # create plots
     oldpwd = os.getcwd()
-    os.chdir(pdata.rundir)
+    os.chdir(rundir)
     settingsFile = 'settings' + suffix + '.txt'
     figno = printPlots.nmpcPlot(t, x, u, path, obstacle, tElapsed, VTerminal, latAccel,
                                 delChi, settingsFile, pathObjArray, t_slowDown,
@@ -247,61 +262,75 @@ def Main():
     if saveData == True:
 
         # figure 2: E, N
-        dst_fig = pdata.rundir + 'E-N' + suffix + '.png'
-        fig = pathMain.plt.figure(2)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'E-N' + suffix + '.png'
+        fig = plt.figure(2)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
         # figure 3: V, Vdot
-        dst_fig = pdata.rundir + 'V-Vdot' + suffix + '.png'
-        fig = pathMain.plt.figure(3)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'V-Vdot' + suffix + '.png'
+        fig = plt.figure(3)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
         # figure 4: Chi, Chidot
-        dst_fig = pdata.rundir + 'Chi-Chidot' + suffix + '.png'
-        fig = pathMain.plt.figure(4)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'Chi-Chidot' + suffix + '.png'
+        fig = plt.figure(4)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
         # figure 5: LatAccel, dy
-        dst_fig = pdata.rundir + 'LatAccel-dy' + suffix + '.png'
-        fig = pathMain.plt.figure(6)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'LatAccel-dy' + suffix + '.png'
+        fig = plt.figure(6)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
-        if pathMain.ns == 6:
+        if pdata.ns == 6:
             # figure 6: V, Vdot
-            dst_fig = pdata.rundir + 'Vddot-Chiddot' + suffix + '.png'
-            fig = pathMain.plt.figure(5)
-            pathMain.plt.pause(0.01)
+            dst_fig = rundir + 'Vddot-Chiddot' + suffix + '.png'
+            fig = plt.figure(5)
+            plt.pause(0.01)
             fig.savefig(dst_fig)
 
         # figure 7: CPU time
-        dst_fig = pdata.rundir + 'CPUtime' + suffix + '.png'
-        fig = pathMain.plt.figure(7)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'CPUtime' + suffix + '.png'
+        fig = plt.figure(7)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
         # figure 8: V-terminal
-        dst_fig = pdata.rundir + 'V-terminal' + suffix + '.png'
-        fig = pathMain.plt.figure(8)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'V-terminal' + suffix + '.png'
+        fig = plt.figure(8)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
         # figure 9: path
-        dst_fig = pdata.rundir + 'path' + suffix + '_After.png'
-        fig = pathMain.plt.figure(9)
-        pathMain.plt.pause(0.01)
+        dst_fig = rundir + 'path' + suffix + '_After.png'
+        fig = plt.figure(9)
+        plt.pause(0.01)
         fig.savefig(dst_fig)
 
-
     print('done!')
-    pathMain.plt.show()
+    #plt.show()
+    plt.pause(2)
+    plt.close("all")
 
 # -------------------------------------------------------------------
+# Run main file
+# -------------------------------------------------------------------
 
-nRun = 3
-for _ in range(nRun):
+opt = 1
+
+if opt == 1:
+    # Batch run for random objects
+    # Set 'no = -1' in problemData
+
+    nRun = 3
+    for _ in range(nRun):
+        Main()
+else:
+    # Edit 'no' in problemData to >= 0 (selected 'no' available,
+    # see function obstacleData.createObstacleData)
+
     Main()
 
