@@ -223,8 +223,8 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
     # Obstacle Data
 
     obstaclePresent = True
-    obstacleLengthMargin = 2.5 * scaleFactorN  # ft
-    obstacleWidthMargin = 2.5 * scaleFactorE  # ft
+    obstacleLengthMargin = 2.0 * scaleFactorN  # ft
+    obstacleWidthMargin = 2.0 * scaleFactorE  # ft
 
     if no == 0:
 
@@ -318,13 +318,27 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
 
 
     elif no == 10:  # run 15 iterations
+        # obstacleE = np.array(
+        #     [8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0, -13.0, -13.0]) * scaleFactorE + 5  # ft, left-bottom
+        # obstacleN = np.array(
+        #     [40.0, 50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0, 50.0, 40.0]) * scaleFactorN  # ft, left-bottom
+        # obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+        # obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
+        # obstacleWidth = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft
+
         obstacleE = np.array(
-            [8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0, -13.0, -13.0]) * scaleFactorE + 5  # ft, left-bottom
+            [25.4, 29.8, 2.8, 14.0, 12.7, 6.8, 27.6, 58.5, 6.2, 45.7])  # ft, left-bottom
         obstacleN = np.array(
-            [40.0, 50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0, 50.0, 40.0]) * scaleFactorN  # ft, left-bottom
+            [91.1, 70.9, 52.1, 55.6, 190.0, 92.2, 64.4, 177.6, 161.8, 100.5])  # ft, left-bottom
+
+        # obstacleE = np.array(
+        #     [-20, -10, 0, 10, 20, 30, 40, 50, 60, 70]) * scaleFactorE + 5  # ft, left-bottom
+        # obstacleN = np.array(
+        #     [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]) * scaleFactorN  # ft, left-bottom
         obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
         obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
         obstacleWidth = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft
+
 
         obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
         obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
@@ -333,8 +347,9 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
     elif no == -1:
         nRand = 10
         obstacleE = np.random.uniform(0, widthSpace, nRand)
-        delta_N = 50  # use so that obstacles are away from start and end points
-        obstacleN = np.random.uniform(0 + delta_N, lengthSpace - delta_N, nRand)
+        delta_N0 = 50  # use so that obstacles are away from start and end points
+        delta_N1 = 75
+        obstacleN = np.random.uniform(0 + delta_N0, lengthSpace - delta_N1, nRand)
         obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
         obstacleLength = 4 * np.ones(nRand) * scaleFactorN  # ft
         obstacleWidth = 4 * np.ones(nRand) * scaleFactorE  # ft
@@ -361,12 +376,15 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
         fileName_problemData2 = 'obstaclePositions_' + rundate + '.txt'
         f_problemData2 = open(fileName_problemData2, 'a')
         for k in range(nRand):
-            f_problemData2.write("%.1f %.1f\n" % (obstacleE[k], obstacleN[k]))
+            f_problemData2.write("%.1f " % (obstacleE[k]))
         f_problemData2.write("\n")
+        for k in range(nRand):
+            f_problemData2.write("%.1f " % (obstacleN[k]))
+
         f_problemData2.close()
         # shutil.move(fileName_problemData2, rundir)
         shutil.move(os.path.join('.', fileName_problemData2),
-                    os.path.join(rundir, fileName_problemData2))  # move overwrit
+                    os.path.join(rundir, fileName_problemData2))  # move overwrite
 
     return obstaclePresent, nObstacle, obstacleE, obstacleN, obstacleChi, obstacleLength, obstacleWidth, \
             obstacleSafeLength, obstacleSafeWidth, obstacleSafeRadius, safeDistance, detectionWindowParam

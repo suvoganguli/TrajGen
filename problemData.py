@@ -58,12 +58,12 @@ no = -1  # 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 3
+mpciterations = 5
 
 decelType = 'Slow'  # Slow or Fast
 
 lb_reachedNearGoal = 20 #max([V0*N*T, 40]) # ft
-lb_reachedGoal = 1 # ft
+lb_reachedGoal = 5 # ft
 zeroDistanceChange = 1 # ft
 
 decel = V0**2 / (2 * lb_reachedNearGoal) # fps2
@@ -90,7 +90,7 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 500
+    nlpMaxIter = 20
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -181,9 +181,6 @@ elif ns == 6:
 
     # Path parameters
     pathWidth = 5.0 # ft
-
-# ------------------------------------------------------------
-
 
 # ------------------------------------------------------------
 

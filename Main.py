@@ -3,7 +3,6 @@ import nmpc
 import obstacleData
 import numpy as np
 import matplotlib.pyplot as plt
-
 import problemData as pdata
 import probInfo
 import printPlots
@@ -11,8 +10,9 @@ import time, datetime
 import shutil, distutils.dir_util
 import os.path
 import globalVars
+import utils
 
-def Main():
+def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
     # -------------------------------------------------------------------
     # Main.py lets the user run different test cases for Model
@@ -145,8 +145,12 @@ def Main():
         tElapsed[mpciter] = (time.time() - tStart)
 
         # stop iteration if solution is not "solved" for "acceptable"
-        if (info['status'] != 0) or (info['status'] != 1):
+        if info['status'] > 1 or info['status'] < 0:
             breakLoop1 = True
+
+            # write the batch run number where solution was not obtained
+            if isBatch:
+                fBatchRun.write("%d %d\n" %(kBatchRun, info['status']))
 
         # mpc  future path plot
         latAccel[mpciter], VTerminal[mpciter], delChi[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0,
@@ -184,13 +188,13 @@ def Main():
 
         # stop vehicle if required
         breakLoop2, V_cmd, t_slowDown, t_slowDown_detected, lb_VTerm, lb_VdotVal = \
-            obstacleData.vehicleStop(pdata.T, x, mpciter, pdata.decelType, terminal_point, pdata.endPoint,
+            utils.vehicleStop(pdata.T, x, mpciter, pdata.decelType, terminal_point, pdata.endPoint,
                                      pdata.lb_reachedGoal, pdata.lb_reachedNearGoal, pdata.zeroDistanceChange,
                                      t_slowDown_detected, tmeasure, pdata.V_cmd, pdata.lb_VTermSlowDown, pdata.lb_VdotValSlowDown, pdata.decel,
                                      t_slowDown, pdata.lb_VTerm, pdata.lb_VdotVal)
 
         # break loop is solution not obtained or vehicle stops
-        if (breakLoop1 == True) and (breakLoop2 == True):
+        if (breakLoop1 == True) or (breakLoop2 == True):
             break
 
         # next iteration
@@ -311,9 +315,13 @@ def Main():
         fig.savefig(dst_fig)
 
     print('done!')
-    #plt.show()
-    plt.pause(2)
-    plt.close("all")
+
+    # show plots for single run, close plots for batch run
+    if showPlot:
+        plt.show()
+    else:
+        plt.pause(2)
+        plt.close("all")
 
 # -------------------------------------------------------------------
 # Run main file
@@ -323,14 +331,25 @@ opt = 1
 
 if opt == 1:
     # Batch run for random objects
-    # Set 'no = -1' in problemData
+    # Set 'no = -1' in problemData.py
 
-    nRun = 3
-    for _ in range(nRun):
-        Main()
+    batchRunDate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+    batchFileName = 'batchRun' + batchRunDate + '.txt'
+    fBatchRun = open(batchFileName ,'w')
+    fBatchRun.write('The following run(s) had problems:\n')
+    nBatchRun = 3
+    isBatch = True
+    showPlot = False
+
+    for kBatchRun in range(nBatchRun):
+        Main(isBatch, showPlot, kBatchRun, fBatchRun)
+
+    fBatchRun.close()
 else:
-    # Edit 'no' in problemData to >= 0 (selected 'no' available,
-    # see function obstacleData.createObstacleData)
+    # Edit 'no' in problemData.py to >= 0 (specific 'no' available,
+    # see function createObstacleData in obstacleData.py)
 
-    Main()
+    isBatch = False
+    showPlot = True
+    Main(isBatch, showPlot)
 

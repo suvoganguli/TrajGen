@@ -160,7 +160,7 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
 def nmpcPlot(t, x, u, path, obstacle, tElapsed, V_terminal, latAccel, delChi, settingsFile,
              pathObjArray, t_slowDown, delChi_maxvec_obstacleInView, delChi_maxvec_obstacleNotInView):
 
-    f_pData = file(settingsFile, 'r')
+    f_pData = open('../' + settingsFile, 'r')
     cols, indexToName = getColumns(f_pData, delim=" ", header=False)
     #N = np.array(cols[0]).astype(np.int)
     T = np.array(cols[1]).astype(np.float)
