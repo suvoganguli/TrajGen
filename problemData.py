@@ -1,4 +1,3 @@
-import numpy as np
 from utils import *
 import datetime
 import shutil, distutils.dir_util
@@ -31,8 +30,12 @@ lengthSpace = int(lengthSpace * scaleFactorN)  # ft
 # startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
 # endPoint = np.array([(7+0.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
-startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-endPoint   = np.array([7 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+#startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
+#endPoint   = np.array([7 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+
+startPoint = np.array([16 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
+endPoint   = np.array([16 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+
 
 # Correction for new path generation with popup obstacle
 dNewPathAdjust = 2.0 * np.sqrt(scaleFactorN**2 + scaleFactorN**2)
@@ -50,11 +53,11 @@ sf_T = 1
 N = 8
 T = 0.5*sf_T
 ns = 4
-no = 7  # 0, 1, 2, 4, 5, 6, 7
+no = -1  # 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 100
+mpciterations = 3
 
 decelType = 'Slow'  # Slow or Fast
 
@@ -125,7 +128,7 @@ if ns == 4:
 
     # Braking parameters
 
-    lb_VdotValSlowDown = -4 # fps2
+    lb_VdotValSlowDown = -6 #-4 # fps2
     lb_VTermSlowDown = 0 # fps
 
     V_cmd = V0  # fps
@@ -242,7 +245,6 @@ elif no == 4:
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
 
-
 elif no == 5:
     obstacleE = np.array([6.0, 8.0, 18.0, 20.0, 20.0]) * scaleFactorE # ft, left-bottom
     obstacleN = np.array([31.0, 46.0, 58.0, 75.0, 100.0]) * scaleFactorN # ft, left-bottom
@@ -278,7 +280,6 @@ elif no == 7:
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
 
-
 elif no == 10:   # run 15 iterations
     obstacleE = np.array([8.0, 8.0, 8.0, 8.0, 1.0, -6.0, -13.0, -13.0, -13.0, -13.0]) * scaleFactorE + 5 # ft, left-bottom
     obstacleN = np.array([40.0, 50.0, 60.0, 70.0, 70.0, 70.0, 70.0, 60.0, 50.0, 40.0]) * scaleFactorN # ft, left-bottom
@@ -290,6 +291,18 @@ elif no == 10:   # run 15 iterations
     obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
     obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
+elif no == -1:
+    num = 10
+    obstacleE = np.random.uniform(0,widthSpace,num)
+    delta_N = 50 # use so that obstacles are away from start and end points
+    obstacleN = np.random.uniform(0+delta_N,lengthSpace-delta_N,num)
+    obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
+    obstacleLength = 4*np.ones(num) * scaleFactorN # ft
+    obstacleWidth  = 4*np.ones(num) * scaleFactorE # ft
+
+    obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
+    obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
+    obstacleSafeRadius = np.sqrt(obstacleSafeLength ** 2 + obstacleSafeWidth ** 2) / 2
 
 if len(obstacleSafeRadius) > 0:
     safeDistance = V0*N*T + max(obstacleSafeRadius)
@@ -302,8 +315,8 @@ detectionWindowParam = {'L': safeDistance, 'W': max(obstacleWidth)*2}
 
 # ------------------------------------------------------------
 
-print('Add obstacle rotation')
-print('Note: obstacleData.py is currently rotating obstacle')
+#print('Add obstacle rotation')
+#print('Note: obstacleData.py is currently rotating obstacle')
 
 if ns == 4:
     # problem size
@@ -426,7 +439,7 @@ elif ns == 6:
 
 f_problemData.close()
 
-rundate = datetime.datetime.now().strftime("%Y-%m-%d")
+rundate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
 
 rundir = './run_' + rundate + '/'
 distutils.dir_util.mkpath(rundir)
