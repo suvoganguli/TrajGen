@@ -337,7 +337,7 @@ if opt == 1:
     batchFileName = 'batchRun' + batchRunDate + '.txt'
     fBatchRun = open(batchFileName ,'w')
     fBatchRun.write('The following run(s) had problems:\n')
-    nBatchRun = 40
+    nBatchRun = 4
     isBatch = True
     showPlot = False
 

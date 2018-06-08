@@ -5,12 +5,178 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/batchRun2018-06-07-19-26.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/CPUtime_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/Chi-Chidot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/E-N_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/LatAccel-dy_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/V-Vdot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/V-terminal_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/logFile_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/pathDict_no7_NoPopup.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/pathDict_no7_NoPopup_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/path_N08_Tp5_ns4_no7_NoPopup_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/NoSlowDown/path_N08_Tp5_ns4_no7_NoPopup_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/CPUtime_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/Chi-Chidot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/E-N_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/LatAccel-dy_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/V-Vdot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/V-terminal_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/logFile_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/pathDict_no7_NoPopup.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/pathDict_no7_NoPopup_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/path_N08_Tp5_ns4_no7_NoPopup_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/path_N08_Tp5_ns4_no7_NoPopup_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/SlowDown/settings_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/CPUtime_N08_Tp5_ns4_no6_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/CPUtime_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/Chi-Chidot_N08_Tp5_ns4_no6_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/Chi-Chidot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/E-N_N08_Tp5_ns4_no6_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/E-N_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/LatAccel-dy_N08_Tp5_ns4_no6_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/LatAccel-dy_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/V-Vdot_N08_Tp5_ns4_no6_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/V-Vdot_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/V-terminal_N08_Tp5_ns4_no6_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/V-terminal_N08_Tp5_ns4_no7_NoPopup.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/logFile_N08_Tp5_ns4_no6_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/logFile_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/pathDict_no6_NoPopup.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/pathDict_no6_NoPopup_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/pathDict_no7_NoPopup.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/pathDict_no7_NoPopup_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/path_N08_Tp5_ns4_no6_NoPopup_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/path_N08_Tp5_ns4_no6_NoPopup_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/path_N08_Tp5_ns4_no7_NoPopup_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/path_N08_Tp5_ns4_no7_NoPopup_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/settings_N08_Tp5_ns4_no6_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-06/TurnAround/settings_N08_Tp5_ns4_no7_NoPopup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/obstaclePositions_2018-06-07-19-26-20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-26-20/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/obstaclePositions_2018-06-07-19-35-15.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-35-15/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/obstaclePositions_2018-06-07-19-44-52.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-44-52/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/obstaclePositions_2018-06-07-19-52-27.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-19-52-27/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/obstaclePositions_2018-06-07-20-01-17.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-01-17/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/obstaclePositions_2018-06-07-20-08-16.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-08-16/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/obstaclePositions_2018-06-07-20-15-40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-15-40/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/obstaclePositions_2018-06-07-20-23-24.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-23-24/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/obstaclePositions_2018-06-07-20-32-41.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-32-41/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/CPUtime_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/Chi-Chidot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/E-N_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/LatAccel-dy_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/V-Vdot_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/V-terminal_N08_Tp5_ns4_no-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/logFile_N08_Tp5_ns4_no-1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/obstaclePositions_2018-06-07-20-40-20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/pathDict_no-1.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/pathDict_no-1_b.pkl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/path_N08_Tp5_ns4_no-1_After.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-06-07-20-40-20/path_N08_Tp5_ns4_no-1_Before.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFile.txt" afterPath="$PROJECT_DIR$/logFile.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCost.txt" afterPath="$PROJECT_DIR$/logFileCost.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/obstacleData.py" afterPath="$PROJECT_DIR$/obstacleData.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problemData.py" afterPath="$PROJECT_DIR$/problemData.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,7 +193,7 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
+            <state relative-caret-position="504">
               <caret line="339" column="17" lean-forward="false" selection-start-line="339" selection-start-column="17" selection-end-line="339" selection-end-column="17" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -39,7 +205,7 @@
       <file leaf-file-name="problemData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/problemData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
+            <state relative-caret-position="1008">
               <caret line="60" column="19" lean-forward="false" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -51,7 +217,7 @@
       <file leaf-file-name="printPlots.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/printPlots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7677">
+            <state relative-caret-position="2880">
               <caret line="169" column="23" lean-forward="false" selection-start-line="169" selection-start-column="23" selection-end-line="169" selection-end-column="23" />
               <folding />
             </state>
@@ -61,7 +227,7 @@
       <file leaf-file-name="obstacleData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/obstacleData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
+            <state relative-caret-position="4014">
               <caret line="225" column="28" lean-forward="false" selection-start-line="225" selection-start-column="28" selection-end-line="225" selection-end-column="28" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -141,10 +307,11 @@
         <option value="$PROJECT_DIR$/problemData.py" />
         <option value="$PROJECT_DIR$/obstacleData.py" />
         <option value="$PROJECT_DIR$/Main.py" />
+        <option value="$PROJECT_DIR$/batchRun2018-06-08-04-14.txt" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="84" />
     <option name="width" value="1222" />
     <option name="height" value="809" />
@@ -346,13 +513,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19292426" sideWeight="0.49375" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19513543" sideWeight="0.49375" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34764397" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -367,6 +533,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -424,30 +591,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/probInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1098">
-          <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/obstacleData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problemData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2214">
-          <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/printPlots.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10062">
@@ -624,7 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="29" column="44" lean-forward="false" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -632,7 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +791,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="2881" column="0" lean-forward="false" selection-start-line="2881" selection-start-column="0" selection-end-line="2881" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -658,7 +798,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="315" column="23" lean-forward="false" selection-start-line="315" selection-start-column="18" selection-end-line="315" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -666,87 +805,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
           <caret line="484" column="0" lean-forward="false" selection-start-line="484" selection-start-column="0" selection-end-line="484" selection-end-column="0" />
-          <folding>
-            <marker date="1528407151817" expanded="true" signature="13601:13641" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/obstaclePositions_2018-06-07-14-49.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/obstaclePositions_2018-06-07-14-06.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/obstaclePositions_2018-06-07-14-49.txt" />
+    <entry file="file://$PROJECT_DIR$/obstaclePositions_2018-06-07-14-06.txt" />
     <entry file="file://$PROJECT_DIR$/settings_N08_Tp5_ns4_no10.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-18-58.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-18-53.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-07.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-18-58.txt" />
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-18-53.txt" />
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-07.txt" />
     <entry file="file://$PROJECT_DIR$/printPlots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7677">
+        <state relative-caret-position="2880">
           <caret line="169" column="23" lean-forward="false" selection-start-line="169" selection-start-column="23" selection-end-line="169" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-11.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-13.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-11.txt" />
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-13.txt" />
     <entry file="file://$PROJECT_DIR$/problemData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
+        <state relative-caret-position="1008">
           <caret line="60" column="19" lean-forward="false" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -754,32 +840,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_2018-06-07-20-23-24/path_N08_Tp5_ns4_no-1_Before.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_2018-06-07-19-35-15/CPUtime_N08_Tp5_ns4_no-1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_2018-06-07-19-35-15/Chi-Chidot_N08_Tp5_ns4_no-1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-26.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/run_2018-06-07-20-23-24/path_N08_Tp5_ns4_no-1_Before.png" />
+    <entry file="file://$PROJECT_DIR$/run_2018-06-07-19-35-15/CPUtime_N08_Tp5_ns4_no-1.png" />
+    <entry file="file://$PROJECT_DIR$/run_2018-06-07-19-35-15/Chi-Chidot_N08_Tp5_ns4_no-1.png" />
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-19-26.txt" />
     <entry file="file://$PROJECT_DIR$/obstacleData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
+        <state relative-caret-position="4014">
           <caret line="225" column="28" lean-forward="false" selection-start-line="225" selection-start-column="28" selection-end-line="225" selection-end-column="28" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -787,9 +854,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-07-21-20.txt" />
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-08-04-14.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/batchRun2018-06-08-07-39.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
+        <state relative-caret-position="504">
           <caret line="339" column="17" lean-forward="false" selection-start-line="339" selection-start-column="17" selection-end-line="339" selection-end-column="17" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
