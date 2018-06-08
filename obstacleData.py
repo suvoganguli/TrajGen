@@ -223,8 +223,8 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
     # Obstacle Data
 
     obstaclePresent = True
-    obstacleLengthMargin = 2.0 * scaleFactorN  # ft
-    obstacleWidthMargin = 2.0 * scaleFactorE  # ft
+    obstacleLengthMargin = 1.0 * scaleFactorN  # ft
+    obstacleWidthMargin = 1.0 * scaleFactorE  # ft
 
     if no == 0:
 

@@ -145,7 +145,7 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
         tElapsed[mpciter] = (time.time() - tStart)
 
         # stop iteration if solution is not "solved" for "acceptable"
-        if info['status'] > 1 or info['status'] < 0:
+        if info['status'] > 1 or info['status'] < -1:
             breakLoop1 = True
 
             # write the batch run number where solution was not obtained
@@ -337,7 +337,7 @@ if opt == 1:
     batchFileName = 'batchRun' + batchRunDate + '.txt'
     fBatchRun = open(batchFileName ,'w')
     fBatchRun.write('The following run(s) had problems:\n')
-    nBatchRun = 3
+    nBatchRun = 40
     isBatch = True
     showPlot = False
 
