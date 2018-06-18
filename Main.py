@@ -154,7 +154,7 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
         # mpc  future path plot
         latAccel[mpciter], VTerminal[mpciter], delChi[mpciter] = printPlots.nmpcPlotSol(u_new, path, x0,
-                                                                                        obstacle, pathType, mpciter)
+                                                                                        obstacle, pathType, mpciter, detectionWindowParam)
 
         # solution information
         printPlots.nmpcPrint(mpciter, info, pdata.N, x0, u_new, writeToFile, fHandle, tElapsed[mpciter],
