@@ -114,8 +114,12 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter, detectionWindowPar
 
     nEN = len(East)
 
-    plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
-    plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
+    # plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
+    # plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
+
+    plt.plot(East[1:nEN], North[1:nEN], marker='x', markersize=4, color='b')
+    plt.plot(East[1], North[1], marker='o', markersize=4, color='r')
+
     #plt.ylim([0, 240])
     #plt.xlim([-10, 40])
     plt.axis('equal')
