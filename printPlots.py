@@ -13,7 +13,7 @@ from utils import *
 # *X, *Y = E [ft], N [ft], theta [rad] (theta is w.r.t +E axis)
 
 
-def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
+def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter, detectionWindowParam):
 
     u_mpciter = u_new.flatten(1)
     x_mpciter = probInfo.computeOpenloopSolution(u_mpciter, pdata.N, pdata.T, pdata.t0, x0)
@@ -95,9 +95,9 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
                 ax.add_patch(polygon_obstacle)
 
     # draw detection window
-    if False and mpciter >= 0:
+    if True: # and ( (mpciter== 0) or (mpciter==5) ):
 
-        p1Win, p2Win, p3Win, p4Win = odata.window(x0, pdata.detectionWindowParam)
+        p1Win, p2Win, p3Win, p4Win = odata.window(x0,detectionWindowParam)
 
         p1Obs = [obstacle.E_corners[0], obstacle.N_corners[0]]
         p2Obs = [obstacle.E_corners[1], obstacle.N_corners[1]]
@@ -109,13 +109,17 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter):
         L3 = plt.plot([p3Win[0], p4Win[0]], [p3Win[1], p4Win[1]], 'c')
         L4 = plt.plot([p4Win[0], p1Win[0]], [p4Win[1], p1Win[1]], 'c')
 
-    if mpciter == 8:
+    if mpciter == 1:
         None
 
     nEN = len(East)
 
-    plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
-    plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
+    # plt.plot(East[0:nEN], North[0:nEN], marker='x', markersize=4, color='b')
+    # plt.plot(East[0], North[0], marker='o', markersize=4, color='r')
+
+    plt.plot(East[1:nEN], North[1:nEN], marker='x', markersize=4, color='b')
+    plt.plot(East[1], North[1], marker='o', markersize=4, color='r')
+
     #plt.ylim([0, 240])
     #plt.xlim([-10, 40])
     plt.axis('equal')
