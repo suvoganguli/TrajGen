@@ -327,7 +327,7 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 # Run main file
 # -------------------------------------------------------------------
 
-opt = 1
+opt = 2
 
 if opt == 1:
     # Batch run for random objects

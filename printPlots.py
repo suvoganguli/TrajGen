@@ -95,14 +95,14 @@ def nmpcPlotSol(u_new, path, x0, obstacle, pathType, mpciter, detectionWindowPar
                 ax.add_patch(polygon_obstacle)
 
     # draw detection window
-    if True: # and ( (mpciter== 0) or (mpciter==5) ):
+    if False: # and ( (mpciter== 0) or (mpciter==5) ):
 
         p1Win, p2Win, p3Win, p4Win = odata.window(x0,detectionWindowParam)
 
-        p1Obs = [obstacle.E_corners[0], obstacle.N_corners[0]]
-        p2Obs = [obstacle.E_corners[1], obstacle.N_corners[1]]
-        p3Obs = [obstacle.E_corners[2], obstacle.N_corners[2]]
-        p4Obs = [obstacle.E_corners[3], obstacle.N_corners[3]]
+        p1Obs = [obstacle.E_corners[0,0], obstacle.N_corners[0,0]]
+        p2Obs = [obstacle.E_corners[0,1], obstacle.N_corners[0,1]]
+        p3Obs = [obstacle.E_corners[0,2], obstacle.N_corners[0,2]]
+        p4Obs = [obstacle.E_corners[0,3], obstacle.N_corners[0,3]]
 
         L1 = plt.plot([p1Win[0], p2Win[0]], [p1Win[1], p2Win[1]], 'c')
         L2 = plt.plot([p2Win[0], p3Win[0]], [p2Win[1], p3Win[1]], 'c')
@@ -425,8 +425,8 @@ def nmpcPlot(t, x, u, path, obstacle, tElapsed, V_terminal, latAccel, delChi, se
     #plt.xlabel('Iteration')
     plt.xlabel('t [sec]')
     plt.grid(True)
-    #plt.xlim([0,12])
-    #plt.ylim([0,10])
+    plt.xlim([0,15])
+    plt.ylim([0,3])
 
 
     # figure 8

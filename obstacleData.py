@@ -241,22 +241,21 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
 
     elif no == 1:
 
-        obstacleE = np.array([7.0 - 0.5]) * scaleFactorE  # ft, center
+        #obstacleE = np.array([7.0 - 0.5]) * scaleFactorE  # ft, center
+        obstacleE = np.array([16]) * scaleFactorE  # ft, center
         obstacleN = np.array([65.0]) * scaleFactorN  # ft, center
         obstacleChi = np.array([0.0])  # rad
 
         # small obstacle
-        # obstacleLength = np.array([4.0]) * scaleFactorN # ft
-        # obstacleWidth = np.array([6.0]) * scaleFactorE # ft
-        # obstacleSafeLength = obstacleLength + 2*obstacleLengthMargin
-        # obstacleSafeWidth = obstacleWidth + 2*obstacleWidthMargin
+        obstacleLength = np.array([4.0]) * scaleFactorN # ft
+        obstacleWidth = np.array([10.0]) * scaleFactorE # ft
 
         # large object
-        obstacleLength = np.array([8.0]) * scaleFactorN  # ft
-        obstacleWidth = np.array([20.0]) * scaleFactorE  # ft
+        # obstacleLength = np.array([8.0]) * scaleFactorN  # ft
+        # obstacleWidth = np.array([20.0]) * scaleFactorE  # ft
+
         obstacleSafeLength = obstacleLength + 2 * obstacleLengthMargin
         obstacleSafeWidth = obstacleWidth + 2 * obstacleWidthMargin
-
         obstacleSafeRadius = np.sqrt((obstacleSafeWidth / 2) ** 2 + (obstacleSafeLength / 2) ** 2)
 
     elif no == 2:
