@@ -426,7 +426,7 @@ def nmpcPlot(t, x, u, path, obstacle, tElapsed, V_terminal, latAccel, delChi, se
     plt.xlabel('t [sec]')
     plt.grid(True)
     plt.xlim([0,15])
-    plt.ylim([0,3])
+    plt.ylim([0,6])
 
 
     # figure 8
