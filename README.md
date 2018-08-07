@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GIG-MPC
 Updatd - 12 May, 2018
 
@@ -22,3 +23,6 @@ ________________________________________________________________________________
 - Works well - creates circular safezones around obstacles. 
 - May lead to conversatism for rectangular shapes.
 - Gets slow with too many obstacles. No. of constraints ~ N * o
+=======
+# TrajGen
+>>>>>>> origin/master
