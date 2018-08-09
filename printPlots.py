@@ -425,8 +425,8 @@ def nmpcPlot(t, x, u, path, obstacle, tElapsed, V_terminal, latAccel, delChi, se
     #plt.xlabel('Iteration')
     plt.xlabel('t [sec]')
     plt.grid(True)
-    plt.xlim([0,15])
-    plt.ylim([0,6])
+    #plt.xlim([0,15])
+    #plt.ylim([0,6])
 
 
     # figure 8
@@ -666,7 +666,7 @@ def nmpcPrint(mpciter, info, N, x, u_new, writeToFile, f, cpuTime, latAccel, VTe
                                                7, text_g1, 7, text_g2, 15, "status_msg",
                                               10, "cpuTime") )
 
-    print("%*d %*.1f %*.1f %*.1f %*.1f %*.1f %*.1f %*.2f %*.2f %*s %*.1f\n" % (10, mpciter, 10, cost,
+    print("%*d %*.1f %*.1f %*.1f %*.1f %*.1f %*.1f %*.2f %*.2f %*s %*.1f" % (10, mpciter, 10, cost,
                                                  7, u0, 7, u1*180/np.pi,
                                                  7, x[2], 7, x[3]*180/np.pi, 7, VTerminal,
                                                  8, g1, 10, g2, 16, status_msg_short,
@@ -750,7 +750,15 @@ def plotSavedData(inFile, pathObjArray, obstacle, delim, header=False):
 
     suffix = inFile[7:]
     settingsFile = 'settings' + suffix
-    nmpcPlot(t, x.T, u.T, path, obstacle, cpuTime, VTerminal, latAccel, delChi, settingsFile, pathObjArray,10)
+
+    # dummy inputs
+    t_slowDown = t[-1]
+    delChi_maxvec_obstacleInView = 0*t
+    delChi_maxvec_obstacleNotInView = 0*t
+
+    nmpcPlot(t, x.T, u.T, path, obstacle, cpuTime, VTerminal, latAccel, delChi,
+             settingsFile, pathObjArray, t_slowDown, delChi_maxvec_obstacleInView,
+             delChi_maxvec_obstacleNotInView)
 
     f.close()
 

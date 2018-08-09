@@ -294,7 +294,7 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
 
     elif no == 6:
         obstacleE = np.array([8.0, 8.0, 8.0, 1.0, -6.0, -13.0]) * scaleFactorE + 5  # ft, left-bottom
-        obstacleN = np.array([50.0, 60.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN - 15  # ft, left-bottom
+        obstacleN = np.array([54.0, 62.0, 70.0, 70.0, 70.0, 70.0]) * scaleFactorN - 15  # ft, left-bottom
         obstacleChi = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])  # rad
         obstacleLength = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorN  # ft
         obstacleWidth = np.array([4.0, 4.0, 4.0, 4.0, 4.0, 4.0]) * scaleFactorE  # ft

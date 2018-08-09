@@ -31,11 +31,12 @@ lengthSpace = int(lengthSpace * scaleFactorN)  # ft
 # startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
 # endPoint = np.array([(7+0.5) * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
-#startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-#endPoint   = np.array([7 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+startPoint = np.array([7 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
+endPoint   = np.array([7 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
-startPoint = np.array([16 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
-endPoint   = np.array([16 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
+# Start and End Points for Batch Run
+#startPoint = np.array([16 * scaleFactorE, 1 * scaleFactorN])  # E (ft), N (ft)
+#endPoint   = np.array([16 * scaleFactorE, 115 * scaleFactorN])  # E (ft), N (ft)
 
 
 # Correction for new path generation with popup obstacle
@@ -54,11 +55,11 @@ sf_T = 1
 N = 6
 T = 0.5*sf_T
 ns = 4
-no = 7  # -1, 0, 1, 2, 4, 5, 6, 7
+no = 6  # -1, 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 10
+mpciterations = 42  # 100 for batch run
 
 decelType = 'Slow'  # Slow or Fast
 
@@ -90,7 +91,8 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    nlpMaxIter = 500
+    #nlpMaxIter = 500 # for batch runs
+    nlpMaxIter = 40
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -100,8 +102,8 @@ if ns == 4:
 
     lb_VdotVal = -6  # fps2
     ub_VdotVal = 2 # fps2
-    lb_ChidotVal = -30 * np.pi / 180 # rad/s2
-    ub_ChidotVal = 30 * np.pi / 180 # rad/s2
+    lb_ChidotVal = -45 * np.pi / 180 # rad/s2
+    ub_ChidotVal = 45 * np.pi / 180 # rad/s2
     lataccel_maxVal = 0.25 * 32.2  # fps2
     useLatAccelCons = 1
 
@@ -109,9 +111,9 @@ if ns == 4:
     lb_VTerm = -(V0 + delta_V) # V0 - delta_V # not used for ncons_option = 2
     ub_VTerm = V0 + delta_V # not used for ncons_option = 2
 
-    delChi_max_InView = 90 * np.pi / 180
-    delChi_max_NotInView = 30 * np.pi / 180
-    delChi_max = 0 # need to initialize delCh_max
+    delChi_max_InView = 120 * np.pi / 180
+    delChi_max_NotInView = 45 * np.pi / 180 # 30 for batch run
+    #delChi_max = 0 # need to initialize delCh_max
 
     # 2018-05-24
     # W_P = 0.0

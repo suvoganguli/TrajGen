@@ -11,6 +11,7 @@ import shutil, distutils.dir_util
 import os.path
 import globalVars
 import utils
+import numpy as np
 
 def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
@@ -29,7 +30,8 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
     # -------------------------------------------------------------------
 
     # For saving data and figures
-    rundate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    #rundate = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    rundate = datetime.datetime.now().strftime("%Y-%m-%d")
     rundir = './run_' + rundate + '/'
     distutils.dir_util.mkpath(rundir)
 
@@ -125,17 +127,17 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
         if detected == True:
             delChi_max = pdata.delChi_max_InView
             delChi_maxvec_obstacleInView = \
-                obstacleData.np.concatenate([delChi_maxvec_obstacleInView, obstacleData.np.array([pdata.delChi_max_InView])])
+                obstacleData.np.concatenate([delChi_maxvec_obstacleInView, np.array([pdata.delChi_max_InView])])
             delChi_maxvec_obstacleNotInView = \
-                obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, obstacleData.np.array([0])])
+                obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, np.array([0])])
 
             #print('Obstacle(s) detected at mpciter = ' + str(mpciter))
         else:
             delChi_max = pdata.delChi_max_NotInView
             delChi_maxvec_obstacleNotInView = \
-                obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, obstacleData.np.array([pdata.delChi_max_NotInView])])
+                obstacleData.np.concatenate([delChi_maxvec_obstacleNotInView, np.array([pdata.delChi_max_NotInView])])
             delChi_maxvec_obstacleInView = \
-                obstacleData.np.concatenate([delChi_maxvec_obstacleInView, obstacleData.np.array([0])])
+                obstacleData.np.concatenate([delChi_maxvec_obstacleInView, np.array([0])])
             #print('No obstacle detected at mpciter = ' + str(mpciter))
 
         # solve optimal control problem

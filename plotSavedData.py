@@ -97,7 +97,7 @@ elif mode == 1:
     # 1 - run_2018-03-06 (comprehensive runs for different N, ns and no)
     # 2 - run_2018-03-14 (tradeoff charts for various T)
     # 3 - run_2018-03-14 vs run_2018-03-15 (V = 5 mph vs 10 mph)
-    case = 6
+    case = 7
 
     if case == 1:
 
@@ -231,6 +231,22 @@ elif mode == 1:
             f = file(fileSettings[k], 'r')
             cols, indexToName = getColumns(f, delim=" ", header=False)
             V_cmd[k] = np.array(cols[12]).astype(np.float)
+
+    elif case == 7:
+
+        dirNames = ['run_2018-08-09_maxiter=500',
+                    'run_2018-08-09_maxiter=50',
+                    'run_2018-08-09_maxiter=40']  # V_cmd = 10 mph
+
+        fileNames = ['logFile_N06_Tp5_ns4_no6.txt',
+                     'logFile_N06_Tp5_ns4_no6.txt',
+                     'logFile_N06_Tp5_ns4_no6.txt']
+
+        str1 = 'settings_N06_Tp5_ns4_no6.txt'
+        str2 = 'pathDict_no6.pkl'
+
+        V_cmd = []
+
 
     filePkl = dirNames[0] + '/' + str2  # used for path as a function of no
 
