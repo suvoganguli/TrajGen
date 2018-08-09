@@ -756,7 +756,7 @@ def plotSavedData(inFile, pathObjArray, obstacle, delim, header=False):
 
     plt.pause(0.1)
 
-    return np.mean(cpuTime)
+    return np.mean(cpuTime), cpuTime
 
 
 

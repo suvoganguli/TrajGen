@@ -54,11 +54,11 @@ sf_T = 1
 N = 6
 T = 0.5*sf_T
 ns = 4
-no = 1  # -1, 0, 1, 2, 4, 5, 6, 7
+no = 7  # -1, 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 # mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 100
+mpciterations = 10
 
 decelType = 'Slow'  # Slow or Fast
 

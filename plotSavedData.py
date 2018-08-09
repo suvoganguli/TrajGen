@@ -26,7 +26,7 @@ def createPlots(mode, pathObjArray = None, obstacle = None, dirNames = None, fil
         print(listFile)
         filePkl = raw_input("Input file name (*.pkl): ")
 
-        cpuMeanTime = printPlots.plotSavedData(fileName, filePkl, delim=" ", header=False)
+        cpuMeanTime, dummy = printPlots.plotSavedData(fileName, filePkl, delim=" ", header=False)
         print('CPU time:')
         print(cpuMeanTime)
 
@@ -48,7 +48,7 @@ def createPlots(mode, pathObjArray = None, obstacle = None, dirNames = None, fil
             os.chdir(dirNames[k])
 
             fileName = fileNames[k]
-            cpuMeanTime[k] = printPlots.plotSavedData(fileName, pathObjArray, obstacle, delim=" ", header=False)
+            cpuMeanTime[k], dummy = printPlots.plotSavedData(fileName, pathObjArray, obstacle, delim=" ", header=False)
             noVec[k] = np.array(fileName[22]).astype(np.int)
             NVec[k] = np.array(fileName[9:11]).astype(np.int)
             TVec[k] = np.array(fileName[14]).astype(np.float)/10
