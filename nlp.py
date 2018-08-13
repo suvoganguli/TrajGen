@@ -1,7 +1,6 @@
 import ipopt
 import probInfo as prob
 from problemData import *
-import globalVars
 
 class nlpProb(object):
 
@@ -96,16 +95,6 @@ class nlpProb(object):
         costvec[3*N+1] = cost_goalDelChi # goal delta chi
 
         cost = np.sum(costvec)
-
-        # write data once for analysis later using a global variable. other methods can be developed to not use the
-        # global variable - but this was the least intrusive way of adding the functionality
-        # if globalVars.writeToFileCost == True:
-        #     for k in range(3*N):
-        #         fHandleCost.write('%.2f ' %(costvec[k]) )
-        #     fHandleCost.write('%.2f ' % (costvec[3*N]))
-        #     fHandleCost.write('%.2f ' % (costvec[3*N+1]))
-        #     fHandleCost.write('\n')
-        #     globalVars.writeToFileCost = False
 
         return cost
 

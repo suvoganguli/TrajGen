@@ -84,14 +84,20 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
     debug = True
     if debug == True:
-        globalVars.writeToFileCost = True
         fileNameCost = 'logFileCost.txt'
         if os.path.isfile(fileNameCost) == True:
             os.remove('logFileCost.txt') # remove previous file
         fHandleCost = open(fileNameCost, 'a') # file to append cost (see nlp.py > objective function)
+        fileNameCostGrad = 'logFileCostGrad.txt'
+        if os.path.isfile(fileNameCostGrad) == True:
+            os.remove('logFileCostGrad.txt') # remove previous file
+        fHandleCostGrad = open(fileNameCostGrad, 'a') # file to append cost (see nlp.py > objective function)
+
     else:
         fHandleCost = -1
+        fHandleCostGrad = -1
         fileNameCost = ''
+        fileNameCostGrad = ''
 
     # Initialize storage arrays
     tElapsed = np.zeros(pdata.mpciterations)
@@ -143,7 +149,8 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
         # solve optimal control problem
         u_new, info = nmpc.solveOptimalControlProblem(pdata.N, t0, x0, pdata.u0, pdata.T, pdata.ncons, pdata.nu, path,
                                                       obstacle, posIdx, pdata.ncons_option, pdata.V_cmd,
-                                                      pdata.lb_VTerm, pdata.lb_VdotVal, delChi_max, obstacleID, safeDistance, fHandleCost)
+                                                      pdata.lb_VTerm, pdata.lb_VdotVal, delChi_max, obstacleID, safeDistance,
+                                                      debug, fHandleCost, fHandleCostGrad)
         tElapsed[mpciter] = (time.time() - tStart)
 
         # stop iteration if solution is not "solved" for "acceptable"
@@ -176,9 +183,6 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
         u0 = nmpc.shiftHorizon(pdata.N, u_new)
 
         posIdx = obstacleData.getPosIdx(xmeasure[0], xmeasure[1], path, posIdx)
-
-        # reset global variable to write cost breakdown in nlp.py
-        globalVars.writeToFileCost = True
 
         x_mpciter = probInfo.computeOpenloopSolution(u0.flatten(1), pdata.N, pdata.T, t0, x0)
         current_point = x_mpciter[0, 0:2]
@@ -217,6 +221,7 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
     if debug == True:
         fHandleCost.close()
+        fHandleCostGrad.close()
 
     # start preparing for generating plots
     #rundate = datetime.datetime.now().strftime("%Y-%m-%d")

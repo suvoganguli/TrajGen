@@ -8,7 +8,8 @@ def measureInitialValue(tmeasure, xmeasure):
 
 def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
                                obstacle, posIdx, ns_option, V_cmd,
-                               lb_VTerm, lb_VdotVal, delChi_max, obstacleID, safeDistance, fHandleCost):
+                               lb_VTerm, lb_VdotVal, delChi_max, obstacleID,
+                               safeDistance, debug, fHandleCost, fHandleCostGrad):
 
     import nlp
 
@@ -23,17 +24,13 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
 
     u, info = probSetup.solve(u0.flatten(1))
 
-    debug = True
-    if debug == True:
-        debugLogs.writeLogFileCost(u, N, T, t0, x0, path, obstacle, posIdx, V_cmd, fHandleCost)
-
-    # debug
-    #tmpCost = probInfo.objective(u)
-    #print(tmpCost)
-
     nu = len(u)/N
     u_tmp = u.reshape(nu,N)
     u_new = u_tmp.T
+
+    if debug == True:
+        debugLogs.writeLogFileCost(u, N, T, t0, x0, path, obstacle, posIdx, V_cmd, fHandleCost)
+        debugLogs.writeLogFileCostGrad(u, prob, fHandleCostGrad)
 
     return u_new, info
 
