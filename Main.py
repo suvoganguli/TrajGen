@@ -169,10 +169,6 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
         for j in range(pdata.nu):
             u[mpciter, j] = u_new[0,j]
 
-        # change flag (global variable) to write cost breakdown in nlp.py
-        if debug is True:
-            writeToFileCost = True
-
         # apply control
         tmeasure, xmeasure = nmpc.applyControl(pdata.T, t0, x0, u_new)
 

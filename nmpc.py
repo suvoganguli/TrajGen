@@ -1,6 +1,6 @@
 import numpy as np
-import probInfo as prob
-
+import probInfo
+import debugLogs
 
 def measureInitialValue(tmeasure, xmeasure):
     return tmeasure, xmeasure
@@ -16,7 +16,6 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
     # u_new = np.ones([N,1])
 
     # CLOSED LOOP
-
     prob = nlp.nlpProb(N, T, t0, x0, ncons, nu, path,
                        obstacle, posIdx, ns_option, V_cmd,
                        lb_VTerm, lb_VdotVal, delChi_max, obstacleID, safeDistance, fHandleCost)
@@ -24,9 +23,12 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
 
     u, info = probSetup.solve(u0.flatten(1))
 
+    debug = True
+    if debug == True:
+        debugLogs.writeLogFileCost(u, N, T, t0, x0, path, obstacle, posIdx, V_cmd, fHandleCost)
 
     # debug
-    #tmpCost = prob.objective(u)
+    #tmpCost = probInfo.objective(u)
     #print(tmpCost)
 
     nu = len(u)/N
@@ -37,7 +39,7 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
 
 
 def applyControl(T, t0, x0, u):
-    xapplied = prob.system(u[0,:], x0, T)
+    xapplied = probInfo.system(u[0,:], x0, T)
     tapplied = t0+T
     return tapplied, xapplied
 

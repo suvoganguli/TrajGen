@@ -89,23 +89,23 @@ class nlpProb(object):
             costvec[k+N] = costout[1]   # Vdot or Vddot
             costvec[k+2*N] = costout[2] # Chidot or Chiddot
 
-        cost_goalDist, cost_goalDelChi = prob.goalCost(x0, t0)
-        #cost_goalDist, cost_goalDelChi = prob.goalCost(x[-1,:], t0)
+        cost_goalDist, cost_goalDelChi = prob.goalCost(x0, t0)  # goalcost_opt1
+        #cost_goalDist, cost_goalDelChi = prob.goalCost(x[-1,:], t0) # goalcost_opt2
+
         costvec[3*N] = cost_goalDist # goal dist
         costvec[3*N+1] = cost_goalDelChi # goal delta chi
 
         cost = np.sum(costvec)
 
-
-        # write data once for analysis later using a global variable. other mentioned can be developed to not use the
+        # write data once for analysis later using a global variable. other methods can be developed to not use the
         # global variable - but this was the least intrusive way of adding the functionality
-        if globalVars.writeToFileCost == True:
-            for k in range(3*N):
-                fHandleCost.write('%.2f ' %(costvec[k]) )
-            fHandleCost.write('%.2f ' % (costvec[3*N]))
-            fHandleCost.write('%.2f ' % (costvec[3*N+1]))
-            fHandleCost.write('\n')
-            globalVars.writeToFileCost = False
+        # if globalVars.writeToFileCost == True:
+        #     for k in range(3*N):
+        #         fHandleCost.write('%.2f ' %(costvec[k]) )
+        #     fHandleCost.write('%.2f ' % (costvec[3*N]))
+        #     fHandleCost.write('%.2f ' % (costvec[3*N+1]))
+        #     fHandleCost.write('\n')
+        #     globalVars.writeToFileCost = False
 
         return cost
 

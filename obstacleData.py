@@ -241,8 +241,8 @@ def createObstacleData(no, scaleFactorE, scaleFactorN, widthSpace, lengthSpace, 
 
     elif no == 1:
 
-        #obstacleE = np.array([7.0 - 0.5]) * scaleFactorE  # ft, center
-        obstacleE = np.array([16]) * scaleFactorE  # ft, center
+        obstacleE = np.array([7.0 - 0.5]) * scaleFactorE  # ft, center
+        #obstacleE = np.array([16]) * scaleFactorE  # ft, center
         obstacleN = np.array([65.0]) * scaleFactorN  # ft, center
         obstacleChi = np.array([0.0])  # rad
 

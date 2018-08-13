@@ -55,11 +55,11 @@ sf_T = 1
 N = 6
 T = 0.5*sf_T
 ns = 4
-no = 6  # -1, 0, 1, 2, 4, 5, 6, 7
+no = 1  # -1, 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
-# mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 42  # 100 for batch run
+#mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
+mpciterations = 42  # 100 for batch run, 42?
 
 decelType = 'Slow'  # Slow or Fast
 
@@ -91,8 +91,8 @@ posIdx0 = {'number': 0}
 if ns == 4:
 
     # Ipopt settings
-    #nlpMaxIter = 500 # for batch runs
-    nlpMaxIter = 40
+    nlpMaxIter = 500 # for batch runs
+    #nlpMaxIter = 40
 
     # Kinematic Constraints
     E0 = startPoint[0]  # ft (North, long)
@@ -128,7 +128,11 @@ if ns == 4:
     W_Vdot = 0.5 # 2.0
     W_Chidot = 1e-3 # 1e-3
     W_gDist = 0.01 # 0.01
-    W_gChi = 1  # 1
+    W_gChi = 1.0  # 1
+
+    print('scaled down the goal point weights ...')
+    W_gDist = W_gDist/1000
+    W_gChi = W_gChi/1000
 
     # Braking parameters
 

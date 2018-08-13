@@ -97,7 +97,7 @@ elif mode == 1:
     # 1 - run_2018-03-06 (comprehensive runs for different N, ns and no)
     # 2 - run_2018-03-14 (tradeoff charts for various T)
     # 3 - run_2018-03-14 vs run_2018-03-15 (V = 5 mph vs 10 mph)
-    case = 7
+    case = 8
 
     if case == 1:
 
@@ -246,6 +246,20 @@ elif mode == 1:
         str2 = 'pathDict_no6.pkl'
 
         V_cmd = []
+
+    elif case == 8:
+
+        dirNames = ['run_2018-08-13_hiWeight_L&delChi',
+                    'run_2018-08-13_loWeight_L&delChi']
+
+        fileNames = ['logFile_N06_Tp5_ns4_no1.txt',
+                     'logFile_N06_Tp5_ns4_no1.txt']
+
+        str1 = 'settings_N06_Tp5_ns4_no1.txt'
+        str2 = 'pathDict_no1.pkl'
+
+        V_cmd = []
+
 
 
     filePkl = dirNames[0] + '/' + str2  # used for path as a function of no
