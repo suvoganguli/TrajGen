@@ -9,10 +9,34 @@ import printPlots
 import time, datetime
 import shutil, distutils.dir_util
 import os.path
-import globalVars
 import utils
 import numpy as np
+import cProfile
 
+# -------------------------------------------------------------------
+# Profile Function
+# -------------------------------------------------------------------
+
+import cProfile
+
+def do_cprofile(func):
+    def profiled_func(*args, **kwargs):
+        profile = cProfile.Profile()
+        try:
+            profile.enable()
+            result = func(*args, **kwargs)
+            profile.disable()
+            return result
+        finally:
+            profile.print_stats()
+    return profiled_func
+
+
+# -------------------------------------------------------------------
+# Main Function
+# -------------------------------------------------------------------
+
+@do_cprofile
 def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
     # -------------------------------------------------------------------
@@ -330,6 +354,8 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 # Run main file
 # -------------------------------------------------------------------
 
+runProfile = True
+
 opt = 2
 
 if opt == 1:
@@ -353,6 +379,6 @@ else:
     # see function createObstacleData in obstacleData.py)
 
     isBatch = False
-    showPlot = True
+    showPlot = False
     Main(isBatch, showPlot)
 
