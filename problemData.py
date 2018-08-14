@@ -59,7 +59,7 @@ no = 1  # -1, 0, 1, 2, 4, 5, 6, 7
 V0 = 10*mph2fps
 
 #mpciterations = problemMaxIterData(N, ns, no, V0, sf_T)
-mpciterations = 42  # 100 for batch run, 42?
+mpciterations = 12  # 100 for batch run, 42?
 
 decelType = 'Slow'  # Slow or Fast
 

@@ -30,7 +30,7 @@ def solveOptimalControlProblem(N, t0, x0, u0, T, ncons, nu, path,
 
     if debug == True:
         debugLogs.writeLogFileCost(u, N, T, t0, x0, path, obstacle, posIdx, V_cmd, fHandleCost)
-        debugLogs.writeLogFileCostGrad(u, prob, fHandleCostGrad)
+        debugLogs.writeLogFileCostGrad(u, N, T, t0, x0, path, obstacle, posIdx, V_cmd, prob, fHandleCostGrad)
 
     return u_new, info
 
