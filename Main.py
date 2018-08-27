@@ -11,8 +11,7 @@ import shutil, distutils.dir_util
 import os.path
 import utils
 import numpy as np
-import cProfile
-
+import random
 # -------------------------------------------------------------------
 # Profile Function
 # -------------------------------------------------------------------
@@ -36,7 +35,7 @@ def do_cprofile(func):
 # Main Function
 # -------------------------------------------------------------------
 
-@do_cprofile
+#@do_cprofile
 def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
     # -------------------------------------------------------------------
@@ -142,6 +141,17 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
     pathObj = obstacleData.makePathObj(pdata, path, obstacle)
     pathObjArray = [pathObj]
 
+    # Add noise
+    addNoise = False
+    if addNoise:
+        seedNo = 0
+        random.seed(seedNo)
+        sigmaE = 0.5 # m
+        sigmaN = 0.5  # m
+        sigmaV = 0.5  # m/s
+        sigmaChi = 0.5*np.pi/180  # rad/s
+
+
     # Main loop
     while mpciter < pdata.mpciterations:
 
@@ -179,7 +189,7 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
         # stop iteration if solution is not "solved" for "acceptable"
         if info['status'] > 1 or info['status'] < -1:
-            breakLoop1 = True
+            #breakLoop1 = True
 
             # write the batch run number where solution was not obtained
             if isBatch:
@@ -202,6 +212,14 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
         # apply control
         tmeasure, xmeasure = nmpc.applyControl(pdata.T, t0, x0, u_new)
+
+        # add noise
+        if addNoise:
+            xmeasure[0] = xmeasure[0] + random.gauss(0, sigmaE)
+            xmeasure[1] = xmeasure[1] + random.gauss(0, sigmaN)
+            xmeasure[2] = xmeasure[2] + random.gauss(0, sigmaV)
+            xmeasure[3] = xmeasure[3] + random.gauss(0, sigmaChi)
+
 
         # prepare restart
         u0 = nmpc.shiftHorizon(pdata.N, u_new)
@@ -264,6 +282,10 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
         distutils.dir_util.mkpath(rundir)
         dst_file = rundir + 'logFile' + suffix + '.txt'
         shutil.copyfile('logFile.txt', dst_file)
+
+        cur_file = 'settings' + suffix + '.txt'
+        dst_file = rundir + 'settings' + suffix + '.txt'
+        shutil.copyfile(cur_file, dst_file)
 
         # figure 1: path
         dst_fig = rundir + 'path' + suffix + '_Before.png'
@@ -379,6 +401,6 @@ else:
     # see function createObstacleData in obstacleData.py)
 
     isBatch = False
-    showPlot = False
+    showPlot = True # True
     Main(isBatch, showPlot)
 
