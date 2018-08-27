@@ -142,7 +142,7 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
     pathObjArray = [pathObj]
 
     # Add noise
-    addNoise = False
+    addNoise = True
     if addNoise:
         seedNo = 0
         random.seed(seedNo)

@@ -5,36 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16a5100b-0063-4061-b79d-660625fada21" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/CPUtime_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/Chi-Chidot_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/E-N_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/LatAccel-dy_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/V-Vdot_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/V-terminal_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/logFile_N06_Tp5_ns4_no1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/pathDict_no1.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/pathDict_no1_b.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/path_N06_Tp5_ns4_no1_After.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-13/path_N06_Tp5_ns4_no1_Before.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/CPUtime_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/Chi-Chidot_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/E-N_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/LatAccel-dy_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/V-Vdot_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/V-terminal_N06_Tp5_ns4_no1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/logFile_N06_Tp5_ns4_no1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/pathDict_no1.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/pathDict_no1_b.pkl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/path_N06_Tp5_ns4_no1_After.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-14/path_N06_Tp5_ns4_no1_Before.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/settings_N06_Tp5_ns4_no6.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/settings_N06_Tp5_ns4_no7.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/.~lock.Notes_2018-08-27.pptx#" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/Chi-Chidot.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/E-N.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/LatAccel-delChi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/V-Terminal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/V-Vdot.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/cpuTime.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_2018-08-27_Noise_compare/path-After.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/Notes_2018-08-27.odp" afterPath="$PROJECT_DIR$/doc/Notes_2018-08-27.odp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFile.txt" afterPath="$PROJECT_DIR$/logFile.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCost.txt" afterPath="$PROJECT_DIR$/logFileCost.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logFileCostGrad.txt" afterPath="$PROJECT_DIR$/logFileCostGrad.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plotSavedData.py" afterPath="$PROJECT_DIR$/plotSavedData.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="146" column="18" lean-forward="true" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
+              <caret line="143" column="15" lean-forward="true" selection-start-line="143" selection-start-column="15" selection-end-line="143" selection-end-column="15" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -73,8 +57,8 @@
       <file leaf-file-name="printPlots.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/printPlots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="400" column="66" lean-forward="false" selection-start-line="400" selection-start-column="66" selection-end-line="400" selection-end-column="66" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -85,8 +69,8 @@
       <file leaf-file-name="problemData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/problemData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="322" selection-end-column="37" />
+            <state relative-caret-position="278">
+              <caret line="113" column="27" lean-forward="false" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -96,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/plotSavedData.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="266" column="47" lean-forward="true" selection-start-line="266" selection-start-column="47" selection-end-line="266" selection-end-column="47" />
+              <caret line="266" column="47" lean-forward="false" selection-start-line="266" selection-start-column="47" selection-end-line="266" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -123,7 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rotate</find>
       <find>delChi</find>
       <find>concatenate</find>
       <find>obstacleNumber</find>
@@ -153,6 +136,7 @@
       <find>prob</find>
       <find>debug</find>
       <find>showPlot</find>
+      <find>40</find>
     </findStrings>
     <replaceStrings>
       <replace>pdata</replace>
@@ -179,7 +163,6 @@
         <option value="$PROJECT_DIR$/batchRun2018-06-08-04-14.txt" />
         <option value="$PROJECT_DIR$/batchRun2018-06-08-09-00.txt" />
         <option value="$PROJECT_DIR$/plotBatchData.py" />
-        <option value="$PROJECT_DIR$/printPlots.py" />
         <option value="$PROJECT_DIR$/obstacleData.py" />
         <option value="$PROJECT_DIR$/globalVars.py" />
         <option value="$PROJECT_DIR$/logFileCost.txt" />
@@ -187,8 +170,9 @@
         <option value="$PROJECT_DIR$/nlp.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_28.py" />
         <option value="$PROJECT_DIR$/debugLogs.py" />
-        <option value="$PROJECT_DIR$/problemData.py" />
         <option value="$PROJECT_DIR$/plotSavedData.py" />
+        <option value="$PROJECT_DIR$/printPlots.py" />
+        <option value="$PROJECT_DIR$/problemData.py" />
         <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
@@ -260,7 +244,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.plotSavedData">
+  <component name="RunManager" selected="Python.Main">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -416,8 +400,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.plotSavedData" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Main" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plotSavedData" />
         <item index="2" class="java.lang.String" itemvalue="Python.plotBatchData" />
         <item index="3" class="java.lang.String" itemvalue="Python.scratch_28" />
         <item index="4" class="java.lang.String" itemvalue="Python.scratch_17" />
@@ -447,7 +431,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2171875" sideWeight="0.49375" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39514068" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39514068" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25594252" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -668,24 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/problemData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="322" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/printPlots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nlp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1921">
@@ -713,7 +679,25 @@
     <entry file="file://$PROJECT_DIR$/plotSavedData.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="266" column="47" lean-forward="true" selection-start-line="266" selection-start-column="47" selection-end-line="266" selection-end-column="47" />
+          <caret line="266" column="47" lean-forward="false" selection-start-line="266" selection-start-column="47" selection-end-line="266" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/printPlots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="400" column="66" lean-forward="false" selection-start-line="400" selection-start-column="66" selection-end-line="400" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problemData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="113" column="27" lean-forward="false" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -721,7 +705,7 @@
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="146" column="18" lean-forward="true" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
+          <caret line="143" column="15" lean-forward="true" selection-start-line="143" selection-start-column="15" selection-end-line="143" selection-end-column="15" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
