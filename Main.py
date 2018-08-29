@@ -215,6 +215,10 @@ def Main(isBatch, showPlot, kRun=None, fBatchRun=None):
 
         # add noise
         if addNoise:
+
+            if mpciter >= 14:
+                None
+
             xmeasure[0] = xmeasure[0] + random.gauss(0, sigmaE)
             xmeasure[1] = xmeasure[1] + random.gauss(0, sigmaN)
             xmeasure[2] = xmeasure[2] + random.gauss(0, sigmaV)
